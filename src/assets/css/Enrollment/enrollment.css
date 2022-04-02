@@ -1,0 +1,17 @@
+#top{
+        display: flex;
+    }
+
+#select{
+    height: 10px;
+
+}
+#school-attended{
+    width: 750px;
+    
+    
+}
+#school-id{
+    width: 500px;
+}
+
