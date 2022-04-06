@@ -52,6 +52,11 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  sideBarTitle: {
+    textAlign: "center",
+    height: 0,
+  },
+
 }));
 
 
@@ -67,20 +72,21 @@ function Sidebar(props) {
 
   const drawer = (
     <div>
-      <div className={classes.toolbar} />
-      <Typography >
+      <div className={classes.sideBarTitle}>
+          <Typography className={classes.titleCenter} variant="h6">
             E-System
           </Typography>
+      </div>
+      <div className={classes.toolbar} />
       <Divider />
       <List>
-      {["Dashboard", "Enrollment", "Student List", "Reports","Users"].map((text, index) => (
+      {["Dashboard", "Enrollment", "Student List", "Reports"].map((text, index) => (
         <ListItem button key={text}>
           <ListItemIcon>
             {index === 0 && <DashboardIcon/>}
             {index === 1 && <PersonAddIcon/>}
             {index === 2 && <PeopleAltIcon />}
             {index === 3 && <MailIcon />}
-            {index === 4 && <PeopleAltIcon />}
           </ListItemIcon>
           <ListItemText primary={text} />
           </ListItem>

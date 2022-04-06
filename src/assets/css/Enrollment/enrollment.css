@@ -6,12 +6,33 @@
     height: 10px;
 
 }
-#school-attended{
+#school-attended,#school-enroll{
     width: 750px;
     
     
 }
 #school-id{
-    width: 500px;
+    width: 480px;
+}
+#school-address{
+    width: 1290px;
+}
+#live-birth{
+    width: 450px;
+}
+#outlined-basic{
+    width: 280px;
+}
+#date{
+    width: 200px;
 }
 
+#gender{
+    width: 200px;
+}
+#email-address{
+    width: 400px;
+}
+#house-number,#village{
+    width: 620px;
+}
