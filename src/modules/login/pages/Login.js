@@ -5,7 +5,10 @@ import {
   makeStyles,
   TextField,
 } from "@material-ui/core";
+import axios from "axios";
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
+import { isAuth } from "../../utils/helper";
 
 const useStyle = makeStyles({
   content: {
@@ -30,6 +33,7 @@ const useStyle = makeStyles({
   },
 });
 
+const API = process.env.REACT_APP_API_URL;
 function Login() {
   const classes = useStyle();
   const [formValues, setFormValues] = useState({
@@ -37,7 +41,27 @@ function Login() {
     password: "",
   });
 
-  const handleSubmit = () => {};
+  if (isAuth()) {
+    return <Redirect to="/dashboard" />;
+  }
+
+  const handleSubmit = () => {
+    axios
+      .post(`${API}/login`, {
+        email: formValues.username,
+        password: formValues.password,
+      })
+      .then((res) => {
+        if (res.data.code === 200) {
+          localStorage.setItem("accessToken", res.data.token);
+          window.location.href = "/dashboard";
+        }
+      })
+      .catch((err) => {
+        alert("Invalid Username and Password");
+        // console.log(err.response.data);
+      });
+  };
 
   const handleInputChange = (name, value) => {
     setFormValues((prev) => ({ ...prev, [name]: value }));

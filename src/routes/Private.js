@@ -1,6 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
-// import Layout from "../components/Layouts";
+import Layout from "../components/Layout";
 import { isAuth } from "../modules/utils/helper";
 import { Redirect } from "react-router-dom";
 
@@ -11,9 +11,9 @@ function Private(props) {
 
   return (
     <div>
-      {/* <Layout> */}
-      <Route {...props} />
-      {/* </Layout> */}
+      <Layout>
+        <Route {...props} />
+      </Layout>
     </div>
   );
 }
