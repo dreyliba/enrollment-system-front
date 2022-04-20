@@ -3,7 +3,7 @@ import Enrollment from "../modules/enrollment/pages/Enrollment";
 import Report from "../modules/report/pages/Report";
 import Student from "../modules/student/pages/Student";
 import Login from "../modules/login/pages/Login";
-import UserList from "../modules/user/pages/UserList";
+import UserList from "../modules/user/Users";
 
 const routes = [
   {
@@ -14,7 +14,7 @@ const routes = [
   {
     path: "/dashboard",
     component: Dashboard,
-    auth: true,
+    auth: false,
   },
   {
     path: "/enrollment",
