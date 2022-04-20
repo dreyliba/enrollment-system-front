@@ -9,32 +9,32 @@ const routes = [
   {
     path: "/",
     component: Login,
-    Auth: false,
+    auth: false,
   },
   {
     path: "/dashboard",
     component: Dashboard,
-    Auth: true,
+    auth: false,
   },
   {
     path: "/enrollment",
     component: Enrollment,
-    Auth: true,
+    auth: false,
   },
   {
     path: "/report",
     component: Report,
-    Auth: true,
+    auth: false,
   },
   {
     path: "/student",
     component: Student,
-    Auth: true,
+    auth: true,
   },
   {
     path: "/userlist",
     component: UserList,
-    Auth: true,
+    auth: false,
   },
 ];
 
