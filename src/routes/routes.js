@@ -14,7 +14,7 @@ const routes = [
   {
     path: "/dashboard",
     component: Dashboard,
-    auth: false,
+    auth: true,
   },
   {
     path: "/enrollment",

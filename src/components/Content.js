@@ -1,8 +1,6 @@
 import { Card, CardContent, makeStyles } from "@material-ui/core";
 import React from "react";
-import Enrollment from "../modules/enrollment/pages/Enrollment";
 import Dashboard from "../modules/dashboard/pages/Dashboard";
-import Userlist from "../modules/user/pages/UserList";
 
 const useStyles = makeStyles(() => ({
   // necessary for content to be below app bar
@@ -18,8 +16,6 @@ export default function Content() {
       <Card className={classes.root}>
         <CardContent>
           <Dashboard />
-          <Userlist />
-          <Enrollment />
         </CardContent>
       </Card>
     </main>
