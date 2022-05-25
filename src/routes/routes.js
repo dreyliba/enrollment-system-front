@@ -32,7 +32,7 @@ const routes = [
     auth: true,
   },
   {
-    path: "/userlist",
+    path: "/users",
     component: UserList,
     auth: false,
   },

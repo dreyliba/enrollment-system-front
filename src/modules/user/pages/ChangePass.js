@@ -28,7 +28,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const API = process.env.REACT_APP_API_URL;
-function ChangePass({ handleOpen, handleClose, userId }) {
+function ChangePass({ handleOpen, handleClose, userId, userList }) {
   const classes = useStyles();
   const [formValues, setFormValues] = useState({
     password: "",
@@ -74,7 +74,7 @@ function ChangePass({ handleOpen, handleClose, userId }) {
         <Typography className={classes.titleHolder}>Update Password</Typography>
         <CardContent className={classes.contentHolder}>
           <Typography name="Email" type="email">
-            Email: Testing@tesing.com
+            {userList.email}
           </Typography>
           <TextField
             variant="outlined"

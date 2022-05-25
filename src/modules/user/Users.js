@@ -19,6 +19,7 @@ import axios from "axios";
 import EditUser from "./pages/EditUser";
 import DeleteUser from "./pages/DeleteUser";
 import ChangePass from "./pages/ChangePass";
+import { IconButton } from "@material-ui/core";
 
 const useStyles = makeStyles({
   spaceBetween: {
@@ -29,22 +30,13 @@ const useStyles = makeStyles({
   tblHeader: {
     backgroundColor: "#ccc;",
   },
-  parentIconHolder: {
-    display: "flex",
-    flexWrap: "wrap",
-    alignContent: "space-between",
-    cursor: "pointer",
-  },
-  actionIconHolder: {
-    marginRight: 18,
-  },
 });
 
 const API = process.env.REACT_APP_API_URL;
 
 function Users() {
   const classes = useStyles();
-  const [selectedUserValue, setSelectedUserValue] = useState({});
+  const [selectedUserValues, setSelectedUserValues] = useState({});
   const [selectedID, setSelectedID] = useState("");
   const [openAddUser, setOpenAddUser] = useState(false);
   const [openDeleteUser, setOpenDeleteUser] = useState(false);
@@ -74,12 +66,12 @@ function Users() {
       });
   };
 
-  const handleOpenAddUser = (userValues) => {
-    setSelectedUserValue(userValues);
+  const handleOpenAddUser = () => {
     setOpenAddUser(true);
   };
 
-  const handleOpenEditUser = () => {
+  const handleOpenEditUser = (userValues) => {
+    setSelectedUserValues(userValues);
     setOpenEditUser(true);
   };
 
@@ -98,7 +90,7 @@ function Users() {
         },
       })
       .then((res) => {
-        if (res.data.code) {
+        if (res.data) {
           setOpenDeleteUser(false);
           fetchData();
         }
@@ -151,26 +143,24 @@ function Users() {
               {userList.users.map((users, key) => (
                 <TableRow key={key}>
                   <TableCell>
-                    <div className={classes.parentIconHolder}>
-                      <div className={classes.actionIconHolder}>
-                        <EditIcon
-                          onClick={() => handleOpenEditUser(users)}
-                          color="primary"
-                        />
-                      </div>
-                      <div className={classes.actionIconHolder}>
-                        <DeleteIcon
-                          onClick={() => handleOpenDeleteUser()}
-                          color="secondary"
-                        />
-                      </div>
-                      <div>
-                        <VpnKeyIcon
-                          onClick={() => handleOpenChangePass()}
-                          color="primary"
-                        />
-                      </div>
-                    </div>
+                    <IconButton>
+                      <EditIcon
+                        onClick={() => handleOpenEditUser(users)}
+                        color="primary"
+                      />
+                    </IconButton>
+                    <IconButton>
+                      <DeleteIcon
+                        onClick={() => handleOpenDeleteUser(users.id)}
+                        color="secondary"
+                      />
+                    </IconButton>
+                    <IconButton>
+                      <VpnKeyIcon
+                        onClick={() => handleOpenChangePass()}
+                        color="primary"
+                      />
+                    </IconButton>
                   </TableCell>
                   <TableCell>{users.first_name}</TableCell>
                   <TableCell>{users.last_name}</TableCell>
@@ -183,23 +173,26 @@ function Users() {
         </TableContainer>
       </CardContent>
       <AddUser
-        selectedUserValue={selectedUserValue}
+        selectedUserValues={selectedUserValues}
         handleOpen={openAddUser}
         handleClose={() => setOpenAddUser(false)}
         refetch={fetchData}
       />
       <EditUser
+        selectedUserValues={selectedUserValues}
         handleOpen={openEditUser}
         handleClose={() => setOpenEditUser(false)}
+        refetch={fetchData}
       />
       <DeleteUser
-        handleOpen={openDeleteUser}
-        handleClose={() => setOpenDeleteUser()}
         handleConfirmDelete={handleConfirmDelete}
+        handleOpen={openDeleteUser}
+        handleClose={() => setOpenDeleteUser(false)}
       />
       <ChangePass
         handleOpen={openChangePassword}
         handleClose={() => setOpenChangePassword()}
+        userList={userList.users}
       />
     </Card>
   );

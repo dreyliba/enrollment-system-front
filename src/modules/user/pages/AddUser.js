@@ -46,8 +46,9 @@ export default function AddUser({ handleOpen, handleClose, refetch }) {
       })
       .then((res) => {
         if (res.data.code === 200) {
+          handleClose(false);
+          // window.location.reload();
           refetch();
-          handleClose();
         }
       });
   };
