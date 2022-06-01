@@ -4,6 +4,9 @@ import Report from "../modules/report/pages/Report";
 import Student from "../modules/student/pages/Student";
 import Login from "../modules/login/pages/Login";
 import UserList from "../modules/user/Users";
+import Strand from "../modules/settings/Strand";
+import Track from "../modules/settings/Track";
+import Profile from "../modules/profile/Profile";
 
 const routes = [
   {
@@ -14,17 +17,17 @@ const routes = [
   {
     path: "/dashboard",
     component: Dashboard,
-    auth: false,
+    auth: true,
   },
   {
     path: "/enrollment",
     component: Enrollment,
-    auth: false,
+    auth: true,
   },
   {
     path: "/report",
     component: Report,
-    auth: false,
+    auth: true,
   },
   {
     path: "/student",
@@ -34,7 +37,22 @@ const routes = [
   {
     path: "/users",
     component: UserList,
-    auth: false,
+    auth: true,
+  },
+  {
+    path: "/track",
+    component: Track,
+    auth: true,
+  },
+  {
+    path: "/track/:id/strand",
+    component: Strand,
+    auth: true,
+  },
+  {
+    path: "/profile",
+    component: Profile,
+    auth: true,
   },
 ];
 

@@ -33,7 +33,6 @@ const useStyles = makeStyles({
 });
 
 const API = process.env.REACT_APP_API_URL;
-
 function Users() {
   const classes = useStyles();
   const [selectedUserValues, setSelectedUserValues] = useState({});
@@ -117,7 +116,7 @@ function Users() {
           <Button
             variant="contained"
             color="primary"
-            size="sm"
+            size="small"
             style={{ marginTop: 10 }}
             onClick={handleOpenAddUser}
           >
@@ -143,23 +142,14 @@ function Users() {
               {userList.users.map((users, key) => (
                 <TableRow key={key}>
                   <TableCell>
-                    <IconButton>
-                      <EditIcon
-                        onClick={() => handleOpenEditUser(users)}
-                        color="primary"
-                      />
+                    <IconButton onClick={() => handleOpenEditUser(users)}>
+                      <EditIcon color="primary" />
                     </IconButton>
-                    <IconButton>
-                      <DeleteIcon
-                        onClick={() => handleOpenDeleteUser(users.id)}
-                        color="secondary"
-                      />
+                    <IconButton onClick={() => handleOpenDeleteUser(users.id)}>
+                      <DeleteIcon color="secondary" />
                     </IconButton>
-                    <IconButton>
-                      <VpnKeyIcon
-                        onClick={() => handleOpenChangePass()}
-                        color="primary"
-                      />
+                    <IconButton onClick={() => handleOpenChangePass()}>
+                      <VpnKeyIcon color="primary" />
                     </IconButton>
                   </TableCell>
                   <TableCell>{users.first_name}</TableCell>

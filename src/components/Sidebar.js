@@ -12,6 +12,11 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import MailIcon from "@material-ui/icons/Mail";
 import GroupIcon from "@material-ui/icons/Group";
+import SettingsIcon from "@material-ui/icons/Settings";
+import Collapse from "@material-ui/core/Collapse";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 
 const drawerWidth = 240;
 
@@ -42,10 +47,18 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     alignItems: "center",
   },
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
 }));
 
 export default function Sidbar() {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
 
   return (
     // Hold the TopBar
@@ -118,11 +131,33 @@ export default function Sidbar() {
             </ListItemIcon>
             <ListItemText
               onClick={() => {
-                window.location.href = "/userlist";
+                window.location.href = "/users";
               }}
               primary={"Users"}
             />
           </ListItem>
+          <ListItem button onClick={handleClick}>
+            <ListItemIcon>
+              <SettingsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Settings" />
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem button className={classes.nested}>
+                <ListItemIcon>
+                  <AccountBalanceIcon />
+                </ListItemIcon>
+                <ListItemText
+                  onClick={() => {
+                    window.location.href = "/track";
+                  }}
+                  primary="Track"
+                />
+              </ListItem>
+            </List>
+          </Collapse>
         </List>
         <Divider />
       </Drawer>

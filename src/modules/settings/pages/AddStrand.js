@@ -14,25 +14,22 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const API = process.env.REACT_APP_API_URL;
 
-export default function AddUser({ handleOpen, handleClose, refetch }) {
+export default function AddStrand({
+  handleOpen,
+  handleClose,
+  refetch,
+  params,
+}) {
   const [formValues, setFormValues] = useState({
-    first_name: "",
-    middle_name: "",
-    last_name: "",
-    email: "",
-    password: "",
-    confirm_password: "",
+    name: "",
+    description: "",
   });
 
   useEffect(() => {
     if (handleOpen) {
       setFormValues({
-        first_name: "",
-        middle_name: "",
-        last_name: "",
-        email: "",
-        password: "",
-        confirm_password: "",
+        name: "",
+        description: "",
       });
     }
   }, [handleOpen]);
@@ -52,15 +49,18 @@ export default function AddUser({ handleOpen, handleClose, refetch }) {
   const handleSubmit = () => {
     const token = localStorage.getItem("accessToken");
     axios
-      .post(`${API}/addUser`, formValues, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post(
+        `${API}/addStrand`,
+        { ...formValues, track_id: params.id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         if (res.data.code === 200) {
           handleClose(false);
-          // window.location.reload();
           refetch();
         }
       });
@@ -75,78 +75,30 @@ export default function AddUser({ handleOpen, handleClose, refetch }) {
         fullWidth
         maxWidth="sm"
       >
-        <DialogTitle>Add New User</DialogTitle>
+        <DialogTitle>Add New Strand</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
             margin="dense"
             variant="outlined"
-            name="first_name"
-            label="First Name"
+            name="name"
+            label="Name"
             color="primary"
             type="input"
             fullWidth
-            value={formValues.first_name}
+            value={formValues.name}
             onChange={handleChange}
           />
           <TextField
             autoFocus
             margin="dense"
             variant="outlined"
-            name="middle_name"
-            label="Middle Name"
+            name="description"
+            label="Description"
             color="primary"
             type="input"
             fullWidth
-            value={formValues.middle_name}
-            onChange={handleChange}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            variant="outlined"
-            name="last_name"
-            label="Last Name"
-            color="primary"
-            type="input"
-            fullWidth
-            value={formValues.last_name}
-            onChange={handleChange}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            variant="outlined"
-            name="email"
-            label="Email"
-            color="primary"
-            type="email"
-            fullWidth
-            value={formValues.email}
-            onChange={handleChange}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            variant="outlined"
-            name="password"
-            label="Password"
-            color="primary"
-            type="password"
-            fullWidth
-            value={formValues.password}
-            onChange={handleChange}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            variant="outlined"
-            name="confirm_password"
-            label="Confirm Password"
-            color="primary"
-            type="password"
-            fullWidth
-            value={formValues.confirm_password}
+            value={formValues.description}
             onChange={handleChange}
           />
         </DialogContent>
