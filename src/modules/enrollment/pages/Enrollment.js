@@ -1,6 +1,7 @@
 import { Card, Grid, makeStyles } from "@material-ui/core";
 import React from "react";
 import HouseHoldCapcity from "../component/HouseHoldCapcity";
+import LimitedFtoF from "../component/LimitedFtoF";
 import ParentGuardianInfo from "../component/ParentGuardianInfo";
 import SchoolInformation from "../component/SchoolInformation";
 import StudentInfomation from "../component/StudentInfomation";
@@ -20,6 +21,7 @@ export default function Enrollment() {
           <StudentInfomation />
           <ParentGuardianInfo />
           <HouseHoldCapcity />
+          <LimitedFtoF />
         </Grid>
       </Card>
     </div>

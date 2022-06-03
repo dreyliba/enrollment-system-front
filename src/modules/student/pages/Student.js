@@ -43,9 +43,10 @@ function Student() {
             color="primary"
             size="sm"
             style={{ marginTop: 10 }}
+            onClick={() => (window.location.href = "/enrollment")}
           >
             <AddIcon />
-            NEW USER
+            New Enrollment
           </Button>
         </div>
       </div>
