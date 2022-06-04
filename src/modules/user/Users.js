@@ -20,6 +20,7 @@ import EditUser from "./pages/EditUser";
 import DeleteUser from "./pages/DeleteUser";
 import ChangePass from "./pages/ChangePass";
 import { IconButton } from "@material-ui/core";
+import { API } from "../utils/helper";
 
 const useStyles = makeStyles({
   spaceBetween: {
@@ -32,7 +33,6 @@ const useStyles = makeStyles({
   },
 });
 
-const API = process.env.REACT_APP_API_URL;
 function Users() {
   const classes = useStyles();
   const [selectedUserValues, setSelectedUserValues] = useState({});
@@ -52,17 +52,19 @@ function Users() {
   const fetchData = () => {
     const token = localStorage.getItem("accessToken");
 
-    axios
-      .get(`${API}/users`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        if (res.data.code === 200) {
-          setUserList(res.data);
-        }
-      });
+    API().then((ip) => {
+      axios
+        .get(`${ip}/users`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          if (res.data.code === 200) {
+            setUserList(res.data);
+          }
+        });
+    });
   };
 
   const handleOpenAddUser = () => {

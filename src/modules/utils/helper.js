@@ -1,4 +1,4 @@
-// import ipAddress from "./ip_address.txt";
+import ipAddress from "./ip_address.txt";
 
 export const isAuth = () => {
   const token = localStorage.getItem("accessToken");
@@ -6,11 +6,10 @@ export const isAuth = () => {
   return !!token;
 };
 
-// export const getApiAddress = () => {
-//   return getIp();
-// };
-
-// const getIp = async () => {
-//   const ip = await await fetch(ipAddress).then((r) => r.text());
-//   return ip;
-// };
+export const API = () => {
+  return fetch(ipAddress)
+    .then((res) => res.text())
+    .then((res) => {
+      return res;
+    });
+};
