@@ -39,6 +39,7 @@ function SchoolInformation() {
             name="school_year"
             label="School Year"
             onChange={(e) => handleFormChange("school_year", e.target.value)}
+            errors={formValues.errors}
             value={formValues.values.school_year || ""}
             options={schoolYearOptions()}
           />
@@ -89,6 +90,7 @@ function SchoolInformation() {
           }
           value={formValues.values.grade_level_to_enroll || ""}
           options={levelOptions().map((level) => `Grade ${level}`)}
+          errors={formValues.errors}
         />
       </Grid>
       <Grid item xs={12} sm={3}>
@@ -100,6 +102,7 @@ function SchoolInformation() {
           }
           value={formValues.values.last_grade_level_completed || ""}
           options={levelOptions().map((level) => `Grade ${level}`)}
+          errors={formValues.errors}
         />
       </Grid>
       <Grid item xs={12} sm={3}>
@@ -111,6 +114,7 @@ function SchoolInformation() {
           }
           value={formValues.values.last_school_yr_completed || ""}
           options={levelOptions().map((level) => `Grade ${level}`)}
+          errors={formValues.errors}
         />
       </Grid>
       <Grid item xs={12} md={8}>

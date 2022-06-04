@@ -1,5 +1,5 @@
 import { Card, Grid, makeStyles } from "@material-ui/core";
-import React, { createContext, useContext, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Revalidate } from "../../utils/helper";
 import HouseHoldCapcity from "../component/HouseHoldCapcity";
 import LimitedFtoF from "../component/LimitedFtoF";
@@ -28,20 +28,20 @@ const validator = Revalidate({
   school_to_enroll_address: "",
   school_to_enroll_in_id: "",
 
-  kinder: "",
-  grade_1: "",
-  grade_2: "",
-  grade_3: "",
-  grade_4: "",
-  grade_5: "",
-  grade_6: "",
-  grade_7: "",
-  grade_8: "",
-  grade_9: "",
-  grade_10: "",
-  grade_11: "",
-  grade_12: "",
-  other_grade: "",
+  kinder: "integer",
+  grade_1: "integer",
+  grade_2: "integer",
+  grade_3: "integer",
+  grade_4: "integer",
+  grade_5: "integer",
+  grade_6: "integer",
+  grade_7: "integer",
+  grade_8: "integer",
+  grade_9: "integer",
+  grade_10: "integer",
+  grade_11: "integer",
+  grade_12: "integer",
+  other_grade: "integer",
   household_member: "",
   available_device: "",
   available_device_others: "",
@@ -142,7 +142,7 @@ export default function Enrollment() {
       distance_learning: [],
       distance_learning_others: "",
       learning_challenges: [],
-      learning_chanllenges_others: "",
+      learning_challenges_others: "",
 
       limited_face_to_face: [],
       limited_classes_allowed: "",
@@ -189,12 +189,12 @@ export default function Enrollment() {
 
   const handleCheckboxChange = (name, value) => {
     setFormValues((prev) => {
-      if (prev[name].includes(value)) {
+      if (prev.values[name].includes(value)) {
         return {
           ...prev,
           values: {
             ...prev.values,
-            [name]: prev[name].filter((val) => val !== value),
+            [name]: prev.values[name].filter((val) => val !== value),
           },
         };
       } else {
@@ -202,7 +202,7 @@ export default function Enrollment() {
           ...prev,
           values: {
             ...prev.values,
-            [name]: [...prev[name], value],
+            [name]: [...prev.values[name], value],
           },
         };
       }

@@ -6,7 +6,7 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useContext } from "react";
 import FormField from "../../../components/common/FormField";
 import EnrollmentContext from "../context/EnrollmentContent";
 
@@ -36,7 +36,7 @@ function ParentGuardianInfo() {
           name="father"
           onChange={(e) => handleChange("father", e.target.value)}
           errors={formValues.errors}
-          value={formValues.father || ""}
+          value={formValues.values.father || ""}
         ></FormField>
         <div>
           <FormLabel>

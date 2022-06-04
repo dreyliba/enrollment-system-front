@@ -21,6 +21,8 @@ function HouseHoldCapcity() {
   const { formValues, handleChange, handleCheckboxChange } =
     useContext(EnrollmentContext);
 
+  console.log(formValues);
+
   return (
     <Fragment>
       <Grid item xs={12}>
@@ -34,7 +36,13 @@ function HouseHoldCapcity() {
         </Typography>
       </Grid>
       <Grid item xs={12} md={2}>
-        <FormField label="Kinder" />
+        <FormField
+          label="Kinder"
+          name="kinder"
+          onChange={(e) => handleChange("kinder", e.target.value)}
+          value={formValues.values.kinder || ""}
+          errors={formValues.errors}
+        />
       </Grid>
 
       <Grid item xs={12} md={2}>
@@ -43,7 +51,7 @@ function HouseHoldCapcity() {
           name="grade_1"
           onChange={(e) => handleChange("grade_1", e.target.value)}
           value={formValues.values.grade_1 || ""}
-          errors={formValues.values.errors}
+          errors={formValues.errors}
         />
       </Grid>
       <Grid item xs={12} md={2}>
@@ -675,6 +683,7 @@ function HouseHoldCapcity() {
         {formValues.values.distance_learning.includes("Others") && (
           <div>
             <FormField
+              fullWidth={false}
               label="Others"
               name="distance_learning_others"
               onChange={(e) =>
@@ -860,10 +869,11 @@ function HouseHoldCapcity() {
         {formValues.values.learning_challenges.includes("Others") && (
           <div>
             <FormField
+              fullWidth={false}
               label="Others"
-              name="learning_chanllenges_others"
-              onChange={(e) => handleChange("learning_chanllenges_others")}
-              value={formValues.values.learning_chanllenges_others || ""}
+              name="learning_challenges_others"
+              onChange={(e) => handleChange("learning_challenges_others")}
+              value={formValues.values.learning_challenges_others || ""}
             />
           </div>
         )}

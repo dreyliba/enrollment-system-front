@@ -151,6 +151,7 @@ function StudentInfomation() {
         <Grid item xs={12}>
           <Typography>Please specify:</Typography>
           <FormField
+            fullWidth={false}
             name="indigenous_status_name"
             onChange={(e) =>
               handleChange("indigenous_status_name", e.target.value)
@@ -219,6 +220,7 @@ function StudentInfomation() {
         <Grid item xs={12}>
           <Typography>Please specify:</Typography>
           <FormField
+            fullWidth={false}
             name="is_special_education_name"
             onChange={(e) =>
               handleChange("is_special_education_name", e.target.value)
@@ -273,6 +275,7 @@ function StudentInfomation() {
         <Grid item xs={12}>
           <Typography>Please specify:</Typography>
           <FormField
+            fullWidth={false}
             name="has_devices_available_at_home_name"
             onChange={(e) =>
               handleChange("has_devices_available_at_home_name", e.target.value)
