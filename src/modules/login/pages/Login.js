@@ -8,7 +8,8 @@ import {
 import axios from "axios";
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import { isAuth } from "../../utils/helper";
+import { API, isAuth } from "../../utils/helper";
+import Http from "../../utils/Http";
 
 const useStyle = makeStyles({
   content: {
@@ -33,7 +34,6 @@ const useStyle = makeStyles({
   },
 });
 
-const API = process.env.REACT_APP_API_URL;
 function Login() {
   const classes = useStyle();
   const [formValues, setFormValues] = useState({
@@ -46,21 +46,26 @@ function Login() {
   }
 
   const handleSubmit = () => {
-    axios
-      .post(`${API}/login`, {
-        email: formValues.username,
-        password: formValues.password,
-      })
-      .then((res) => {
-        if (res.data.code === 200) {
-          localStorage.setItem("accessToken", res.data.token);
-          window.location.href = "/dashboard";
-        }
-      })
-      .catch((err) => {
-        alert("Invalid Username and Password");
-        // console.log(err.response.data);
-      });
+    API().then((ip) => {
+      axios
+        .post(`${ip}/login`, {
+          email: formValues.username,
+          password: formValues.password,
+        })
+        .then((res) => {
+          if (res.data.code === 200) {
+            Http.defaults.headers.common[
+              "Authorization"
+            ] = `Bearer ${res.data.token}`;
+            localStorage.setItem("accessToken", res.data.token);
+            window.location.href = "/dashboard";
+          }
+        })
+        .catch((err) => {
+          alert("Invalid Username and Password");
+          // console.log(err.response.data);
+        });
+    });
   };
 
   const handleInputChange = (name, value) => {
