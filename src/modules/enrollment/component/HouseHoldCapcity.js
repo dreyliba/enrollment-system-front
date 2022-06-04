@@ -6,7 +6,9 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext } from "react";
+import FormField from "../../../components/common/FormField";
+import EnrollmentContext from "../context/EnrollmentContent";
 
 const useStyles = makeStyles({
   titleHandler: {
@@ -17,53 +19,9 @@ const useStyles = makeStyles({
 
 function HouseHoldCapcity() {
   const classes = useStyles();
-  const [formValues, setFormValues] = useState({
-    kinder: "",
-    grade_1: "",
-    grade_2: "",
-    grade_3: "",
-    grade_4: "",
-    grade_5: "",
-    grade_6: "",
-    grade_7: "",
-    grade_8: "",
-    grade_9: "",
-    grade_10: "",
-    grade_11: "",
-    grade_12: "",
-    other_grade: "",
-    household_member: [],
-    available_device: [],
-    available_device_others: "",
-    internet_connection: [],
-    distance_learning: [],
-    distance_learning_others: "",
-    learning_challenges: [],
-    learning_chanllenges_others: "",
-  });
+  const { formValues, handleChange, handleCheckboxChange } =
+    useContext(EnrollmentContext);
 
-  const handleCheckboxChange = (name, value) => {
-    setFormValues((prev) => {
-      if (prev[name].includes(value)) {
-        return {
-          ...prev,
-          [name]: prev[name].filter((val) => val !== value),
-        };
-      } else {
-        return {
-          ...prev,
-          [name]: [...prev[name], value],
-        };
-      }
-    });
-  };
-
-  const handleChange = (name, value) => {
-    setFormValues((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
   return (
     <Fragment>
       <Grid item xs={12}>
@@ -77,18 +35,16 @@ function HouseHoldCapcity() {
         </Typography>
       </Grid>
       <Grid item xs={12} md={2}>
-        <TextField variant="outlined" margin="dense" fullWidth label="Kinder" />
+        <FormField label="Kinder" />
       </Grid>
 
       <Grid item xs={12} md={2}>
-        <TextField
-          variant="outlined"
-          margin="dense"
-          fullWidth
+        <FormField
           label="Grade 1"
           name="grade_1"
           onChange={(e) => handleChange("grade_1", e.target.value)}
-          value={formValues.grade_1 || ""}
+          value={formValues.values.grade_1 || ""}
+          errors={formValues.values.errors}
         />
       </Grid>
       <Grid item xs={12} md={2}>
@@ -99,7 +55,7 @@ function HouseHoldCapcity() {
           label="Grade 2"
           name="grade_2"
           onChange={(e) => handleChange("grade_2", e.target.value)}
-          value={formValues.grade_2 || ""}
+          value={formValues.values.grade_2 || ""}
         />
       </Grid>
       <Grid item xs={12} md={2}>
@@ -110,7 +66,7 @@ function HouseHoldCapcity() {
           label="Grade 3"
           name="grade_3"
           onChange={(e) => handleChange("grade_3", e.target.value)}
-          value={formValues.grade_3 || ""}
+          value={formValues.values.grade_3 || ""}
         />
       </Grid>
       <Grid item xs={12} md={2}>
@@ -121,7 +77,7 @@ function HouseHoldCapcity() {
           label="Grade 4"
           name="grade_4"
           onChange={(e) => handleChange("grade_4", e.target.value)}
-          value={formValues.grade_4 || ""}
+          value={formValues.values.grade_4 || ""}
         />
       </Grid>
       <Grid item xs={12} md={2}>
@@ -132,7 +88,7 @@ function HouseHoldCapcity() {
           label="Grade 5"
           name="grade_5"
           onChange={(e) => handleChange("grade_5", e.target.value)}
-          value={formValues.grade_5 || ""}
+          value={formValues.values.grade_5 || ""}
         />
       </Grid>
       <Grid item xs={12} md={2}>
@@ -143,7 +99,7 @@ function HouseHoldCapcity() {
           label="Grade 6"
           name="grade_6"
           onChange={(e) => handleChange("grade_6", e.target.value)}
-          value={formValues.grade_6 || ""}
+          value={formValues.values.grade_6 || ""}
         />
       </Grid>
       <Grid item xs={12} md={2}>
@@ -154,7 +110,7 @@ function HouseHoldCapcity() {
           label="Grade7"
           name="grade_7"
           onChange={(e) => handleChange("grade_7", e.target.value)}
-          value={formValues.grade_7 || ""}
+          value={formValues.values.grade_7 || ""}
         />
       </Grid>
       <Grid item xs={12} md={2}>
@@ -165,7 +121,7 @@ function HouseHoldCapcity() {
           label="Grade 8"
           name="grade_8"
           onChange={(e) => handleChange("grade_8", e.target.value)}
-          value={formValues.grade_8 || ""}
+          value={formValues.values.grade_8 || ""}
         />
       </Grid>
       <Grid item xs={12} md={2}>
@@ -176,7 +132,7 @@ function HouseHoldCapcity() {
           label="Grade 9"
           name="grade_9"
           onChange={(e) => handleChange("grade_9", e.target.value)}
-          value={formValues.grade_9 || ""}
+          value={formValues.values.grade_9 || ""}
         />
       </Grid>
       <Grid item xs={12} md={2}>
@@ -187,7 +143,7 @@ function HouseHoldCapcity() {
           label="Grade 10"
           name="grade_10"
           onChange={(e) => handleChange("grade_10", e.target.value)}
-          value={formValues.grade_10 || ""}
+          value={formValues.values.grade_10 || ""}
         />
       </Grid>
       <Grid item xs={12} md={2}>
@@ -198,7 +154,7 @@ function HouseHoldCapcity() {
           label="Grade 11"
           name="grade_11"
           onChange={(e) => handleChange("grade_11", e.target.value)}
-          value={formValues.grade_11 || ""}
+          value={formValues.values.grade_11 || ""}
         />
       </Grid>
       <Grid item xs={12} md={2}>
@@ -209,7 +165,7 @@ function HouseHoldCapcity() {
           label="Grade 12"
           name="grade_12"
           onChange={(e) => handleChange("grade_12", e.target.value)}
-          value={formValues.grade_12 || ""}
+          value={formValues.values.grade_12 || ""}
         />
       </Grid>
       <Grid item xs={12} md={3}>
@@ -221,7 +177,7 @@ function HouseHoldCapcity() {
           label="Others"
           name="other_grade"
           onChange={(e) => handleChange("other_grade", e.target.value)}
-          value={formValues.other_grade || ""}
+          value={formValues.values.other_grade || ""}
         />
       </Grid>
       <Grid item xs={12}>
@@ -239,7 +195,7 @@ function HouseHoldCapcity() {
                 onChange={() =>
                   handleCheckboxChange("household_member", "parents")
                 }
-                checked={formValues.household_member.includes("parents")}
+                checked={formValues.values.household_member.includes("parents")}
               />
             }
             label="parents"
@@ -253,7 +209,9 @@ function HouseHoldCapcity() {
                 onChange={() =>
                   handleCheckboxChange("household_member", "grand parents")
                 }
-                checked={formValues.household_member.includes("grand parents")}
+                checked={formValues.values.household_member.includes(
+                  "grand parents"
+                )}
               />
             }
             label="grand parents"
@@ -270,7 +228,7 @@ function HouseHoldCapcity() {
                     "others (tutors, house helper"
                   )
                 }
-                checked={formValues.household_member.includes(
+                checked={formValues.values.household_member.includes(
                   "others (tutors, house helper)"
                 )}
               />
@@ -289,7 +247,7 @@ function HouseHoldCapcity() {
                     "able to do independent thing"
                   )
                 }
-                checked={formValues.household_member.includes(
+                checked={formValues.values.household_member.includes(
                   "able to do independent thing"
                 )}
               />
@@ -307,7 +265,9 @@ function HouseHoldCapcity() {
                 onChange={() =>
                   handleCheckboxChange("household_member", "elder siblings")
                 }
-                checked={formValues.household_member.includes("elder siblings")}
+                checked={formValues.values.household_member.includes(
+                  "elder siblings"
+                )}
               />
             }
             label="elder siblings"
@@ -324,7 +284,7 @@ function HouseHoldCapcity() {
                     "extended members of the family"
                   )
                 }
-                checked={formValues.household_member.includes(
+                checked={formValues.values.household_member.includes(
                   "extended members of the family"
                 )}
               />
@@ -340,7 +300,7 @@ function HouseHoldCapcity() {
                 onChange={() =>
                   handleCheckboxChange("household_member", "none")
                 }
-                checked={formValues.household_member.includes("none")}
+                checked={formValues.values.household_member.includes("none")}
               />
             }
             label="none"
@@ -362,7 +322,9 @@ function HouseHoldCapcity() {
                 onChange={() =>
                   handleCheckboxChange("available_device", "cable TV")
                 }
-                checked={formValues.available_device.includes("cable TV")}
+                checked={formValues.values.available_device.includes(
+                  "cable TV"
+                )}
               />
             }
             label="cable TV"
@@ -376,7 +338,7 @@ function HouseHoldCapcity() {
                 onChange={() =>
                   handleCheckboxChange("available_device", "basic cellphone")
                 }
-                checked={formValues.available_device.includes(
+                checked={formValues.values.available_device.includes(
                   "basic cellphone"
                 )}
               />
@@ -392,7 +354,7 @@ function HouseHoldCapcity() {
                 onChange={() =>
                   handleCheckboxChange("available_device", "tablet")
                 }
-                checked={formValues.available_device.includes("tablet")}
+                checked={formValues.values.available_device.includes("tablet")}
               />
             }
             label="tablet"
@@ -406,7 +368,7 @@ function HouseHoldCapcity() {
                 onChange={() =>
                   handleCheckboxChange("available_device", "desktop computer")
                 }
-                checked={formValues.available_device.includes(
+                checked={formValues.values.available_device.includes(
                   "desktop computer"
                 )}
               />
@@ -422,7 +384,7 @@ function HouseHoldCapcity() {
                 onChange={() =>
                   handleCheckboxChange("available_device", "none")
                 }
-                checked={formValues.available_device.includes("none")}
+                checked={formValues.values.available_device.includes("none")}
               />
             }
             label="none"
@@ -438,7 +400,9 @@ function HouseHoldCapcity() {
                 onChange={() =>
                   handleCheckboxChange("available_device", "non-cable TV")
                 }
-                checked={formValues.available_device.includes("non-cable TV")}
+                checked={formValues.values.available_device.includes(
+                  "non-cable TV"
+                )}
               />
             }
             label="non-cable TV"
@@ -452,7 +416,9 @@ function HouseHoldCapcity() {
                 onChange={() =>
                   handleCheckboxChange("available_device", "smartphone")
                 }
-                checked={formValues.available_device.includes("smartphone")}
+                checked={formValues.values.available_device.includes(
+                  "smartphone"
+                )}
               />
             }
             label="smartphone"
@@ -466,7 +432,7 @@ function HouseHoldCapcity() {
                 onChange={() =>
                   handleCheckboxChange("available_device", "radio")
                 }
-                checked={formValues.available_device.includes("radio")}
+                checked={formValues.values.available_device.includes("radio")}
               />
             }
             label="radio"
@@ -480,7 +446,7 @@ function HouseHoldCapcity() {
                 onChange={() =>
                   handleCheckboxChange("available_device", "laptop")
                 }
-                checked={formValues.available_device.includes("laptop")}
+                checked={formValues.values.available_device.includes("laptop")}
               />
             }
             label="laptop"
@@ -493,12 +459,12 @@ function HouseHoldCapcity() {
               onChange={() =>
                 handleCheckboxChange("available_device", "Others")
               }
-              checked={formValues.available_device.includes("Others")}
+              checked={formValues.values.available_device.includes("Others")}
             />
           }
           label="Others"
         />
-        {formValues.available_device.includes("Others") && (
+        {formValues.values.available_device.includes("Others") && (
           <Grid item md={6}>
             <TextField
               label="Others"
@@ -508,7 +474,7 @@ function HouseHoldCapcity() {
               onChange={(e) =>
                 handleChange("available_device_others", e.target.value)
               }
-              value={formValues.available_device_others || ""}
+              value={formValues.values.available_device_others || ""}
             />
           </Grid>
         )}
@@ -521,7 +487,9 @@ function HouseHoldCapcity() {
           control={
             <Checkbox
               color="primary"
-              checked={formValues.indigenous_status === "Yes" ? true : false}
+              checked={
+                formValues.values.indigenous_status === "Yes" ? true : false
+              }
               onChange={() => handleChange("indigenous_status", "Yes")}
             />
           }
@@ -533,7 +501,9 @@ function HouseHoldCapcity() {
           control={
             <Checkbox
               color="primary"
-              checked={formValues.indigenous_status === "No" ? true : false}
+              checked={
+                formValues.values.indigenous_status === "No" ? true : false
+              }
               onChange={() => handleChange("indigenous_status", "No")}
             />
           }
@@ -553,7 +523,7 @@ function HouseHoldCapcity() {
               onChange={() =>
                 handleCheckboxChange("internet_connection", "own mobile data")
               }
-              checked={formValues.internet_connection.includes(
+              checked={formValues.values.internet_connection.includes(
                 "own mobile data"
               )}
             />
@@ -572,7 +542,7 @@ function HouseHoldCapcity() {
                   "own broadband internet (DSL, wireless fiber, satellite)"
                 )
               }
-              checked={formValues.internet_connection.includes(
+              checked={formValues.values.internet_connection.includes(
                 "own broadband internet (DSL, wireless fiber, satellite)"
               )}
             />
@@ -588,7 +558,9 @@ function HouseHoldCapcity() {
               onChange={() =>
                 handleCheckboxChange("internet_connection", "computer shop")
               }
-              checked={formValues.internet_connection.includes("computer shop")}
+              checked={formValues.values.internet_connection.includes(
+                "computer shop"
+              )}
             />
           }
           label="computer shop"
@@ -605,7 +577,7 @@ function HouseHoldCapcity() {
                   "other places outside the home with internet connection (library, barangay/ municipal hall, neighbor, relatives)"
                 )
               }
-              checked={formValues.internet_connection.includes(
+              checked={formValues.values.internet_connection.includes(
                 "other places outside the home with internet connection (library, barangay/ municipal hall, neighbor, relatives)"
               )}
             />
@@ -621,7 +593,7 @@ function HouseHoldCapcity() {
               onChange={() =>
                 handleCheckboxChange("internet_connection", "none")
               }
-              checked={formValues.internet_connection.includes("none")}
+              checked={formValues.values.internet_connection.includes("none")}
             />
           }
           label="none"
@@ -641,7 +613,9 @@ function HouseHoldCapcity() {
               onChange={() =>
                 handleCheckboxChange("distance_learning", "online learning")
               }
-              checked={formValues.distance_learning.includes("online learning")}
+              checked={formValues.values.distance_learning.includes(
+                "online learning"
+              )}
             />
           }
           label="online learning"
@@ -655,7 +629,9 @@ function HouseHoldCapcity() {
               onChange={() =>
                 handleCheckboxChange("distance_learning", "Television")
               }
-              checked={formValues.distance_learning.includes("Television")}
+              checked={formValues.values.distance_learning.includes(
+                "Television"
+              )}
             />
           }
           label="Television"
@@ -669,7 +645,7 @@ function HouseHoldCapcity() {
               onChange={() =>
                 handleCheckboxChange("distance_learning", "Radio")
               }
-              checked={formValues.distance_learning.includes("Radio")}
+              checked={formValues.values.distance_learning.includes("Radio")}
             />
           }
           label="Radio"
@@ -683,7 +659,7 @@ function HouseHoldCapcity() {
               onChange={() =>
                 handleCheckboxChange("distance_learning", "modular learning")
               }
-              checked={formValues.distance_learning.includes(
+              checked={formValues.values.distance_learning.includes(
                 "modular learning"
               )}
             />
@@ -702,7 +678,7 @@ function HouseHoldCapcity() {
                   "combination of face to face with other modalities"
                 )
               }
-              checked={formValues.distance_learning.includes(
+              checked={formValues.values.distance_learning.includes(
                 "combination of face to face with other modalities"
               )}
             />
@@ -718,12 +694,12 @@ function HouseHoldCapcity() {
               onChange={() =>
                 handleCheckboxChange("distance_learning", "Others")
               }
-              checked={formValues.distance_learning.includes("Others")}
+              checked={formValues.values.distance_learning.includes("Others")}
             />
           }
           label="Others"
         />
-        {formValues.distance_learning.includes("Others") && (
+        {formValues.values.distance_learning.includes("Others") && (
           <div>
             <TextField
               label="Others"
@@ -733,7 +709,7 @@ function HouseHoldCapcity() {
               onChange={(e) =>
                 handleChange("distance_learning_others", e.target.value)
               }
-              value={formValues.distance_learning_others}
+              value={formValues.values.distance_learning_others}
             />
           </div>
         )}
@@ -756,7 +732,7 @@ function HouseHoldCapcity() {
                   "lack of available gadgets/ equipment"
                 )
               }
-              checked={formValues.learning_challenges.includes(
+              checked={formValues.values.learning_challenges.includes(
                 "lack of available gadgets/ equipment"
               )}
             />
@@ -775,7 +751,7 @@ function HouseHoldCapcity() {
                   "insufficient load/ data allowance"
                 )
               }
-              checked={formValues.learning_challenges.includes(
+              checked={formValues.values.learning_challenges.includes(
                 "insufficient load/ data allowance"
               )}
             />
@@ -794,7 +770,7 @@ function HouseHoldCapcity() {
                   "unstable mobile/ internet connection"
                 )
               }
-              checked={formValues.learning_challenges.includes(
+              checked={formValues.values.learning_challenges.includes(
                 "unstable mobile/ internet connection"
               )}
             />
@@ -813,7 +789,7 @@ function HouseHoldCapcity() {
                   "existing health condition/s"
                 )
               }
-              checked={formValues.learning_challenges.includes(
+              checked={formValues.values.learning_challenges.includes(
                 "existing health condition/s"
               )}
             />
@@ -832,7 +808,7 @@ function HouseHoldCapcity() {
                   "difficulty in independent learning"
                 )
               }
-              checked={formValues.learning_challenges.includes(
+              checked={formValues.values.learning_challenges.includes(
                 "difficulty in independent learning"
               )}
             />
@@ -851,7 +827,7 @@ function HouseHoldCapcity() {
                   "conflict with other activities (i.e., house chores)"
                 )
               }
-              checked={formValues.learning_challenges.includes(
+              checked={formValues.values.learning_challenges.includes(
                 "conflict with other activities (i.e., house chores)"
               )}
             />
@@ -870,7 +846,7 @@ function HouseHoldCapcity() {
                   "high electrical consumption"
                 )
               }
-              checked={formValues.learning_challenges.includes(
+              checked={formValues.values.learning_challenges.includes(
                 "high electrical consumption"
               )}
             />
@@ -889,7 +865,7 @@ function HouseHoldCapcity() {
                   "distractions (i.e., social media, noise from community/neighbor)"
                 )
               }
-              checked={formValues.learning_challenges.includes(
+              checked={formValues.values.learning_challenges.includes(
                 "distractions (i.e., social media, noise from community/neighbor)"
               )}
             />
@@ -905,12 +881,12 @@ function HouseHoldCapcity() {
               onChange={() =>
                 handleCheckboxChange("learning_challenges", "Others")
               }
-              checked={formValues.learning_challenges.includes("Others")}
+              checked={formValues.values.learning_challenges.includes("Others")}
             />
           }
           label="Others"
         />
-        {formValues.learning_challenges.includes("Others") && (
+        {formValues.values.learning_challenges.includes("Others") && (
           <div>
             <TextField
               label="Others"
@@ -918,7 +894,7 @@ function HouseHoldCapcity() {
               margin="dense"
               name="learning_chanllenges_others"
               onChange={(e) => handleChange("learning_chanllenges_others")}
-              value={formValues.learning_chanllenges_others || ""}
+              value={formValues.values.learning_chanllenges_others || ""}
             />
           </div>
         )}

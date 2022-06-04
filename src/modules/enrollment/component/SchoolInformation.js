@@ -5,10 +5,13 @@ import {
   FormLabel,
   Grid,
   makeStyles,
-  TextField,
   Typography,
 } from "@material-ui/core";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useContext } from "react";
+import FormField from "../../../components/common/FormField";
+import SelectField from "../../../components/common/SelectField";
+import { levelOptions, schoolYearOptions } from "../../utils/helper";
+import EnrollmentContext from "../context/EnrollmentContent";
 
 const useStyles = makeStyles({
   titleHandler: {
@@ -19,28 +22,10 @@ const useStyles = makeStyles({
 
 function SchoolInformation() {
   const classes = useStyles();
+  const { formValues, handleChange } = useContext(EnrollmentContext);
 
-  const [formValues, setFormValues] = useState({
-    school_year: "",
-    lrn_status: "",
-    returning: "",
-    grade_level_to_enroll: "",
-    last_grade_level_completed: "",
-    last_school_yr_completed: "",
-    last_school_attended_name: "",
-    last_school_attended_address: "",
-    last_school_attended_id: "",
-    school_type: "",
-    school_to_enroll_name: "",
-    school_to_enroll_address: "",
-    school_to_enroll_in_id: "",
-  });
-
-  const handleChange = (name, value) => {
-    setFormValues((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const handleFormChange = (name, value) => {
+    handleChange(name, value);
   };
 
   return (
@@ -50,21 +35,13 @@ function SchoolInformation() {
           A. GRADE LEVEL AND SCHOOL INFORMATION
         </Typography>
         <FormControl>
-          <TextField
-            select
-            margin="dense"
+          <SelectField
             name="school_year"
-            variant="outlined"
             label="School Year"
-            onChange={(e) => handleChange("school_year", e.target.value)}
-            value={formValues.name || ""}
-            SelectProps={{ native: true }}
-          >
-            <option>Select Option</option>
-            <option>2021-2022</option>
-            <option>2022-2023</option>
-            <option>2023-2024</option>
-          </TextField>
+            onChange={(e) => handleFormChange("school_year", e.target.value)}
+            value={formValues.values.school_year || ""}
+            options={schoolYearOptions()}
+          />
         </FormControl>
       </Grid>
       <Grid item xs={12}>
@@ -72,8 +49,8 @@ function SchoolInformation() {
           control={
             <Checkbox
               color="primary"
-              checked={formValues.lrn_status === "No LRN" ? true : false}
-              onChange={() => handleChange("lrn_status", "No LRN")}
+              checked={formValues.values.lrn_status === "No LRN" ? true : false}
+              onChange={() => handleFormChange("lrn_status", "No LRN")}
             />
           }
           label="No LRN"
@@ -82,8 +59,10 @@ function SchoolInformation() {
           control={
             <Checkbox
               color="primary"
-              checked={formValues.lrn_status === "With LRN" ? true : false}
-              onChange={() => handleChange("lrn_status", "With LRN")}
+              checked={
+                formValues.values.lrn_status === "With LRN" ? true : false
+              }
+              onChange={() => handleFormChange("lrn_status", "With LRN")}
             />
           }
           label="With LRN"
@@ -94,119 +73,78 @@ function SchoolInformation() {
           control={
             <Checkbox
               color="primary"
-              onChange={(e) => handleChange("returning", e.target.value)}
+              onChange={(e) => handleFormChange("returning", e.target.value)}
             />
           }
-          value={formValues.returning || ""}
+          value={formValues.values.returning || ""}
           label="Returning (Balik Aral)"
         />
       </Grid>
       <Grid item xs={12} sm={3}>
         <FormLabel>Grade Level to Enroll</FormLabel>
-        <TextField
-          fullWidth
-          select
+        <SelectField
           name="grade_level_to_enroll"
-          margin="dense"
-          variant="outlined"
           onChange={(e) =>
-            handleChange("grade_level_to_enroll", e.target.value)
+            handleFormChange("grade_level_to_enroll", e.target.value)
           }
-          value={formValues.grade_level_to_enroll || ""}
-          SelectProps={{ native: true }}
-        >
-          <option>Select Option</option>
-          <option>Grade 7</option>
-          <option>Grade 8</option>
-          <option>Grade 9</option>
-          <option>Grade 10</option>
-          <option>Grade 11</option>
-          <option>Grade 12</option>
-        </TextField>
+          value={formValues.values.grade_level_to_enroll || ""}
+          options={levelOptions().map((level) => `Grade ${level}`)}
+        />
       </Grid>
       <Grid item xs={12} sm={3}>
         <FormLabel>Last Grade Level Completed</FormLabel>
-        <TextField
-          fullWidth
-          select
+        <SelectField
           name="last_grade_level_completed"
-          margin="dense"
-          variant="outlined"
           onChange={(e) =>
-            handleChange("last_grade_level_completed", e.target.value)
+            handleFormChange("last_grade_level_completed", e.target.value)
           }
-          value={formValues.last_grade_level_completed || ""}
-          SelectProps={{ native: true }}
-        >
-          <option>Select Option</option>
-          <option>Grade 7</option>
-          <option>Grade 8</option>
-          <option>Grade 9</option>
-          <option>Grade 10</option>
-          <option>Grade 11</option>
-          <option>Grade 12</option>
-        </TextField>
+          value={formValues.values.last_grade_level_completed || ""}
+          options={levelOptions().map((level) => `Grade ${level}`)}
+        />
       </Grid>
       <Grid item xs={12} sm={3}>
         <FormLabel>Last School Year Completed</FormLabel>
-        <TextField
-          fullWidth
-          select
+        <SelectField
           name="last_school_yr_completed"
-          margin="dense"
-          variant="outlined"
           onChange={(e) =>
-            handleChange("last_school_yr_completed", e.target.value)
+            handleFormChange("last_school_yr_completed", e.target.value)
           }
-          value={formValues.last_school_yr_completed || ""}
-          SelectProps={{ native: true }}
-        >
-          <option>Select Option</option>
-          <option>Grade 7</option>
-          <option>Grade 8</option>
-          <option>Grade 9</option>
-          <option>Grade 10</option>
-          <option>Grade 11</option>
-          <option>Grade 12</option>
-        </TextField>
+          value={formValues.values.last_school_yr_completed || ""}
+          options={levelOptions().map((level) => `Grade ${level}`)}
+        />
       </Grid>
       <Grid item xs={12} md={8}>
-        <TextField
-          fullWidth
-          margin="dense"
+        <FormField
           name="last_school_attended_name"
-          variant="outlined"
           label="Last School Attended"
           onChange={(e) =>
-            handleChange("last_school_attended_name", e.target.value)
+            handleFormChange("last_school_attended_name", e.target.value)
           }
-          value={formValues.last_school_attended_name || ""}
+          value={formValues.values.last_school_attended_name || ""}
+          errors={formValues.errors}
         />
       </Grid>
       <Grid item xs={12} md={4}>
-        <TextField
-          fullWidth
-          margin="dense"
-          variant="outlined"
+        <FormField
           name="last_school_attended_id"
           label="School ID"
           onChange={(e) =>
-            handleChange("last_school_attended_id", e.target.value)
+            handleFormChange("last_school_attended_id", e.target.value)
           }
-          value={formValues.last_school_attended_id || ""}
+          value={formValues.values.last_school_attended_id || ""}
+          errors={formValues.errors}
         />
       </Grid>
       <Grid item xs={12}>
-        <TextField
+        <FormField
           fullWidth
-          variant="outlined"
-          margin="dense"
           name="last_school_attended_address"
           label="School Adress"
           onChange={(e) =>
-            handleChange("last_school_attended_address", e.target.value)
+            handleFormChange("last_school_attended_address", e.target.value)
           }
-          value={formValues.last_school_attended_address || ""}
+          value={formValues.values.last_school_attended_address || ""}
+          errors={formValues.errors}
         />
       </Grid>
       <Grid item xs={6}>
@@ -217,8 +155,10 @@ function SchoolInformation() {
           control={
             <Checkbox
               color="primary"
-              checked={formValues.school_type === "Private" ? true : false}
-              onChange={() => handleChange("school_type", "Private")}
+              checked={
+                formValues.values.school_type === "Private" ? true : false
+              }
+              onChange={() => handleFormChange("school_type", "Private")}
             />
           }
           label="Private"
@@ -227,50 +167,46 @@ function SchoolInformation() {
           control={
             <Checkbox
               color="primary"
-              checked={formValues.school_type === "Public" ? true : false}
-              onChange={() => handleChange("school_type", "Public")}
+              checked={
+                formValues.values.school_type === "Public" ? true : false
+              }
+              onChange={() => handleFormChange("school_type", "Public")}
             />
           }
           label="Public"
         />
       </Grid>
       <Grid item xs={12} md={8}>
-        <TextField
-          fullWidth
-          margin="dense"
-          variant="outlined"
+        <FormField
           label="School to enroll in"
           name="school_to_enroll_name"
           onChange={(e) =>
-            handleChange("school_to_enroll_name", e.target.value)
+            handleFormChange("school_to_enroll_name", e.target.value)
           }
-          value={formValues.school_to_enroll_name || ""}
+          value={formValues.values.school_to_enroll_name || ""}
+          errors={formValues.errors}
         />
       </Grid>
       <Grid item xs={12} md={4}>
-        <TextField
-          fullWidth
-          margin="dense"
-          variant="outlined"
+        <FormField
           label="School ID"
           name="school_to_enroll_in_id"
           onChange={(e) =>
-            handleChange("school_to_enroll_in_id", e.target.value)
+            handleFormChange("school_to_enroll_in_id", e.target.value)
           }
-          value={formValues.school_to_enroll_in_id || ""}
+          value={formValues.values.school_to_enroll_in_id || ""}
+          errors={formValues.errors}
         />
       </Grid>
       <Grid item xs={12}>
-        <TextField
-          fullWidth
-          variant="outlined"
-          margin="dense"
+        <FormField
           label="School Adress"
           name="school_to_enroll_address"
           onChange={(e) =>
-            handleChange("school_to_enroll_address", e.target.value)
+            handleFormChange("school_to_enroll_address", e.target.value)
           }
-          value={formValues.school_to_enroll_address || ""}
+          value={formValues.values.school_to_enroll_address || ""}
+          errors={formValues.errors}
         />
       </Grid>
     </Fragment>

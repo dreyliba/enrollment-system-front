@@ -6,10 +6,12 @@
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "axios": "^0.26.1",
+    "moment": "^2.29.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "5.0.0"
+    "react-scripts": "5.0.0",
+    "ree-validate": "^3.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
