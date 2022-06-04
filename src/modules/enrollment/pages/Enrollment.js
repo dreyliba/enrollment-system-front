@@ -28,6 +28,10 @@ const validator = Revalidate({
   returning: "",
   grade_level_to_enroll: "required",
   last_grade_level_completed: "",
+  track_id: "",
+  last_year_track_id: "",
+  strand_id: "",
+  last_year_strand_id: "",
   last_school_yr_completed: "",
   last_school_attended_name: "",
   last_school_attended_address: "",
@@ -135,7 +139,9 @@ export default function Enrollment() {
       returning: "",
       grade_level_to_enroll: "",
       track_id: "",
+      last_year_track_id: "",
       strand_id: "",
+      last_year_strand_id: "",
       last_grade_level_completed: "",
       last_school_yr_completed: "",
       last_school_attended_name: "",
@@ -330,7 +336,12 @@ export default function Enrollment() {
   };
 
   const handleSubmit = () => {
-    // handle Form Submission
+    API().then((ip) => {
+      Http.post(`${ip}/enrollments`, formValues).then((res) => {
+        if (res.data.code === 200) {
+        }
+      });
+    });
   };
 
   return (
@@ -338,7 +349,7 @@ export default function Enrollment() {
       <EnrollmentContext.Provider value={providerValue}>
         <Card className={classes.parentContainer}>
           <Grid container spacing={1}>
-            <SchoolInformation />
+            <SchoolInformation tracks={tracks} strands={strands} />
             <StudentInfomation />
             <ParentGuardianInfo />
             <HouseHoldCapcity />

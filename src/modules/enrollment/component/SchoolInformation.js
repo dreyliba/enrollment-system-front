@@ -1,6 +1,5 @@
 import {
   Checkbox,
-  FormControl,
   FormControlLabel,
   FormLabel,
   Grid,
@@ -20,7 +19,7 @@ const useStyles = makeStyles({
   },
 });
 
-function SchoolInformation() {
+function SchoolInformation({ tracks, strands }) {
   const classes = useStyles();
   const { formValues, handleChange } = useContext(EnrollmentContext);
 
@@ -34,16 +33,15 @@ function SchoolInformation() {
         <Typography className={classes.titleHandler} variant="h6">
           A. GRADE LEVEL AND SCHOOL INFORMATION
         </Typography>
-        <FormControl>
-          <SelectField
-            name="school_year"
-            label="School Year"
-            onChange={(e) => handleFormChange("school_year", e.target.value)}
-            errors={formValues.errors}
-            value={formValues.values.school_year || ""}
-            options={schoolYearOptions()}
-          />
-        </FormControl>
+        <SelectField
+          fullWidth={false}
+          name="school_year"
+          label="School Year"
+          onChange={(e) => handleFormChange("school_year", e.target.value)}
+          errors={formValues.errors}
+          value={formValues.values.school_year || ""}
+          options={schoolYearOptions()}
+        />
       </Grid>
       <Grid item xs={12}>
         <FormControlLabel
@@ -89,9 +87,36 @@ function SchoolInformation() {
             handleFormChange("grade_level_to_enroll", e.target.value)
           }
           value={formValues.values.grade_level_to_enroll || ""}
-          options={levelOptions().map((level) => `Grade ${level}`)}
+          options={levelOptions().map((level) => ({
+            id: level,
+            label: `Grade ${level}`,
+          }))}
           errors={formValues.errors}
+          keyValuePair="id,label"
         />
+
+        {parseInt(formValues.values.grade_level_to_enroll) > 10 && (
+          <div>
+            <SelectField
+              name="Track ID"
+              label="Track"
+              onChange={(e) => handleFormChange("track_id", e.target.value)}
+              errors={formValues.errors}
+              value={formValues.values.track_id || ""}
+              options={tracks}
+              keyValuePair="id,name"
+            />
+            <SelectField
+              name="Strand"
+              label="Strand"
+              onChange={(e) => handleFormChange("strand_id", e.target.value)}
+              errors={formValues.errors}
+              value={formValues.values.strand_id || ""}
+              options={strands}
+              keyValuePair="id,name"
+            />
+          </div>
+        )}
       </Grid>
       <Grid item xs={12} sm={3}>
         <FormLabel>Last Grade Level Completed</FormLabel>
@@ -101,9 +126,39 @@ function SchoolInformation() {
             handleFormChange("last_grade_level_completed", e.target.value)
           }
           value={formValues.values.last_grade_level_completed || ""}
-          options={levelOptions().map((level) => `Grade ${level}`)}
+          options={levelOptions().map((level) => ({
+            id: level,
+            label: `Grade ${level}`,
+          }))}
           errors={formValues.errors}
+          keyValuePair="id,label"
         />
+        {parseInt(formValues.values.last_grade_level_completed) > 10 && (
+          <div>
+            <SelectField
+              name="Track ID"
+              label="Track"
+              onChange={(e) =>
+                handleFormChange("last_year_track_id", e.target.value)
+              }
+              errors={formValues.errors}
+              value={formValues.values.last_year_track_id || ""}
+              options={tracks}
+              keyValuePair="id,name"
+            />
+            <SelectField
+              name="Strand"
+              label="Strand"
+              onChange={(e) =>
+                handleFormChange("last_year_strand_id", e.target.value)
+              }
+              errors={formValues.errors}
+              value={formValues.values.last_year_strand_id || ""}
+              options={strands}
+              keyValuePair="id,name"
+            />
+          </div>
+        )}
       </Grid>
       <Grid item xs={12} sm={3}>
         <FormLabel>Last School Year Completed</FormLabel>
@@ -113,7 +168,7 @@ function SchoolInformation() {
             handleFormChange("last_school_yr_completed", e.target.value)
           }
           value={formValues.values.last_school_yr_completed || ""}
-          options={levelOptions().map((level) => `Grade ${level}`)}
+          options={schoolYearOptions()}
           errors={formValues.errors}
         />
       </Grid>

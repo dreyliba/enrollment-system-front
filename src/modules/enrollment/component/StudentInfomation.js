@@ -112,6 +112,7 @@ function StudentInfomation() {
             onChange={(e) => handleChange("gender", e.target.value)}
             value={formValues.values.gender || ""}
             options={["Male", "Female"]}
+            errors={formValues.errors}
           />
         </FormControl>
       </Grid>
