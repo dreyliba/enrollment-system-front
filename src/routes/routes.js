@@ -7,6 +7,7 @@ import UserList from "../modules/user/Users";
 import Strand from "../modules/settings/Strand";
 import Track from "../modules/settings/Track";
 import Profile from "../modules/profile/Profile";
+import EditEnrollment from "../modules/enrollment/pages/EditEnrollment";
 
 const routes = [
   {
@@ -32,6 +33,11 @@ const routes = [
   {
     path: "/student",
     component: Student,
+    auth: true,
+  },
+  {
+    path: "/student/:id/edit",
+    component: EditEnrollment,
     auth: true,
   },
   {

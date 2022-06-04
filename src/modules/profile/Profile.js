@@ -9,6 +9,8 @@ import {
 } from "@material-ui/core";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { API } from "../utils/helper";
+import Http from "../utils/Http";
 import ChangePass from "./pages/ChangePass";
 import EditProfile from "./pages/EditProfile";
 
@@ -48,7 +50,6 @@ const usestyles = makeStyles({
 });
 
 function Profile() {
-  const API = process.env.REACT_APP_API_URL;
   const classes = usestyles();
   const [openEditProfile, setOpenEditProfile] = useState(false);
   const [profileValue, setProfileValue] = useState({});
@@ -60,19 +61,13 @@ function Profile() {
   }, []);
 
   const fetchData = () => {
-    const token = localStorage.getItem("accessToken");
-
-    axios
-      .get(`${API}/user`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
+    API().then((ip) => {
+      Http.get(`${ip}/user`).then((res) => {
         if (res.data) {
           setUser(res.data);
         }
       });
+    });
   };
   const handleOpenEditProfile = () => {
     setProfileValue();

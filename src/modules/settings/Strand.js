@@ -16,11 +16,12 @@ import {
 import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import EditStrand from "./pages/EditStrand";
 import DeleteStrand from "./pages/DeleteStrand";
 import AddStrand from "./pages/AddStrand";
+import { API } from "../utils/helper";
+import Http from "../utils/Http";
 
 const useStyles = makeStyles({
   spaceBetween: {
@@ -42,7 +43,6 @@ const useStyles = makeStyles({
   },
 });
 
-const API = process.env.REACT_APP_API_URL;
 function Strand({ match }) {
   const { params } = match;
   const classes = useStyles();
@@ -59,35 +59,23 @@ function Strand({ match }) {
 
   useEffect(() => {
     fetchData();
-
-    const token = localStorage.getItem("accessToken");
-    axios
-      .get(`${API}/track/${params.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
+    API().then((ip) => {
+      Http.get(`${ip}/track/${params.id}`).then((res) => {
         if (res.data.code === 200) {
           setTrackData(res.data.track);
         }
       });
+    });
   }, []);
 
   const fetchData = () => {
-    const token = localStorage.getItem("accessToken");
-
-    axios
-      .get(`${API}/strands`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
+    API().then((ip) => {
+      Http.get(`${ip}/strands`).then((res) => {
         if (res.data.code === 200) {
           setStrandList(res.data);
         }
       });
+    });
   };
 
   const handleOpenAddStrand = () => {
@@ -105,20 +93,14 @@ function Strand({ match }) {
   };
 
   const handleConfirmDelete = () => {
-    const token = localStorage.getItem("accessToken");
-
-    axios
-      .delete(`${API}/strand/${selectedID}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
+    API().then((ip) => {
+      Http.delete(`${ip}/strand/${selectedID}`).then((res) => {
         if (res.data) {
           setOpenDeleteStrand(false);
           fetchData();
         }
       });
+    });
   };
 
   return (

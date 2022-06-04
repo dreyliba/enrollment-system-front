@@ -6,13 +6,12 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import { TextField } from "@material-ui/core";
-import axios from "axios";
+import { API } from "../../utils/helper";
+import Http from "../../utils/Http";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
-const API = process.env.REACT_APP_API_URL;
 
 export default function AddStrand({
   handleOpen,
@@ -47,23 +46,16 @@ export default function AddStrand({
   };
 
   const handleSubmit = () => {
-    const token = localStorage.getItem("accessToken");
-    axios
-      .post(
-        `${API}/addStrand`,
-        { ...formValues, track_id: params.id },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+    API().then((ip) => {
+      Http.post(`${ip}/addStrand`, { ...formValues, track_id: params.id }).then(
+        (res) => {
+          if (res.data.code === 200) {
+            handleClose(false);
+            refetch();
+          }
         }
-      )
-      .then((res) => {
-        if (res.data.code === 200) {
-          handleClose(false);
-          refetch();
-        }
-      });
+      );
+    });
   };
 
   return (

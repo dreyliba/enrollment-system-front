@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -17,6 +17,8 @@ import Collapse from "@material-ui/core/Collapse";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
+import { useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -55,9 +57,21 @@ const useStyles = makeStyles((theme) => ({
 export default function Sidbar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const location = useLocation();
+  const history = useHistory();
 
   const handleClick = () => {
     setOpen(!open);
+  };
+
+  useEffect(() => {
+    if (location.pathname.includes("track")) {
+      setOpen(true);
+    }
+  }, []);
+
+  const handleNavigate = (url) => {
+    history.push(url);
   };
 
   return (
@@ -86,9 +100,7 @@ export default function Sidbar() {
               <DashboardIcon />
             </ListItemIcon>
             <ListItemText
-              onClick={() => {
-                window.location.href = "/dashboard";
-              }}
+              onClick={() => handleNavigate("/dashboard")}
               primary={"Dashboard"}
             />
           </ListItem>
@@ -97,9 +109,7 @@ export default function Sidbar() {
               <PersonAddIcon />
             </ListItemIcon>
             <ListItemText
-              onClick={() => {
-                window.location.href = "/enrollment";
-              }}
+              onClick={() => handleNavigate("/enrollment")}
               primary={"Enrollment"}
             />
           </ListItem>
@@ -108,9 +118,7 @@ export default function Sidbar() {
               <GroupIcon />
             </ListItemIcon>
             <ListItemText
-              onClick={() => {
-                window.location.href = "/student";
-              }}
+              onClick={() => handleNavigate("/student")}
               primary={"Student List"}
             />
           </ListItem>
@@ -119,9 +127,7 @@ export default function Sidbar() {
               <MailIcon />
             </ListItemIcon>
             <ListItemText
-              onClick={() => {
-                window.location.href = "/report";
-              }}
+              onClick={() => handleNavigate("/report")}
               primary={"Reports"}
             />
           </ListItem>
@@ -130,9 +136,7 @@ export default function Sidbar() {
               <GroupIcon />
             </ListItemIcon>
             <ListItemText
-              onClick={() => {
-                window.location.href = "/users";
-              }}
+              onClick={() => handleNavigate("/users")}
               primary={"Users"}
             />
           </ListItem>
@@ -150,9 +154,7 @@ export default function Sidbar() {
                   <AccountBalanceIcon />
                 </ListItemIcon>
                 <ListItemText
-                  onClick={() => {
-                    window.location.href = "/track";
-                  }}
+                  onClick={() => handleNavigate("/track")}
                   primary="Track"
                 />
               </ListItem>

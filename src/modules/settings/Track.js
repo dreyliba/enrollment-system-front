@@ -16,11 +16,12 @@ import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import DeleteIcon from "@material-ui/icons/Delete";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import AddTrack from "./pages/AddTrack";
 import EditTrack from "./pages/EditTrack";
 import DeleteTrack from "./pages/DeleteTrack";
+import { API } from "../utils/helper";
+import Http from "../utils/Http";
 
 const useStyles = makeStyles({
   spaceBetween: {
@@ -34,7 +35,6 @@ const useStyles = makeStyles({
   },
 });
 
-const API = process.env.REACT_APP_API_URL;
 function Track() {
   const classes = useStyles();
   const [selectedTrackValues, setSelectedTrackValues] = useState({});
@@ -52,19 +52,13 @@ function Track() {
   }, []);
 
   const fetchData = () => {
-    const token = localStorage.getItem("accessToken");
-
-    axios
-      .get(`${API}/tracks`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
+    API().then((ip) => {
+      Http.get(`${ip}/tracks`).then((res) => {
         if (res.data.code === 200) {
           setTrackList(res.data);
         }
       });
+    });
   };
 
   const handleOpenAddTrack = () => {
@@ -82,20 +76,14 @@ function Track() {
   };
 
   const handleConfirmDelete = () => {
-    const token = localStorage.getItem("accessToken");
-
-    axios
-      .delete(`${API}/track/${selectedID}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
+    API().then((ip) => {
+      Http.delete(`${ip}/track/${selectedID}`).then((res) => {
         if (res.data) {
           setOpenDeleteTrack(false);
           fetchData();
         }
       });
+    });
   };
 
   return (

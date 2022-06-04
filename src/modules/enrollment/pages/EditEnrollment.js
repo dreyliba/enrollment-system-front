@@ -14,10 +14,10 @@ const useStyles = makeStyles({
 });
 
 const validator = Revalidate({
-  school_year: "",
+  school_year: "required",
   lrn_status: "",
   returning: "",
-  grade_level_to_enroll: "",
+  grade_level_to_enroll: "required",
   last_grade_level_completed: "",
   last_school_yr_completed: "",
   last_school_attended_name: "",
@@ -59,16 +59,16 @@ const validator = Revalidate({
   mother: "",
   guardian: "",
   contact: "",
-  father_contact: "",
-  mother_contact: "",
-  guardian_contact: "",
+  father_contact: "integer",
+  mother_contact: "integer",
+  guardian_contact: "integer",
   father_heighest_edu_attainment: "",
   mother_heighest_edu_attainment: "",
   guardian_heighest_edu_attainment: "",
   is_benificiary: "",
 
   psa: "",
-  lrn: "",
+  lrn: "integer",
   last_name: "",
   first_name: "",
   middle_name: "",
@@ -83,7 +83,7 @@ const validator = Revalidate({
   is_special_education_name: "",
   has_devices_available_at_home: "",
   has_devices_available_at_home_name: "",
-  email: "",
+  email: "email",
   house_number_street: "",
   subdivision_village_zone: "",
   barangay: "",
@@ -102,8 +102,9 @@ const dictionary = {
 
 validator.localize("en", dictionary);
 
-export default function Enrollment() {
+export default function EditEnrollment({ match }) {
   const classes = useStyles();
+  const { params } = match;
 
   const [formValues, setFormValues] = useState({
     values: {
@@ -189,12 +190,12 @@ export default function Enrollment() {
 
   const handleCheckboxChange = (name, value) => {
     setFormValues((prev) => {
-      if (prev.values[name].includes(value)) {
+      if (prev[name].includes(value)) {
         return {
           ...prev,
           values: {
             ...prev.values,
-            [name]: prev.values[name].filter((val) => val !== value),
+            [name]: prev[name].filter((val) => val !== value),
           },
         };
       } else {
@@ -202,7 +203,7 @@ export default function Enrollment() {
           ...prev,
           values: {
             ...prev.values,
-            [name]: [...prev.values[name], value],
+            [name]: [...prev[name], value],
           },
         };
       }
@@ -210,65 +211,11 @@ export default function Enrollment() {
   };
 
   const handleChange = (name, value) => {
-    let newValues = {
-      [name]: value,
-    };
-
-    if (
-      name === "indigenous_status" &&
-      formValues.values.indigenous_status === "No"
-    ) {
-      newValues.indigenous_status_name = "";
-    }
-
-    if (
-      name === "is_special_education" &&
-      formValues.values.is_special_education === "No"
-    ) {
-      newValues.is_special_education_name = "";
-    }
-
-    if (
-      name === "has_devices_available_at_home" &&
-      formValues.values.has_devices_available_at_home === "No"
-    ) {
-      newValues.has_devices_available_at_home_name = "";
-    }
-
-    if (
-      name === "available_device" &&
-      !formValues.values.available_device.includes("Others")
-    ) {
-      newValues.available_device_others = "";
-    }
-
-    if (
-      name === "distance_learning" &&
-      !formValues.values.distance_learning.includes("Others")
-    ) {
-      newValues.distance_learning_others = "";
-    }
-
-    if (
-      name === "learning_challenges" &&
-      !formValues.values.learning_challenges.includes("Others")
-    ) {
-      newValues.learning_challenges_others = "";
-    }
-
-    if (
-      name === "limited_classes_allowed" &&
-      formValues.values.limited_classes_allowed === "Yes"
-    ) {
-      newValues.limited_face_to_face = [];
-      newValues.limited_face_to_face_others = "";
-    }
-
     setFormValues((prev) => ({
       ...prev,
       values: {
         ...prev.values,
-        ...newValues,
+        [name]: value,
       },
     }));
 

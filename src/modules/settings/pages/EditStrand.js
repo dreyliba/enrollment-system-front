@@ -8,13 +8,12 @@ import {
   DialogTitle,
   Slide,
 } from "@material-ui/core";
-import axios from "axios";
+import { API } from "../../utils/helper";
+import Http from "../../utils/Http";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
-const API = process.env.REACT_APP_API_URL;
 
 export default function EditStrand({
   handleOpen,
@@ -45,26 +44,22 @@ export default function EditStrand({
   };
 
   const handleSubmit = () => {
-    const token = localStorage.getItem("accessToken");
-
     const formData = new FormData();
 
     for (const key in formValues) {
       formData.append(key, formValues[key]);
     }
 
-    axios
-      .post(`${API}/strand/${selectedStrandValues.id}`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        if (res.data.code === 200) {
-          handleClose(false);
-          refetch();
+    API().then((ip) => {
+      Http.post(`${ip}/strand/${selectedStrandValues.id}`, formData).then(
+        (res) => {
+          if (res.data.code === 200) {
+            handleClose(false);
+            refetch();
+          }
         }
-      });
+      );
+    });
   };
 
   return (

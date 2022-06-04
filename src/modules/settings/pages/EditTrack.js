@@ -8,13 +8,12 @@ import {
   DialogTitle,
   Slide,
 } from "@material-ui/core";
-import axios from "axios";
+import { API } from "../../utils/helper";
+import Http from "../../utils/Http";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
-const API = process.env.REACT_APP_API_URL;
 
 export default function EditTrack({
   handleOpen,
@@ -47,26 +46,22 @@ export default function EditTrack({
   };
 
   const handleSubmit = () => {
-    const token = localStorage.getItem("accessToken");
-
     const formData = new FormData();
 
     for (const key in formValues) {
       formData.append(key, formValues[key]);
     }
 
-    axios
-      .post(`${API}/track/${selectedTrackValues.id}`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        if (res.data.code === 200) {
-          handleClose(false);
-          refetch();
+    API().then((ip) => {
+      Http.post(`${ip}/track/${selectedTrackValues.id}`, formData).then(
+        (res) => {
+          if (res.data.code === 200) {
+            handleClose(false);
+            refetch();
+          }
         }
-      });
+      );
+    });
   };
 
   return (

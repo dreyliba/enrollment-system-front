@@ -47,11 +47,10 @@ function Login() {
 
   const handleSubmit = () => {
     API().then((ip) => {
-      axios
-        .post(`${ip}/login`, {
-          email: formValues.username,
-          password: formValues.password,
-        })
+      Http.post(`${ip}/login`, {
+        email: formValues.username,
+        password: formValues.password,
+      })
         .then((res) => {
           if (res.data.code === 200) {
             Http.defaults.headers.common[
