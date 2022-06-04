@@ -21,8 +21,6 @@ function HouseHoldCapcity() {
   const { formValues, handleChange, handleCheckboxChange } =
     useContext(EnrollmentContext);
 
-  console.log(formValues);
-
   return (
     <Fragment>
       <Grid item xs={12}>
