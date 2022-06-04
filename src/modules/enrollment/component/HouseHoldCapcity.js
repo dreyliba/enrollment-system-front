@@ -3,7 +3,6 @@ import {
   FormControlLabel,
   Grid,
   makeStyles,
-  TextField,
   Typography,
 } from "@material-ui/core";
 import React, { Fragment, useContext } from "react";
@@ -48,135 +47,111 @@ function HouseHoldCapcity() {
         />
       </Grid>
       <Grid item xs={12} md={2}>
-        <TextField
-          variant="outlined"
-          margin="dense"
-          fullWidth
+        <FormField
           label="Grade 2"
           name="grade_2"
           onChange={(e) => handleChange("grade_2", e.target.value)}
+          errors={formValues.errors}
           value={formValues.values.grade_2 || ""}
         />
       </Grid>
       <Grid item xs={12} md={2}>
-        <TextField
-          variant="outlined"
-          margin="dense"
-          fullWidth
+        <FormField
           label="Grade 3"
           name="grade_3"
           onChange={(e) => handleChange("grade_3", e.target.value)}
+          errors={formValues.errors}
           value={formValues.values.grade_3 || ""}
         />
       </Grid>
       <Grid item xs={12} md={2}>
-        <TextField
-          variant="outlined"
-          margin="dense"
-          fullWidth
+        <FormField
           label="Grade 4"
           name="grade_4"
           onChange={(e) => handleChange("grade_4", e.target.value)}
+          errors={formValues.errors}
           value={formValues.values.grade_4 || ""}
         />
       </Grid>
       <Grid item xs={12} md={2}>
-        <TextField
-          variant="outlined"
-          margin="dense"
-          fullWidth
+        <FormField
           label="Grade 5"
           name="grade_5"
           onChange={(e) => handleChange("grade_5", e.target.value)}
+          errors={formValues.errors}
           value={formValues.values.grade_5 || ""}
         />
       </Grid>
       <Grid item xs={12} md={2}>
-        <TextField
-          variant="outlined"
-          margin="dense"
-          fullWidth
+        <FormField
           label="Grade 6"
           name="grade_6"
           onChange={(e) => handleChange("grade_6", e.target.value)}
+          errors={formValues.errors}
           value={formValues.values.grade_6 || ""}
         />
       </Grid>
       <Grid item xs={12} md={2}>
-        <TextField
-          variant="outlined"
-          margin="dense"
-          fullWidth
+        <FormField
           label="Grade7"
           name="grade_7"
           onChange={(e) => handleChange("grade_7", e.target.value)}
+          errors={formValues.errors}
           value={formValues.values.grade_7 || ""}
         />
       </Grid>
       <Grid item xs={12} md={2}>
-        <TextField
-          variant="outlined"
-          margin="dense"
-          fullWidth
+        <FormField
           label="Grade 8"
           name="grade_8"
           onChange={(e) => handleChange("grade_8", e.target.value)}
+          errors={formValues.errors}
           value={formValues.values.grade_8 || ""}
         />
       </Grid>
       <Grid item xs={12} md={2}>
-        <TextField
-          variant="outlined"
-          margin="dense"
-          fullWidth
+        <FormField
           label="Grade 9"
           name="grade_9"
           onChange={(e) => handleChange("grade_9", e.target.value)}
+          errors={formValues.errors}
           value={formValues.values.grade_9 || ""}
         />
       </Grid>
       <Grid item xs={12} md={2}>
-        <TextField
-          variant="outlined"
-          margin="dense"
-          fullWidth
+        <FormField
           label="Grade 10"
           name="grade_10"
           onChange={(e) => handleChange("grade_10", e.target.value)}
+          errors={formValues.errors}
           value={formValues.values.grade_10 || ""}
         />
       </Grid>
       <Grid item xs={12} md={2}>
-        <TextField
-          variant="outlined"
-          margin="dense"
-          fullWidth
+        <FormField
           label="Grade 11"
           name="grade_11"
           onChange={(e) => handleChange("grade_11", e.target.value)}
+          errors={formValues.errors}
           value={formValues.values.grade_11 || ""}
         />
       </Grid>
       <Grid item xs={12} md={2}>
-        <TextField
-          variant="outlined"
-          margin="dense"
-          fullWidth
+        <FormField
           label="Grade 12"
           name="grade_12"
           onChange={(e) => handleChange("grade_12", e.target.value)}
+          errors={formValues.errors}
           value={formValues.values.grade_12 || ""}
         />
       </Grid>
       <Grid item xs={12} md={3}>
-        <TextField
+        <FormField
           placeholder="i.e college, vocational, etc."
-          variant="outlined"
-          margin="dense"
-          fullWidth
           label="Others"
           name="other_grade"
           onChange={(e) => handleChange("other_grade", e.target.value)}
+          errors={formValues.errors}
           value={formValues.values.other_grade || ""}
         />
       </Grid>
@@ -466,10 +441,8 @@ function HouseHoldCapcity() {
         />
         {formValues.values.available_device.includes("Others") && (
           <Grid item md={6}>
-            <TextField
+            <FormField
               label="Others"
-              variant="outlined"
-              margin="dense"
               name="available_device_others"
               onChange={(e) =>
                 handleChange("available_device_others", e.target.value)
@@ -701,10 +674,8 @@ function HouseHoldCapcity() {
         />
         {formValues.values.distance_learning.includes("Others") && (
           <div>
-            <TextField
+            <FormField
               label="Others"
-              variant="outlined"
-              margin="dense"
               name="distance_learning_others"
               onChange={(e) =>
                 handleChange("distance_learning_others", e.target.value)
@@ -888,10 +859,8 @@ function HouseHoldCapcity() {
         />
         {formValues.values.learning_challenges.includes("Others") && (
           <div>
-            <TextField
+            <FormField
               label="Others"
-              variant="outlined"
-              margin="dense"
               name="learning_chanllenges_others"
               onChange={(e) => handleChange("learning_chanllenges_others")}
               value={formValues.values.learning_chanllenges_others || ""}

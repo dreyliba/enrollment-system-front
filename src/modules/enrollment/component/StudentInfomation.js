@@ -5,10 +5,12 @@ import {
   Grid,
   Hidden,
   makeStyles,
-  TextField,
   Typography,
 } from "@material-ui/core";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext } from "react";
+import FormField from "../../../components/common/FormField";
+import SelectField from "../../../components/common/SelectField";
+import EnrollmentContext from "../context/EnrollmentContent";
 
 const useStyles = makeStyles({
   titleHandler: {
@@ -20,38 +22,7 @@ const useStyles = makeStyles({
 function StudentInfomation() {
   const classes = useStyles();
 
-  const [formValues, setFormValues] = useState({
-    psa: "",
-    lrn: "",
-    last_name: "",
-    first_name: "",
-    middle_name: "",
-    extension_name: "",
-    date_of_birth: "",
-    gender: "",
-    indigenous_status: "",
-    indigenous_status_name: "",
-    mother_tongue: "",
-    religion: "",
-    is_special_education: "",
-    is_special_education_name: "",
-    has_devices_available_at_home: "",
-    has_devices_available_at_home_name: "",
-    email: "",
-    house_number_street: "",
-    subdivision_village_zone: "",
-    barangay: "",
-    municipality: "",
-    province: "",
-    region: "",
-  });
-
-  const handleChange = (name, value) => {
-    setFormValues((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const { formValues, handleChange } = useContext(EnrollmentContext);
 
   return (
     <Fragment>
@@ -61,87 +32,72 @@ function StudentInfomation() {
         </Typography>
       </Grid>
       <Grid item xs={12} md={4}>
-        <TextField
-          fullWidth
-          placeholder="(if available upon enrollment)"
-          margin="dense"
+        <FormField
+          placeholder="(if available upon enrolment)"
           name="psa"
           label="PSA Birth Certificate Number"
-          variant="outlined"
           onChange={(e) => handleChange("psa", e.target.value)}
-          value={formValues.psa || ""}
+          value={formValues.values.psa || ""}
         />
       </Grid>
       <Grid item xs={12} md={4}>
-        <TextField
-          fullWidth
+        <FormField
           placeholder="LRN"
-          margin="dense"
           label="Learners Reference Number"
-          variant="outlined"
           name="lrn"
           onChange={(e) => handleChange("lrn", e.target.value)}
-          value={formValues.lrn || ""}
+          errors={formValues.errors}
+          value={formValues.values.lrn || ""}
         />
       </Grid>
       <Hidden smDown>
         <Grid item xs={12} md={4}></Grid>
       </Hidden>
       <Grid item xs={12} md={3}>
-        <TextField
-          fullWidth
-          margin="dense"
+        <FormField
           label="Last Name"
-          variant="outlined"
           name="last_name"
           onChange={(e) => handleChange("last_name", e.target.value)}
-          value={formValues.last_name || ""}
+          errors={formValues.errors}
+          value={formValues.values.last_name || ""}
         />
       </Grid>
       <Grid item xs={12} md={3}>
-        <TextField
-          fullWidth
-          margin="dense"
+        <FormField
           label="First Name"
-          variant="outlined"
           name="first_name"
           onChange={(e) => handleChange("first_name", e.target.value)}
-          value={formValues.first_name || ""}
+          errors={formValues.errors}
+          value={formValues.values.first_name || ""}
         />
       </Grid>
       <Grid item xs={12} md={3}>
-        <TextField
-          fullWidth
-          margin="dense"
+        <FormField
           label="Middle Name"
-          variant="outlined"
           name="middle_name"
           onChange={(e) => handleChange("middle_name", e.target.value)}
-          value={formValues.middle_name || ""}
+          errors={formValues.errors}
+          value={formValues.values.middle_name || ""}
         />
       </Grid>
       <Grid item xs={12} md={3}>
-        <TextField
-          fullWidth
+        <FormField
           placeholder="e.g . Jr., III (if applicable)"
-          margin="dense"
           label="Extension Name"
-          variant="outlined"
           name="extension_name"
           onChange={(e) => handleChange("extension_name", e.target.value)}
-          value={formValues.extension_name || ""}
+          errors={formValues.errors}
+          value={formValues.values.extension_name || ""}
         />
       </Grid>
       <Grid item xs={12} md={2}>
-        <TextField
-          fullWidth
-          margin="dense"
+        <FormField
           type="date"
           label="Date of Birth"
-          variant="outlined"
           name="date_of_birth"
           onChange={(e) => handleChange("date_of_birth", e.target.value)}
-          value={formValues.date_of_birth || ""}
+          errors={formValues.errors}
+          value={formValues.values.date_of_birth || ""}
           SelectProps={{ native: true }}
           InputLabelProps={{
             shrink: true,
@@ -150,20 +106,13 @@ function StudentInfomation() {
       </Grid>
       <Grid item xs={8}>
         <FormControl>
-          <TextField
-            select
-            margin="dense"
-            variant="outlined"
+          <SelectField
             label="Gender"
             name="gender"
             onChange={(e) => handleChange("gender", e.target.value)}
-            value={formValues.gender || ""}
-            SelectProps={{ native: true }}
-          >
-            <option>Select Option</option>
-            <option>Male</option>
-            <option>Female</option>
-          </TextField>
+            value={formValues.values.gender || ""}
+            options={["Male", "Female"]}
+          />
         </FormControl>
       </Grid>
       <Grid item xs={12}>
@@ -177,7 +126,9 @@ function StudentInfomation() {
           control={
             <Checkbox
               color="primary"
-              checked={formValues.indigenous_status === "Yes" ? true : false}
+              checked={
+                formValues.values.indigenous_status === "Yes" ? true : false
+              }
               onChange={() => handleChange("indigenous_status", "Yes")}
             />
           }
@@ -187,48 +138,44 @@ function StudentInfomation() {
           control={
             <Checkbox
               color="primary"
-              checked={formValues.indigenous_status === "No" ? true : false}
+              checked={
+                formValues.values.indigenous_status === "No" ? true : false
+              }
               onChange={() => handleChange("indigenous_status", "No")}
             />
           }
           label="No"
         />
       </Grid>
-      {formValues.indigenous_status === "Yes" && (
+      {formValues.values.indigenous_status === "Yes" && (
         <Grid item xs={12}>
           <Typography>Please specify:</Typography>
-          <TextField
-            variant="outlined"
-            margin="dense"
+          <FormField
             name="indigenous_status_name"
             onChange={(e) =>
               handleChange("indigenous_status_name", e.target.value)
             }
-            value={formValues.indigenous_status_name || ""}
+            value={formValues.values.indigenous_status_name || ""}
           />
         </Grid>
       )}
 
       <Grid item xs={12} md={4}>
-        <TextField
-          fullWidth
-          margin="dense"
+        <FormField
           label="Mother Tongue"
-          variant="outlined"
           name="mother_tongue"
           onChange={(e) => handleChange("mother_tongue", e.target.value)}
-          value={formValues.mother_tongue || ""}
+          errors={formValues.errors}
+          value={formValues.values.mother_tongue || ""}
         />
       </Grid>
       <Grid item xs={12} md={4}>
-        <TextField
-          fullWidth
-          margin="dense"
+        <FormField
           label="Religion"
-          variant="outlined"
           name="religion"
           onChange={(e) => handleChange("religion", e.target.value)}
-          value={formValues.religion || ""}
+          errors={formValues.errors}
+          value={formValues.values.religion || ""}
         />
       </Grid>
 
@@ -247,7 +194,9 @@ function StudentInfomation() {
           control={
             <Checkbox
               color="primary"
-              checked={formValues.is_special_education === "Yes" ? true : false}
+              checked={
+                formValues.values.is_special_education === "Yes" ? true : false
+              }
               onChange={() => handleChange("is_special_education", "Yes")}
             />
           }
@@ -257,24 +206,24 @@ function StudentInfomation() {
           control={
             <Checkbox
               color="primary"
-              checked={formValues.is_special_education === "No" ? true : false}
+              checked={
+                formValues.values.is_special_education === "No" ? true : false
+              }
               onChange={() => handleChange("is_special_education", "No")}
             />
           }
           label="No"
         />
       </Grid>
-      {formValues.is_special_education === "Yes" && (
+      {formValues.values.is_special_education === "Yes" && (
         <Grid item xs={12}>
           <Typography>Please specify:</Typography>
-          <TextField
-            variant="outlined"
-            margin="dense"
+          <FormField
             name="is_special_education_name"
             onChange={(e) =>
               handleChange("is_special_education_name", e.target.value)
             }
-            value={formValues.is_special_education_name || ""}
+            value={formValues.values.is_special_education_name || ""}
           />
         </Grid>
       )}
@@ -292,7 +241,7 @@ function StudentInfomation() {
             <Checkbox
               color="primary"
               checked={
-                formValues.has_devices_available_at_home === "Yes"
+                formValues.values.has_devices_available_at_home === "Yes"
                   ? true
                   : false
               }
@@ -308,7 +257,9 @@ function StudentInfomation() {
             <Checkbox
               color="primary"
               checked={
-                formValues.has_devices_available_at_home === "No" ? true : false
+                formValues.values.has_devices_available_at_home === "No"
+                  ? true
+                  : false
               }
               onChange={() =>
                 handleChange("has_devices_available_at_home", "No")
@@ -318,30 +269,26 @@ function StudentInfomation() {
           label="No"
         />
       </Grid>
-      {formValues.has_devices_available_at_home === "Yes" && (
+      {formValues.values.has_devices_available_at_home === "Yes" && (
         <Grid item xs={12}>
           <Typography>Please specify:</Typography>
-          <TextField
-            variant="outlined"
-            margin="dense"
+          <FormField
             name="has_devices_available_at_home_name"
             onChange={(e) =>
               handleChange("has_devices_available_at_home_name", e.target.value)
             }
-            value={formValues.has_devices_available_at_home_name || ""}
+            value={formValues.values.has_devices_available_at_home_name || ""}
           />
         </Grid>
       )}
 
       <Grid item xs={12} md={4}>
-        <TextField
-          fullWidth
-          margin="dense"
+        <FormField
           label="Email Address"
-          variant="outlined"
           name="email"
           onChange={(e) => handleChange("email", e.target.value)}
-          value={formValues.email || ""}
+          errors={formValues.errors}
+          value={formValues.values.email || ""}
         />
       </Grid>
       <Grid item xs={12}>
@@ -350,71 +297,58 @@ function StudentInfomation() {
         </Typography>
       </Grid>
       <Grid item xs={12} md={6}>
-        <TextField
-          fullWidth
-          margin="dense"
+        <FormField
           label="House Number and Street"
-          variant="outlined"
           name="house_number_street"
           onChange={(e) => handleChange("house_number_street", e.target.value)}
-          value={formValues.house_number_street || ""}
+          errors={formValues.errors}
+          value={formValues.values.house_number_street || ""}
         />
       </Grid>
       <Grid item xs={12} md={6}>
-        <TextField
-          fullWidth
-          margin="dense"
+        <FormField
           label="Subdivision/ Village/ Zone"
-          variant="outlined"
           name="subdivision_village_zone"
           onChange={(e) =>
             handleChange("subdivision_village_zone", e.target.value)
           }
-          value={formValues.subdivision_village_zone || ""}
+          value={formValues.values.subdivision_village_zone || ""}
         />
       </Grid>
       <Grid item xs={12} md={3}>
-        <TextField
-          fullWidth
-          margin="dense"
+        <FormField
           label="Barangay"
-          variant="outlined"
           name="barangay"
           onChange={(e) => handleChange("barangay", e.target.value)}
-          value={formValues.barangay || ""}
+          errors={formValues.errors}
+          value={formValues.values.barangay || ""}
         />
       </Grid>
       <Grid item xs={12} md={3}>
-        <TextField
-          fullWidth
-          margin="dense"
+        <FormField
           label="City/ Municipality"
-          variant="outlined"
           name="municipality"
           onChange={(e) => handleChange("municipality", e.target.value)}
-          value={formValues.municipality || ""}
+          errors={formValues.errors}
+          value={formValues.values.municipality || ""}
         />
       </Grid>
       <Grid item xs={12} md={3}>
-        <TextField
-          fullWidth
-          margin="dense"
+        <FormField
           label="Province"
-          variant="outlined"
           name="province"
           onChange={(e) => handleChange("province", e.target.value)}
-          value={formValues.province || ""}
+          errors={formValues.errors}
+          value={formValues.values.province || ""}
         />
       </Grid>
       <Grid item xs={12} md={3}>
-        <TextField
-          fullWidth
-          margin="dense"
+        <FormField
           label="Region"
-          variant="outlined"
           name="region"
           onChange={(e) => handleChange("region", e.target.value)}
-          value={formValues.region || ""}
+          errors={formValues.errors}
+          value={formValues.values.region || ""}
         />
       </Grid>
     </Fragment>

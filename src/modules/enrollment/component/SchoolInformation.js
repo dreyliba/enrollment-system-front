@@ -7,7 +7,7 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
-import React, { Fragment, useState, useContext } from "react";
+import React, { Fragment, useContext } from "react";
 import FormField from "../../../components/common/FormField";
 import SelectField from "../../../components/common/SelectField";
 import { levelOptions, schoolYearOptions } from "../../utils/helper";
