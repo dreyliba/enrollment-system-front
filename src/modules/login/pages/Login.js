@@ -2,10 +2,10 @@ import {
   Button,
   Card,
   CardContent,
+  CircularProgress,
   makeStyles,
   TextField,
 } from "@material-ui/core";
-import axios from "axios";
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { API, isAuth } from "../../utils/helper";
@@ -36,6 +36,7 @@ const useStyle = makeStyles({
 
 function Login() {
   const classes = useStyle();
+  const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
@@ -46,6 +47,7 @@ function Login() {
   }
 
   const handleSubmit = () => {
+    setLoading(true);
     API().then((ip) => {
       Http.post(`${ip}/login`, {
         email: formValues.username,
@@ -59,8 +61,11 @@ function Login() {
             localStorage.setItem("accessToken", res.data.token);
             window.location.href = "/dashboard";
           }
+
+          setLoading(false);
         })
         .catch((err) => {
+          setLoading(false);
           alert("Invalid Username and Password");
           // console.log(err.response.data);
         });
@@ -69,6 +74,12 @@ function Login() {
 
   const handleInputChange = (name, value) => {
     setFormValues((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
   };
 
   return (
@@ -85,6 +96,7 @@ function Login() {
             fullWidth
             value={formValues.username}
             onChange={(e) => handleInputChange("username", e.target.value)}
+            onKeyPress={handleKeyPress}
           />
           <TextField
             label="Password"
@@ -94,6 +106,7 @@ function Login() {
             fullWidth
             value={formValues.password}
             onChange={(e) => handleInputChange("password", e.target.value)}
+            onKeyPress={handleKeyPress}
           />
           <Button
             style={{ marginTop: 8 }}
@@ -102,8 +115,9 @@ function Login() {
             variant="contained"
             color="primary"
             onClick={handleSubmit}
+            disabled={loading}
           >
-            LOGIN
+            {loading ? <CircularProgress size={24} /> : "LOGIN"}
           </Button>
         </CardContent>
       </Card>
