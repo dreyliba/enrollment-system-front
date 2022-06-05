@@ -158,7 +158,7 @@ function Student() {
           rowsPerPageOptions={[15, 25, 50, 100]}
           component="div"
           count={enrollments.data.length}
-          rowsPerPage={15}
+          rowsPerPage={filters.limit}
           page={enrollments.meta.current_page - 1 || 0}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
