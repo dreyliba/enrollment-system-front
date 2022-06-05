@@ -58,7 +58,6 @@ function Strand({ match }) {
   });
 
   useEffect(() => {
-    fetchData();
     API().then((ip) => {
       Http.get(`${ip}/track/${params.id}`).then((res) => {
         if (res.data.code === 200) {
@@ -66,15 +65,21 @@ function Strand({ match }) {
         }
       });
     });
+  }, [params.id]);
+
+  useEffect(() => {
+    fetchData(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchData = () => {
     API().then((ip) => {
-      Http.get(`${ip}/strands`).then((res) => {
-        if (res.data.code === 200) {
-          setStrandList(res.data);
+      Http.get(`${ip}/strands`, { params: { track_id: params.id } }).then(
+        (res) => {
+          if (res.data.code === 200) {
+            setStrandList(res.data);
+          }
         }
-      });
+      );
     });
   };
 
@@ -108,9 +113,7 @@ function Strand({ match }) {
       <div>
         <Typography>
           <span className={classes.trackTxt}>Track: </span>
-          <span className={classes.title} var>
-            {trackData.name}
-          </span>
+          <span className={classes.title}>{trackData.name}</span>
         </Typography>
       </div>
       <div className={classes.spaceBetween}>
@@ -153,10 +156,14 @@ function Strand({ match }) {
                   <TableCell>{strand.name}</TableCell>
                   <TableCell>{strand.description}</TableCell>
                   <TableCell>
-                    <IconButton onClick={() => handleOpenEditStrand(strand)}>
+                    <IconButton
+                      size="small"
+                      onClick={() => handleOpenEditStrand(strand)}
+                    >
                       <EditIcon color="primary" />
                     </IconButton>
                     <IconButton
+                      size="small"
                       onClick={() => handleOpenDeleteStrand(strand.id)}
                     >
                       <DeleteIcon color="secondary" />

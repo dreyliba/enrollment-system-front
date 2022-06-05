@@ -2,6 +2,9 @@ import {
   Checkbox,
   FormControl,
   FormControlLabel,
+  FormGroup,
+  FormHelperText,
+  FormLabel,
   Grid,
   Hidden,
   makeStyles,
@@ -116,38 +119,45 @@ function StudentInfomation() {
           />
         </FormControl>
       </Grid>
+
       <Grid item xs={12}>
-        <Typography>
-          Belonging to the Indigenous People (IP) Community/Indigenous Cultural
-          Community
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              checked={
-                formValues.values.indigenous_status === "Yes" ? true : false
+        <FormControl error={formValues.errors.has("indigenous_status")}>
+          <FormLabel>
+            Belonging to the Indigenous People (IP) Community/Indigenous
+            Cultural Community
+          </FormLabel>
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={
+                    formValues.values.indigenous_status === "Yes" ? true : false
+                  }
+                  onChange={() => handleChange("indigenous_status", "Yes")}
+                />
               }
-              onChange={() => handleChange("indigenous_status", "Yes")}
+              label="Yes"
             />
-          }
-          label="Yes"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              checked={
-                formValues.values.indigenous_status === "No" ? true : false
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={
+                    formValues.values.indigenous_status === "No" ? true : false
+                  }
+                  onChange={() => handleChange("indigenous_status", "No")}
+                />
               }
-              onChange={() => handleChange("indigenous_status", "No")}
+              label="No"
             />
-          }
-          label="No"
-        />
+          </FormGroup>
+          {formValues.errors.has("indigenous_status") && (
+            <FormHelperText error>This field is required</FormHelperText>
+          )}
+        </FormControl>
       </Grid>
+
       {formValues.values.indigenous_status === "Yes" && (
         <Grid item xs={12}>
           <Typography>Please specify:</Typography>
@@ -161,6 +171,17 @@ function StudentInfomation() {
           />
         </Grid>
       )}
+      <Grid item xs={12} md={8}>
+        <FormField
+          label="School to enroll in"
+          name="school_to_enroll_name"
+          onChange={(e) =>
+            handleChange("school_to_enroll_name", e.target.value)
+          }
+          value={formValues.values.school_to_enroll_name || ""}
+          errors={formValues.errors}
+        />
+      </Grid>
 
       <Grid item xs={12} md={4}>
         <FormField
@@ -185,38 +206,53 @@ function StudentInfomation() {
         <Typography style={{ fontWeight: "bold" }}>
           For Learners with Special Education Needs
         </Typography>
-        <Typography style={{ fontSize: "14px" }}>
-          {
-            "Does the learner  special education needs? (i.e. physical, social disablity, medical condition, giftedness, among others) "
-          }
-        </Typography>
       </Grid>
+
       <Grid item xs={12}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              checked={
-                formValues.values.is_special_education === "Yes" ? true : false
+        <FormControl error={formValues.errors.has("is_special_education")}>
+          <FormLabel>
+            <Typography style={{ fontSize: "14px" }}>
+              {
+                "Does the learner  special education needs? (i.e. physical, social disablity, medical condition, giftedness, among others) "
               }
-              onChange={() => handleChange("is_special_education", "Yes")}
-            />
-          }
-          label="Yes"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              checked={
-                formValues.values.is_special_education === "No" ? true : false
+            </Typography>
+          </FormLabel>
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={
+                    formValues.values.is_special_education === "Yes"
+                      ? true
+                      : false
+                  }
+                  onChange={() => handleChange("is_special_education", "Yes")}
+                />
               }
-              onChange={() => handleChange("is_special_education", "No")}
+              label="Yes"
             />
-          }
-          label="No"
-        />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={
+                    formValues.values.is_special_education === "No"
+                      ? true
+                      : false
+                  }
+                  onChange={() => handleChange("is_special_education", "No")}
+                />
+              }
+              label="No"
+            />
+          </FormGroup>
+          {formValues.errors.has("is_special_education") && (
+            <FormHelperText error>This field is required</FormHelperText>
+          )}
+        </FormControl>
       </Grid>
+
       {formValues.values.is_special_education === "Yes" && (
         <Grid item xs={12}>
           <Typography>Please specify:</Typography>
@@ -232,45 +268,53 @@ function StudentInfomation() {
       )}
 
       <Grid item xs={12}>
-        <Typography style={{ fontSize: "14px" }}>
-          {
-            "Do you have any assistive technology devices available at home? (i.e. screen reader, Braille, DAISY)"
-          }
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              checked={
-                formValues.values.has_devices_available_at_home === "Yes"
-                  ? true
-                  : false
+        <FormControl
+          error={formValues.errors.has("has_devices_available_at_home")}
+        >
+          <FormLabel>
+            {
+              "Do you have any assistive technology devices available at home? (i.e. screen reader, Braille, DAISY)"
+            }
+          </FormLabel>
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={
+                    formValues.values.has_devices_available_at_home === "Yes"
+                      ? true
+                      : false
+                  }
+                  onChange={() =>
+                    handleChange("has_devices_available_at_home", "Yes")
+                  }
+                />
               }
-              onChange={() =>
-                handleChange("has_devices_available_at_home", "Yes")
-              }
+              label="Yes"
             />
-          }
-          label="Yes"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              checked={
-                formValues.values.has_devices_available_at_home === "No"
-                  ? true
-                  : false
+
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={
+                    formValues.values.has_devices_available_at_home === "No"
+                      ? true
+                      : false
+                  }
+                  onChange={() =>
+                    handleChange("has_devices_available_at_home", "No")
+                  }
+                />
               }
-              onChange={() =>
-                handleChange("has_devices_available_at_home", "No")
-              }
+              label="No"
             />
-          }
-          label="No"
-        />
+          </FormGroup>
+          {formValues.errors.has("has_devices_available_at_home") && (
+            <FormHelperText error>This field is required</FormHelperText>
+          )}
+        </FormControl>
       </Grid>
       {formValues.values.has_devices_available_at_home === "Yes" && (
         <Grid item xs={12}>

@@ -1,7 +1,6 @@
 import Dashboard from "../modules/dashboard/pages/Dashboard";
-import Enrollment from "../modules/enrollment/pages/Enrollment";
-import Report from "../modules/report/pages/Report";
-import Student from "../modules/student/pages/Student";
+import Enrollment from "../modules/enrollment/pages/Enrollments";
+import AddEnrollment from "../modules/enrollment/pages/AddEnrollment";
 import Login from "../modules/login/pages/Login";
 import UserList from "../modules/user/Users";
 import Strand from "../modules/settings/Strand";
@@ -21,22 +20,17 @@ const routes = [
     auth: true,
   },
   {
-    path: "/enrollment",
+    path: "/enrollments/add",
+    component: AddEnrollment,
+    auth: true,
+  },
+  {
+    path: "/enrollments",
     component: Enrollment,
     auth: true,
   },
   {
-    path: "/report",
-    component: Report,
-    auth: true,
-  },
-  {
-    path: "/student",
-    component: Student,
-    auth: true,
-  },
-  {
-    path: "/student/:id/edit",
+    path: "/enrollments/:id/edit",
     component: EditEnrollment,
     auth: true,
   },
@@ -46,12 +40,12 @@ const routes = [
     auth: true,
   },
   {
-    path: "/track",
+    path: "/settings/track",
     component: Track,
     auth: true,
   },
   {
-    path: "/track/:id/strand",
+    path: "/settings/track/:id/strand",
     component: Strand,
     auth: true,
   },

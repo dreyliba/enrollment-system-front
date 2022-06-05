@@ -10,7 +10,6 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
-import MailIcon from "@material-ui/icons/Mail";
 import GroupIcon from "@material-ui/icons/Group";
 import SettingsIcon from "@material-ui/icons/Settings";
 import Collapse from "@material-ui/core/Collapse";
@@ -50,7 +49,16 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   nested: {
-    paddingLeft: theme.spacing(4),
+    marginLeft: theme.spacing(4),
+  },
+  active: {
+    backgroundColor: "#3f51b5",
+    color: "#fff",
+
+    "&:hover": {
+      backgroundColor: "#3f51b5",
+      color: "#fff",
+    },
   },
 }));
 
@@ -64,11 +72,15 @@ export default function Sidbar() {
     setOpen(!open);
   };
 
+  const isActive = (url) => {
+    return location.pathname.includes(url);
+  };
+
   useEffect(() => {
     if (location.pathname.includes("track")) {
       setOpen(true);
     }
-  }, []);
+  }, [location.pathname]);
 
   const handleNavigate = (url) => {
     history.push(url);
@@ -95,7 +107,10 @@ export default function Sidbar() {
         <div className={classes.toolbar} />
         <Divider style={{ marginTop: -50 }} />
         <List>
-          <ListItem button>
+          <ListItem
+            button
+            className={isActive("/dashboard") ? classes.active : ""}
+          >
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
@@ -104,34 +119,19 @@ export default function Sidbar() {
               primary={"Dashboard"}
             />
           </ListItem>
-          <ListItem button>
+          <ListItem
+            button
+            className={isActive("/enrollments") ? classes.active : ""}
+          >
             <ListItemIcon>
               <PersonAddIcon />
             </ListItemIcon>
             <ListItemText
-              onClick={() => handleNavigate("/enrollment")}
+              onClick={() => handleNavigate("/enrollments")}
               primary={"Enrollment"}
             />
           </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <GroupIcon />
-            </ListItemIcon>
-            <ListItemText
-              onClick={() => handleNavigate("/student")}
-              primary={"Student List"}
-            />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <MailIcon />
-            </ListItemIcon>
-            <ListItemText
-              onClick={() => handleNavigate("/report")}
-              primary={"Reports"}
-            />
-          </ListItem>
-          <ListItem button>
+          <ListItem button className={isActive("/users") ? classes.active : ""}>
             <ListItemIcon>
               <GroupIcon />
             </ListItemIcon>
@@ -140,7 +140,11 @@ export default function Sidbar() {
               primary={"Users"}
             />
           </ListItem>
-          <ListItem button onClick={handleClick}>
+          <ListItem
+            button
+            onClick={handleClick}
+            className={isActive("/settings") ? classes.active : ""}
+          >
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>
@@ -149,12 +153,17 @@ export default function Sidbar() {
           </ListItem>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
+              <ListItem
+                button
+                className={`${isActive("/settings") ? classes.active : ""} ${
+                  classes.nested
+                }`}
+              >
                 <ListItemIcon>
                   <AccountBalanceIcon />
                 </ListItemIcon>
                 <ListItemText
-                  onClick={() => handleNavigate("/track")}
+                  onClick={() => handleNavigate("/settings/track")}
                   primary="Track"
                 />
               </ListItem>

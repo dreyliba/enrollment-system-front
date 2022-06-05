@@ -4,10 +4,8 @@ import {
   CardActions,
   CardContent,
   makeStyles,
-  TextField,
   Typography,
 } from "@material-ui/core";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { API } from "../utils/helper";
 import Http from "../utils/Http";
@@ -62,7 +60,7 @@ function Profile() {
 
   const fetchData = () => {
     API().then((ip) => {
-      Http.get(`${ip}/user`).then((res) => {
+      Http.get(`${ip}/users`).then((res) => {
         if (res.data) {
           setUser(res.data);
         }
@@ -85,13 +83,13 @@ function Profile() {
           <div className={classes.title}>
             <Typography variant="h6">Profile</Typography>
           </div>
-          <div className={classes.img_holder}>
+          {/* <div className={classes.img_holder}>
             <img
               src={user.profile_pic}
               className={classes.profile_image}
               alt="Admin Picture"
             />
-          </div>
+          </div> */}
           {/* <Typography className={classes.admin_text}>Admin</Typography> */}
           <CardContent>
             <Typography

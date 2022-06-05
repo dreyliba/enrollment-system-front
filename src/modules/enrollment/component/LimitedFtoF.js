@@ -1,6 +1,10 @@
 import {
   Checkbox,
+  FormControl,
   FormControlLabel,
+  FormGroup,
+  FormHelperText,
+  FormLabel,
   Grid,
   makeStyles,
   TextField,
@@ -29,42 +33,47 @@ function LimitedFtoF() {
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Typography>
-          E.1 In case limited face to face classes will be allowed, are you
-          willing to allow your child/children to participate?
-        </Typography>
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              checked={
-                formValues.values.limited_classes_allowed === "Yes"
-                  ? true
-                  : false
+        <FormControl error={formValues.errors.has("limited_classes_allowed")}>
+          <FormLabel>
+            E.1 In case limited face to face classes will be allowed, are you
+            willing to allow your child/children to participate?
+          </FormLabel>
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={
+                    formValues.values.limited_classes_allowed === "Yes"
+                      ? true
+                      : false
+                  }
+                  onChange={() =>
+                    handleChange("limited_classes_allowed", "Yes")
+                  }
+                />
               }
-              onChange={() => handleChange("limited_classes_allowed", "Yes")}
+              label="Yes"
             />
-          }
-          label="Yes"
-        />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              checked={
-                formValues.values.limited_classes_allowed === "No"
-                  ? true
-                  : false
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={
+                    formValues.values.limited_classes_allowed === "No"
+                      ? true
+                      : false
+                  }
+                  onChange={() => handleChange("limited_classes_allowed", "No")}
+                />
               }
-              onChange={() => handleChange("limited_classes_allowed", "No")}
+              label="No"
             />
-          }
-          label="No"
-        />
+          </FormGroup>
+          {formValues.errors.has("limited_classes_allowed") && (
+            <FormHelperText error>This field is required</FormHelperText>
+          )}
+        </FormControl>
       </Grid>
       {formValues.values.limited_classes_allowed === "No" && (
         <>

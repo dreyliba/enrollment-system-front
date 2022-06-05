@@ -1,6 +1,9 @@
 import {
   Checkbox,
+  FormControl,
   FormControlLabel,
+  FormGroup,
+  FormHelperText,
   FormLabel,
   Grid,
   makeStyles,
@@ -343,7 +346,13 @@ function ParentGuardianInfo() {
       </Grid>
       <Grid item xs={12} sm={4}>
         <FormLabel>{"Guardian(last name, middel name, first name)"}</FormLabel>
-        <FormField label="Full Name"></FormField>
+        <FormField
+          label="Full Name"
+          name="guardian"
+          onChange={(e) => handleChange("guardian", e.target.value)}
+          errors={formValues.errors}
+          value={formValues.values.guardian || ""}
+        />
         <div>
           <FormLabel>
             {"Contact number/s (cellphone/ telephone)/Email Address"}
@@ -492,33 +501,38 @@ function ParentGuardianInfo() {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        <Typography style={{ marginTop: 15 }}>
-          Is your family a beneficiary yof 4Ps?
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              checked={
-                formValues.values.is_benificiary === "Yes" ? true : false
+        <FormControl error={formValues.errors.has("is_benificiary")}>
+          <FormLabel>Is your family a beneficiary yof 4Ps?</FormLabel>
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={
+                    formValues.values.is_benificiary === "Yes" ? true : false
+                  }
+                  onChange={() => handleChange("is_benificiary", "Yes")}
+                />
               }
-              onChange={() => handleChange("is_benificiary", "Yes")}
+              label="Yes"
             />
-          }
-          label="Yes"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              checked={formValues.values.is_benificiary === "No" ? true : false}
-              onChange={() => handleChange("is_benificiary", "No")}
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={
+                    formValues.values.is_benificiary === "No" ? true : false
+                  }
+                  onChange={() => handleChange("is_benificiary", "No")}
+                />
+              }
+              label="No"
             />
-          }
-          label="No"
-        />
+          </FormGroup>
+          {formValues.errors.has("is_benificiary") && (
+            <FormHelperText error>This field is required</FormHelperText>
+          )}
+        </FormControl>
       </Grid>
     </Fragment>
   );

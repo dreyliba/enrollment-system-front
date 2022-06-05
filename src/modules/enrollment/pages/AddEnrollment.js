@@ -5,6 +5,7 @@ import {
   Grid,
   makeStyles,
   Typography,
+  CircularProgress,
 } from "@material-ui/core";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { API, Revalidate } from "../../utils/helper";
@@ -15,6 +16,7 @@ import SchoolInformation from "../component/SchoolInformation";
 import StudentInfomation from "../component/StudentInfomation";
 import EnrollmentContext from "../context/EnrollmentContent";
 import Http from "../../utils/Http";
+import MessageModal from "../../../components/MessageModal";
 
 const useStyles = makeStyles({
   parentContainer: {
@@ -24,7 +26,7 @@ const useStyles = makeStyles({
 
 const validator = Revalidate({
   school_year: "required",
-  lrn_status: "",
+  lrn_status: "required",
   returning: "",
   grade_level_to_enroll: "required",
   last_grade_level_completed: "",
@@ -36,10 +38,10 @@ const validator = Revalidate({
   last_school_attended_name: "",
   last_school_attended_address: "",
   last_school_attended_id: "",
-  school_type: "",
-  school_to_enroll_name: "",
-  school_to_enroll_address: "",
-  school_to_enroll_in_id: "",
+  school_type: "required",
+  school_to_enroll_name: "required",
+  school_to_enroll_address: "required",
+  school_to_enroll_in_id: "required",
 
   kinder: "integer",
   grade_1: "integer",
@@ -59,13 +61,14 @@ const validator = Revalidate({
   available_device: "",
   available_device_others: "",
   internet_connection: "",
+  has_internet_connection: "required",
   distance_learning: "",
   distance_learning_others: "",
   learning_challenges: "",
   learning_challenges_others: "",
 
   limited_face_to_face: "",
-  limited_classes_allowed: "",
+  limited_classes_allowed: "required",
   limited_face_to_face_others: "",
 
   father: "",
@@ -78,7 +81,7 @@ const validator = Revalidate({
   father_heighest_edu_attainment: "",
   mother_heighest_edu_attainment: "",
   guardian_heighest_edu_attainment: "",
-  is_benificiary: "",
+  is_benificiary: "required",
 
   psa: "",
   lrn: "",
@@ -88,13 +91,13 @@ const validator = Revalidate({
   extension_name: "",
   date_of_birth: "required",
   gender: "required",
-  indigenous_status: "",
+  indigenous_status: "required",
   indigenous_status_name: "",
   mother_tongue: "required",
-  religion: "",
-  is_special_education: "",
+  religion: "required",
+  is_special_education: "required",
   is_special_education_name: "",
-  has_devices_available_at_home: "",
+  has_devices_available_at_home: "required",
   has_devices_available_at_home_name: "",
   email: "email",
   house_number_street: "",
@@ -115,11 +118,14 @@ const dictionary = {
 
 validator.localize("en", dictionary);
 
-export default function Enrollment() {
+export default function AddEnrollment() {
   const classes = useStyles();
 
   const [tracks, setTracks] = useState([]);
   const [strands, setStrands] = useState([]);
+
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     API().then((ip) => {
@@ -169,13 +175,14 @@ export default function Enrollment() {
       household_member: [],
       available_device: [],
       available_device_others: "",
+      has_internet_connection: "",
       internet_connection: [],
       distance_learning: [],
       distance_learning_others: "",
       learning_challenges: [],
       learning_challenges_others: "",
 
-      limited_face_to_face: [],
+      limited_face_to_face: "",
       limited_classes_allowed: "",
       limited_face_to_face_others: "",
 
@@ -336,12 +343,38 @@ export default function Enrollment() {
   };
 
   const handleSubmit = () => {
+    setLoading(true);
     API().then((ip) => {
-      Http.post(`${ip}/enrollments`, formValues).then((res) => {
-        if (res.data.code === 200) {
-        }
-      });
+      Http.post(`${ip}/enrollments`, formValues.values)
+        .then((res) => {
+          if (res.data.code === 200) {
+            setShowModal(true);
+            handleReset();
+          }
+
+          setLoading(false);
+        })
+        .catch(() => {
+          setLoading(false);
+        });
     });
+  };
+
+  const handleReset = () => {
+    const values = {};
+
+    for (const key in formValues.values) {
+      if (Array.isArray(formValues.values[key])) {
+        values[key] = [];
+      } else {
+        values[key] = "";
+      }
+    }
+
+    setFormValues((prev) => ({
+      ...prev,
+      values,
+    }));
   };
 
   return (
@@ -361,29 +394,38 @@ export default function Enrollment() {
                     Some information is required!
                   </FormHelperText>
                 )}
-              {formValues.values.grade_level_to_enroll > 10 && (
-                <Typography color="error">
-                  Track and strand information is required
-                </Typography>
-              )}
+              {formValues.values.grade_level_to_enroll > 10 &&
+                formValues.values.track_id === "" && (
+                  <Typography color="error">
+                    Track and strand information is required
+                  </Typography>
+                )}
 
-              {formValues.values.last_grade_level_completed > 10 && (
-                <Typography color="error">
-                  Last grade level track and strand information is required
-                </Typography>
-              )}
+              {formValues.values.last_grade_level_completed > 10 &&
+                formValues.values.last_year_track_id === "" && (
+                  <Typography color="error">
+                    Last grade level track and strand information is required
+                  </Typography>
+                )}
               <Button
                 variant="contained"
                 color="primary"
                 fullWidth
                 onClick={handleValidate}
+                disabled={loading}
               >
-                Submit
+                {loading ? <CircularProgress size={24} /> : "Submit"}
               </Button>
             </Grid>
           </Grid>
         </Card>
       </EnrollmentContext.Provider>
+
+      <MessageModal
+        open={showModal}
+        handleClose={() => setShowModal(false)}
+        message="Student Successfully Enrolled"
+      />
     </div>
   );
 }

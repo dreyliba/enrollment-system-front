@@ -1,6 +1,10 @@
 import {
   Checkbox,
+  FormControl,
   FormControlLabel,
+  FormGroup,
+  FormHelperText,
+  FormLabel,
   Grid,
   makeStyles,
   Typography,
@@ -206,7 +210,7 @@ function HouseHoldCapcity() {
                 onChange={() =>
                   handleCheckboxChange(
                     "household_member",
-                    "others (tutors, house helper"
+                    "others (tutors, house helper)"
                   )
                 }
                 checked={formValues.values.household_member.includes(
@@ -459,35 +463,44 @@ function HouseHoldCapcity() {
         )}
       </Grid>
       <Grid item xs={12} md={8}>
-        <Typography>D4. Is there an internet signal in your area?</Typography>
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              checked={
-                formValues.values.indigenous_status === "Yes" ? true : false
+        <FormControl error={formValues.errors.has("has_internet_connection")}>
+          <FormLabel>D4. Is there an internet signal in your area?</FormLabel>
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={
+                    formValues.values.has_internet_connection === "Yes"
+                      ? true
+                      : false
+                  }
+                  onChange={() =>
+                    handleChange("has_internet_connection", "Yes")
+                  }
+                />
               }
-              onChange={() => handleChange("indigenous_status", "Yes")}
+              label="Yes"
             />
-          }
-          label="Yes"
-        />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              checked={
-                formValues.values.indigenous_status === "No" ? true : false
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={
+                    formValues.values.has_internet_connection === "No"
+                      ? true
+                      : false
+                  }
+                  onChange={() => handleChange("has_internet_connection", "No")}
+                />
               }
-              onChange={() => handleChange("indigenous_status", "No")}
+              label="No"
             />
-          }
-          label="No"
-        />
+          </FormGroup>
+          {formValues.errors.has("has_internet_connection") && (
+            <FormHelperText error>This field is required</FormHelperText>
+          )}
+        </FormControl>
       </Grid>
       <Grid item xs={12} md={8}>
         <Typography>

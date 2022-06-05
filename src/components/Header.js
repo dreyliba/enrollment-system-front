@@ -63,9 +63,7 @@ export default function Header() {
       <AppBar position="static" className={classes.appBar}>
         <Toolbar>
           <div className={classes.navTitle}>
-            <Typography variant="h6" noWrap>
-              Hello World
-            </Typography>
+            <Typography variant="h6" noWrap></Typography>
           </div>
           <div>
             <IconButton

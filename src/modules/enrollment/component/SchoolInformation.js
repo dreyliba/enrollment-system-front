@@ -1,6 +1,9 @@
 import {
   Checkbox,
+  FormControl,
   FormControlLabel,
+  FormGroup,
+  FormHelperText,
   FormLabel,
   Grid,
   makeStyles,
@@ -43,39 +46,55 @@ function SchoolInformation({ tracks, strands }) {
           options={schoolYearOptions()}
         />
       </Grid>
+
       <Grid item xs={12}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              checked={formValues.values.lrn_status === "No LRN" ? true : false}
-              onChange={() => handleFormChange("lrn_status", "No LRN")}
-            />
-          }
-          label="No LRN"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              checked={
-                formValues.values.lrn_status === "With LRN" ? true : false
+        <FormControl>
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={
+                    formValues.values.lrn_status === "With LRN" ? true : false
+                  }
+                  onChange={() => handleFormChange("lrn_status", "With LRN")}
+                />
               }
-              onChange={() => handleFormChange("lrn_status", "With LRN")}
+              label="With LRN"
             />
-          }
-          label="With LRN"
-        />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={
+                    formValues.values.lrn_status === "No LRN" ? true : false
+                  }
+                  onChange={() => handleFormChange("lrn_status", "No LRN")}
+                />
+              }
+              label="No LRN"
+            />
+          </FormGroup>
+          {formValues.errors.has("lrn_status") && (
+            <FormHelperText error>This field is required</FormHelperText>
+          )}
+        </FormControl>
       </Grid>
+
       <Grid item xs={12}>
         <FormControlLabel
           control={
             <Checkbox
               color="primary"
-              onChange={(e) => handleFormChange("returning", e.target.value)}
+              checked={formValues.values.returning === "Yes"}
+              onChange={(e) =>
+                handleFormChange(
+                  "returning",
+                  formValues.values.returning === "Yes" ? "No" : "Yes"
+                )
+              }
             />
           }
-          value={formValues.values.returning || ""}
           label="Returning (Balik Aral)"
         />
       </Grid>
@@ -98,8 +117,8 @@ function SchoolInformation({ tracks, strands }) {
         {parseInt(formValues.values.grade_level_to_enroll) > 10 && (
           <div>
             <SelectField
-              name="Track ID"
-              label="Track"
+              name="track_id"
+              label="Track ID"
               onChange={(e) => handleFormChange("track_id", e.target.value)}
               errors={formValues.errors}
               value={formValues.values.track_id || ""}
@@ -107,7 +126,7 @@ function SchoolInformation({ tracks, strands }) {
               keyValuePair="id,name"
             />
             <SelectField
-              name="Strand"
+              name="strand_id"
               label="Strand"
               onChange={(e) => handleFormChange("strand_id", e.target.value)}
               errors={formValues.errors}
@@ -136,7 +155,7 @@ function SchoolInformation({ tracks, strands }) {
         {parseInt(formValues.values.last_grade_level_completed) > 10 && (
           <div>
             <SelectField
-              name="Track ID"
+              name="last_year_track_id"
               label="Track"
               onChange={(e) =>
                 handleFormChange("last_year_track_id", e.target.value)
@@ -147,7 +166,7 @@ function SchoolInformation({ tracks, strands }) {
               keyValuePair="id,name"
             />
             <SelectField
-              name="Strand"
+              name="last_year_strand_id"
               label="Strand"
               onChange={(e) =>
                 handleFormChange("last_year_strand_id", e.target.value)
@@ -206,34 +225,39 @@ function SchoolInformation({ tracks, strands }) {
           errors={formValues.errors}
         />
       </Grid>
-      <Grid item xs={6}>
-        <Typography>School Type</Typography>
-      </Grid>
       <Grid item xs={12}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              checked={
-                formValues.values.school_type === "Private" ? true : false
+        <FormControl error={formValues.errors.has("school_type")}>
+          <FormLabel>School Type</FormLabel>
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={
+                    formValues.values.school_type === "Private" ? true : false
+                  }
+                  onChange={() => handleFormChange("school_type", "Private")}
+                />
               }
-              onChange={() => handleFormChange("school_type", "Private")}
+              label="Private"
             />
-          }
-          label="Private"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              checked={
-                formValues.values.school_type === "Public" ? true : false
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={
+                    formValues.values.school_type === "Public" ? true : false
+                  }
+                  onChange={() => handleFormChange("school_type", "Public")}
+                />
               }
-              onChange={() => handleFormChange("school_type", "Public")}
+              label="Public"
             />
-          }
-          label="Public"
-        />
+          </FormGroup>
+          {formValues.errors.has("school_type") && (
+            <FormHelperText error>This field is required</FormHelperText>
+          )}
+        </FormControl>
       </Grid>
       <Grid item xs={12} md={8}>
         <FormField

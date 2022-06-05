@@ -22,6 +22,7 @@ import EditTrack from "./pages/EditTrack";
 import DeleteTrack from "./pages/DeleteTrack";
 import { API } from "../utils/helper";
 import Http from "../utils/Http";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   spaceBetween: {
@@ -37,6 +38,7 @@ const useStyles = makeStyles({
 
 function Track() {
   const classes = useStyles();
+  const history = useHistory();
   const [selectedTrackValues, setSelectedTrackValues] = useState({});
   const [selectedID, setSelectedID] = useState("");
   const [openDeleteTrack, setOpenDeleteTrack] = useState(false);
@@ -130,16 +132,23 @@ function Track() {
                   <TableCell>{track.description}</TableCell>
                   <TableCell>
                     <IconButton
+                      size="small"
                       onClick={() => {
-                        window.location.href = `/track/${track.id}/strand`;
+                        history.push(`/settings/track/${track.id}/strand`);
                       }}
                     >
                       <VisibilityIcon color="primary" />
                     </IconButton>
-                    <IconButton onClick={() => handleOpenEditTrack(track)}>
+                    <IconButton
+                      size="small"
+                      onClick={() => handleOpenEditTrack(track)}
+                    >
                       <EditIcon color="primary" />
                     </IconButton>
-                    <IconButton onClick={() => handleOpenDeleteTrack(track.id)}>
+                    <IconButton
+                      size="small"
+                      onClick={() => handleOpenDeleteTrack(track.id)}
+                    >
                       <DeleteIcon color="secondary" />
                     </IconButton>
                   </TableCell>
