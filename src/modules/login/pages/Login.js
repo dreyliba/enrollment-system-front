@@ -93,6 +93,7 @@ function Login() {
             variant="outlined"
             margin="dense"
             type="email"
+            name="email"
             fullWidth
             value={formValues.username}
             onChange={(e) => handleInputChange("username", e.target.value)}
@@ -103,6 +104,7 @@ function Login() {
             variant="outlined"
             margin="dense"
             type="password"
+            name="password"
             fullWidth
             value={formValues.password}
             onChange={(e) => handleInputChange("password", e.target.value)}

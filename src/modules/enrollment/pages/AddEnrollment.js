@@ -17,6 +17,7 @@ import StudentInfomation from "../component/StudentInfomation";
 import EnrollmentContext from "../context/EnrollmentContent";
 import Http from "../../utils/Http";
 import MessageModal from "../../../components/MessageModal";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   parentContainer: {
@@ -120,6 +121,7 @@ validator.localize("en", dictionary);
 
 export default function AddEnrollment() {
   const classes = useStyles();
+  const history = useHistory();
 
   const [tracks, setTracks] = useState([]);
   const [strands, setStrands] = useState([]);
@@ -377,6 +379,11 @@ export default function AddEnrollment() {
     }));
   };
 
+  const handleClose = () => {
+    setShowModal(false);
+    history.push("/enrollments");
+  };
+
   return (
     <div>
       <EnrollmentContext.Provider value={providerValue}>
@@ -423,7 +430,7 @@ export default function AddEnrollment() {
 
       <MessageModal
         open={showModal}
-        handleClose={() => setShowModal(false)}
+        handleClose={handleClose}
         message="Student Successfully Enrolled"
       />
     </div>

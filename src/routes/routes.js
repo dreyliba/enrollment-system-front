@@ -6,6 +6,8 @@ import UserList from "../modules/user/Users";
 import Strand from "../modules/settings/Strand";
 import Track from "../modules/settings/Track";
 import Profile from "../modules/profile/Profile";
+import Report from "../modules/report/pages/Report";
+import PrintEnrollmentReports from "../modules/report/pages/PrintEnrollmentReports";
 import EditEnrollment from "../modules/enrollment/pages/EditEnrollment";
 
 const routes = [
@@ -33,6 +35,16 @@ const routes = [
     path: "/enrollments/:id/edit",
     component: EditEnrollment,
     auth: true,
+  },
+  {
+    path: "/reports",
+    component: Report,
+    auth: true,
+  },
+  {
+    path: "/reports/print",
+    component: PrintEnrollmentReports,
+    // auth: true,
   },
   {
     path: "/users",

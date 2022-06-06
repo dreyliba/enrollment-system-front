@@ -5,6 +5,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
+import { Typography } from "@material-ui/core";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -20,9 +21,11 @@ function MessageModal({ open, message, handleClose }) {
       aria-describedby="alert-dialog-slide-description"
     >
       <DialogTitle id="alert-dialog-slide-title">{"Message"}</DialogTitle>
-      <DialogContent>{message}</DialogContent>
+      <DialogContent>
+        <Typography>{message}</Typography>
+      </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="primary">
+        <Button onClick={handleClose} color="primary" variant="contained">
           Close
         </Button>
       </DialogActions>

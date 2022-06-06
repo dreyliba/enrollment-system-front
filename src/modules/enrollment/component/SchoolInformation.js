@@ -30,6 +30,10 @@ function SchoolInformation({ tracks, strands }) {
     handleChange(name, value);
   };
 
+  const getStrandOptions = (id) => {
+    return strands.filter((strand) => strand.track_id === parseInt(id));
+  };
+
   return (
     <Fragment>
       <Grid item xs={12}>
@@ -118,22 +122,25 @@ function SchoolInformation({ tracks, strands }) {
           <div>
             <SelectField
               name="track_id"
-              label="Track ID"
+              label="Track"
               onChange={(e) => handleFormChange("track_id", e.target.value)}
               errors={formValues.errors}
               value={formValues.values.track_id || ""}
               options={tracks}
               keyValuePair="id,name"
             />
-            <SelectField
-              name="strand_id"
-              label="Strand"
-              onChange={(e) => handleFormChange("strand_id", e.target.value)}
-              errors={formValues.errors}
-              value={formValues.values.strand_id || ""}
-              options={strands}
-              keyValuePair="id,name"
-            />
+
+            {getStrandOptions(formValues.values.track_id).length > 0 && (
+              <SelectField
+                name="strand_id"
+                label="Strand"
+                onChange={(e) => handleFormChange("strand_id", e.target.value)}
+                errors={formValues.errors}
+                value={formValues.values.strand_id || ""}
+                options={getStrandOptions(formValues.values.track_id)}
+                keyValuePair="id,name"
+              />
+            )}
           </div>
         )}
       </Grid>
@@ -165,17 +172,21 @@ function SchoolInformation({ tracks, strands }) {
               options={tracks}
               keyValuePair="id,name"
             />
-            <SelectField
-              name="last_year_strand_id"
-              label="Strand"
-              onChange={(e) =>
-                handleFormChange("last_year_strand_id", e.target.value)
-              }
-              errors={formValues.errors}
-              value={formValues.values.last_year_strand_id || ""}
-              options={strands}
-              keyValuePair="id,name"
-            />
+
+            {getStrandOptions(formValues.values.last_year_track_id).length >
+              0 && (
+              <SelectField
+                name="last_year_strand_id"
+                label="Strand"
+                onChange={(e) =>
+                  handleFormChange("last_year_strand_id", e.target.value)
+                }
+                errors={formValues.errors}
+                value={formValues.values.last_year_strand_id || ""}
+                options={getStrandOptions(formValues.values.last_year_track_id)}
+                keyValuePair="id,name"
+              />
+            )}
           </div>
         )}
       </Grid>

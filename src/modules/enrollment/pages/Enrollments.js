@@ -127,6 +127,9 @@ function Student() {
                 <TableCell>First Name</TableCell>
                 <TableCell>Middle Name</TableCell>
                 <TableCell>Email</TableCell>
+                <TableCell>Grade</TableCell>
+                <TableCell>Track</TableCell>
+                <TableCell>Strand</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -149,6 +152,13 @@ function Student() {
                     <TableCell>{enrollment.first_name}</TableCell>
                     <TableCell>{enrollment.middle_name}</TableCell>
                     <TableCell>{enrollment.email}</TableCell>
+                    <TableCell>{enrollment.grade_level_to_enroll}</TableCell>
+                    <TableCell>
+                      {(enrollment.track && enrollment.track.code) || ""}
+                    </TableCell>
+                    <TableCell>
+                      {(enrollment.strand && enrollment.strand.name) || ""}
+                    </TableCell>
                   </TableRow>
                 ))}
             </TableBody>

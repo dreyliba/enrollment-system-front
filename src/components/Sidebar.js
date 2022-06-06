@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import List from "@material-ui/core/List";
+import AssessmentIcon from "@material-ui/icons/Assessment";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
@@ -129,6 +130,18 @@ export default function Sidbar() {
             <ListItemText
               onClick={() => handleNavigate("/enrollments")}
               primary={"Enrollment"}
+            />
+          </ListItem>
+          <ListItem
+            button
+            className={isActive("/reports") ? classes.active : ""}
+          >
+            <ListItemIcon>
+              <AssessmentIcon />
+            </ListItemIcon>
+            <ListItemText
+              onClick={() => handleNavigate("/reports")}
+              primary={"Reports"}
             />
           </ListItem>
           <ListItem button className={isActive("/users") ? classes.active : ""}>
