@@ -6,7 +6,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import { TextField } from "@material-ui/core";
-import { API } from "../../utils/helper";
 import Http from "../../utils/Http";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -43,13 +42,11 @@ export default function AddTrack({ handleOpen, handleClose, refetch }) {
   };
 
   const handleSubmit = () => {
-    API().then((ip) => {
-      Http.post(`${ip}/addTrack`, formValues).then((res) => {
-        if (res.data.code === 200) {
-          handleClose(false);
-          refetch();
-        }
-      });
+    Http.post(`/addTrack`, formValues).then((res) => {
+      if (res.data.code === 200) {
+        handleClose(false);
+        refetch();
+      }
     });
   };
 

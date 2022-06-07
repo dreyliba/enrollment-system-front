@@ -13,7 +13,7 @@ import {
   IconButton,
 } from "@material-ui/core";
 import Profile from "../../../assets/images/Profile.jpg";
-import axios from "axios";
+import Http from "../../utils/Http";
 
 const useStyles = makeStyles({
   titleHolder: {
@@ -46,7 +46,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const API = process.env.REACT_APP_API_URL;
 function EditProfile({ handleOpen, handleClose, refetch, user }) {
   const classes = useStyles();
   const [imagePreview, setImagePreview] = useState("");
@@ -95,18 +94,16 @@ function EditProfile({ handleOpen, handleClose, refetch, user }) {
       formData.append(key, formValues[key]);
     }
 
-    axios
-      .post(`${API}/updateUser/${user.id}`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        if (res.data) {
-          handleClose(false);
-          refetch();
-        }
-      });
+    Http.post(`/updateUser/${user.id}`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      if (res.data) {
+        handleClose(false);
+        refetch();
+      }
+    });
   };
 
   const handleFileChange = (e) => {

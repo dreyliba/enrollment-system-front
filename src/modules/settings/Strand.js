@@ -20,7 +20,6 @@ import React, { useEffect, useState } from "react";
 import EditStrand from "./pages/EditStrand";
 import DeleteStrand from "./pages/DeleteStrand";
 import AddStrand from "./pages/AddStrand";
-import { API } from "../utils/helper";
 import Http from "../utils/Http";
 
 const useStyles = makeStyles({
@@ -58,12 +57,10 @@ function Strand({ match }) {
   });
 
   useEffect(() => {
-    API().then((ip) => {
-      Http.get(`${ip}/track/${params.id}`).then((res) => {
-        if (res.data.code === 200) {
-          setTrackData(res.data.track);
-        }
-      });
+    Http.get(`/track/${params.id}`).then((res) => {
+      if (res.data.code === 200) {
+        setTrackData(res.data.track);
+      }
     });
   }, [params.id]);
 
@@ -72,14 +69,10 @@ function Strand({ match }) {
   }, []);
 
   const fetchData = () => {
-    API().then((ip) => {
-      Http.get(`${ip}/strands`, { params: { track_id: params.id } }).then(
-        (res) => {
-          if (res.data.code === 200) {
-            setStrandList(res.data);
-          }
-        }
-      );
+    Http.get(`/strands`, { params: { track_id: params.id } }).then((res) => {
+      if (res.data.code === 200) {
+        setStrandList(res.data);
+      }
     });
   };
 
@@ -98,13 +91,11 @@ function Strand({ match }) {
   };
 
   const handleConfirmDelete = () => {
-    API().then((ip) => {
-      Http.delete(`${ip}/strand/${selectedID}`).then((res) => {
-        if (res.data) {
-          setOpenDeleteStrand(false);
-          fetchData();
-        }
-      });
+    Http.delete(`/strand/${selectedID}`).then((res) => {
+      if (res.data) {
+        setOpenDeleteStrand(false);
+        fetchData();
+      }
     });
   };
 

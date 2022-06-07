@@ -7,7 +7,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { API } from "../utils/helper";
 import Http from "../utils/Http";
 import ChangePass from "./pages/ChangePass";
 import EditProfile from "./pages/EditProfile";
@@ -59,12 +58,10 @@ function Profile() {
   }, []);
 
   const fetchData = () => {
-    API().then((ip) => {
-      Http.get(`${ip}/users`).then((res) => {
-        if (res.data) {
-          setUser(res.data);
-        }
-      });
+    Http.get(`/users`).then((res) => {
+      if (res.data) {
+        setUser(res.data);
+      }
     });
   };
   const handleOpenEditProfile = () => {

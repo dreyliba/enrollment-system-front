@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import axios from "axios";
+import Http from "../../utils/Http";
 
 const useStyles = makeStyles({
   titleHolder: {
@@ -27,7 +27,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const API = process.env.REACT_APP_API_URL;
 function ChangePass({ handleOpen, handleClose, userId }) {
   const classes = useStyles();
   const [formValues, setFormValues] = useState({
@@ -50,12 +49,11 @@ function ChangePass({ handleOpen, handleClose, userId }) {
 
   const handleSubmit = () => {
     const token = localStorage.getItem("accessToken");
-    axios
-      .post(`${API}/userUpdatePassword/${userId}`, formValues, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    Http.post(`/userUpdatePassword/${userId}`, formValues, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => {
         if (res.data.code === 200) {
           handleClose(false);

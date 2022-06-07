@@ -15,12 +15,11 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import AddUser from "./pages/AddUser";
-import axios from "axios";
 import EditUser from "./pages/EditUser";
 import DeleteUser from "./pages/DeleteUser";
 import ChangePass from "./pages/ChangePass";
 import { IconButton } from "@material-ui/core";
-import { API } from "../utils/helper";
+import Http from "../utils/Http";
 
 const useStyles = makeStyles({
   spaceBetween: {
@@ -52,18 +51,14 @@ function Users() {
   const fetchData = () => {
     const token = localStorage.getItem("accessToken");
 
-    API().then((ip) => {
-      axios
-        .get(`${ip}/users`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          if (res.data.code === 200) {
-            setUserList(res.data);
-          }
-        });
+    Http.get(`/users`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      if (res.data.code === 200) {
+        setUserList(res.data);
+      }
     });
   };
 
@@ -84,18 +79,16 @@ function Users() {
   const handleConfirmDelete = () => {
     const token = localStorage.getItem("accessToken");
 
-    axios
-      .delete(`${API}/user/${selectedID}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        if (res.data) {
-          setOpenDeleteUser(false);
-          fetchData();
-        }
-      });
+    Http.delete(`/user/${selectedID}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      if (res.data) {
+        setOpenDeleteUser(false);
+        fetchData();
+      }
+    });
   };
 
   const handleOpenChangePass = () => {

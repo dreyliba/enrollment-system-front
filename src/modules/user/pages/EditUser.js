@@ -8,13 +8,11 @@ import {
   DialogTitle,
   Slide,
 } from "@material-ui/core";
-import axios from "axios";
+import Http from "../../utils/Http";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
-const API = process.env.REACT_APP_API_URL;
 
 export default function EditUser({
   handleOpen,
@@ -57,18 +55,16 @@ export default function EditUser({
       formData.append(key, formValues[key]);
     }
 
-    axios
-      .post(`${API}/user/${selectedUserValues.id}`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        if (res.data.code === 200) {
-          handleClose(false);
-          refetch();
-        }
-      });
+    Http.post(`/user/${selectedUserValues.id}`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      if (res.data.code === 200) {
+        handleClose(false);
+        refetch();
+      }
+    });
   };
 
   return (

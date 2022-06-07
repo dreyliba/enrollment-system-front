@@ -6,13 +6,11 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import { TextField } from "@material-ui/core";
-import axios from "axios";
+import Http from "../../utils/Http";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
-const API = process.env.REACT_APP_API_URL;
 
 export default function AddUser({ handleOpen, handleClose, refetch }) {
   const [formValues, setFormValues] = useState({
@@ -51,19 +49,17 @@ export default function AddUser({ handleOpen, handleClose, refetch }) {
 
   const handleSubmit = () => {
     const token = localStorage.getItem("accessToken");
-    axios
-      .post(`${API}/addUser`, formValues, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        if (res.data.code === 200) {
-          handleClose(false);
-          // window.location.reload();
-          refetch();
-        }
-      });
+    Http.post(`/addUser`, formValues, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      if (res.data.code === 200) {
+        handleClose(false);
+        // window.location.reload();
+        refetch();
+      }
+    });
   };
 
   return (

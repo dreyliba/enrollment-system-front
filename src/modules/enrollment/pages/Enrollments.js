@@ -13,7 +13,6 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { API } from "../../utils/helper";
 import Http from "../../utils/Http";
 import { useHistory } from "react-router-dom";
 import { IconButton, LinearProgress, TablePagination } from "@material-ui/core";
@@ -48,24 +47,22 @@ function Student() {
 
   const fetchData = (params = {}) => {
     setFetching(true);
-    API().then((ip) => {
-      Http.get(`${ip}/enrollments`, {
-        params: {
-          ...filters,
-          ...params,
-        },
-      })
-        .then((res) => {
-          if (res.data) {
-            setEnrollments(res.data);
-          }
+    Http.get(`/enrollments`, {
+      params: {
+        ...filters,
+        ...params,
+      },
+    })
+      .then((res) => {
+        if (res.data) {
+          setEnrollments(res.data);
+        }
 
-          setFetching(false);
-        })
-        .catch(() => {
-          setFetching(false);
-        });
-    });
+        setFetching(false);
+      })
+      .catch(() => {
+        setFetching(false);
+      });
   };
 
   const handleNavigate = (id) => {

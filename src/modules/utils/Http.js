@@ -3,6 +3,7 @@ import axios from "axios";
 //create new instance
 const Http = axios.create();
 
+Http.defaults.baseURL = process.env.REACT_APP_API_URL;
 Http.defaults.headers.common.Accept = "application/json";
 Http.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
   "accessToken"

@@ -20,7 +20,6 @@ import React, { useEffect, useState } from "react";
 import AddTrack from "./pages/AddTrack";
 import EditTrack from "./pages/EditTrack";
 import DeleteTrack from "./pages/DeleteTrack";
-import { API } from "../utils/helper";
 import Http from "../utils/Http";
 import { useHistory } from "react-router-dom";
 
@@ -54,12 +53,10 @@ function Track() {
   }, []);
 
   const fetchData = () => {
-    API().then((ip) => {
-      Http.get(`${ip}/tracks`).then((res) => {
-        if (res.data.code === 200) {
-          setTrackList(res.data);
-        }
-      });
+    Http.get(`/tracks`).then((res) => {
+      if (res.data.code === 200) {
+        setTrackList(res.data);
+      }
     });
   };
 
@@ -78,13 +75,11 @@ function Track() {
   };
 
   const handleConfirmDelete = () => {
-    API().then((ip) => {
-      Http.delete(`${ip}/track/${selectedID}`).then((res) => {
-        if (res.data) {
-          setOpenDeleteTrack(false);
-          fetchData();
-        }
-      });
+    Http.delete(`/track/${selectedID}`).then((res) => {
+      if (res.data) {
+        setOpenDeleteTrack(false);
+        fetchData();
+      }
     });
   };
 

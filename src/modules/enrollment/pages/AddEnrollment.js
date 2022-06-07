@@ -8,7 +8,7 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { API, Revalidate } from "../../utils/helper";
+import { Revalidate } from "../../utils/helper";
 import HouseHoldCapcity from "../component/HouseHoldCapcity";
 import LimitedFtoF from "../component/LimitedFtoF";
 import ParentGuardianInfo from "../component/ParentGuardianInfo";
@@ -130,13 +130,11 @@ export default function AddEnrollment() {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    API().then((ip) => {
-      Http.get(`${ip}/enrollments/options`).then((res) => {
-        if (res.data.tracks) {
-          setTracks(res.data.tracks);
-          setStrands(res.data.strands);
-        }
-      });
+    Http.get(`/enrollments/options`).then((res) => {
+      if (res.data.tracks) {
+        setTracks(res.data.tracks);
+        setStrands(res.data.strands);
+      }
     });
   }, []);
 
@@ -346,20 +344,18 @@ export default function AddEnrollment() {
 
   const handleSubmit = () => {
     setLoading(true);
-    API().then((ip) => {
-      Http.post(`${ip}/enrollments`, formValues.values)
-        .then((res) => {
-          if (res.data.code === 200) {
-            setShowModal(true);
-            handleReset();
-          }
+    Http.post(`/enrollments`, formValues.values)
+      .then((res) => {
+        if (res.data.code === 200) {
+          setShowModal(true);
+          handleReset();
+        }
 
-          setLoading(false);
-        })
-        .catch(() => {
-          setLoading(false);
-        });
-    });
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   };
 
   const handleReset = () => {

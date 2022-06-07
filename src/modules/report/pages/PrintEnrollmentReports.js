@@ -5,7 +5,6 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { API } from "../../utils/helper";
 import Http from "../../utils/Http";
 import { LinearProgress, makeStyles } from "@material-ui/core";
 
@@ -60,24 +59,22 @@ function Report() {
     }
 
     setFetching(true);
-    API().then((ip) => {
-      Http.get(`${ip}/reports/enrollments`, { params })
-        .then((res) => {
-          if (res.data) {
-            setEnrollments(res.data);
+    Http.get(`/reports/enrollments`, { params })
+      .then((res) => {
+        if (res.data) {
+          setEnrollments(res.data);
 
-            // setTimeout(() => {
-            //   window.print();
-            //   window.close();
-            // }, 1000);
-          }
+          // setTimeout(() => {
+          //   window.print();
+          //   window.close();
+          // }, 1000);
+        }
 
-          setFetching(false);
-        })
-        .catch(() => {
-          setFetching(false);
-        });
-    });
+        setFetching(false);
+      })
+      .catch(() => {
+        setFetching(false);
+      });
   };
 
   return (

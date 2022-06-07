@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import { API, isAuth } from "../../utils/helper";
+import { isAuth } from "../../utils/helper";
 import Http from "../../utils/Http";
 
 const useStyle = makeStyles({
@@ -48,28 +48,26 @@ function Login() {
 
   const handleSubmit = () => {
     setLoading(true);
-    API().then((ip) => {
-      Http.post(`${ip}/login`, {
-        email: formValues.username,
-        password: formValues.password,
-      })
-        .then((res) => {
-          if (res.data.code === 200) {
-            Http.defaults.headers.common[
-              "Authorization"
-            ] = `Bearer ${res.data.token}`;
-            localStorage.setItem("accessToken", res.data.token);
-            window.location.href = "/dashboard";
-          }
+    Http.post(`/login`, {
+      email: formValues.username,
+      password: formValues.password,
+    })
+      .then((res) => {
+        if (res.data.code === 200) {
+          Http.defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${res.data.token}`;
+          localStorage.setItem("accessToken", res.data.token);
+          window.location.href = "/dashboard";
+        }
 
-          setLoading(false);
-        })
-        .catch((err) => {
-          setLoading(false);
-          alert("Invalid Username and Password");
-          // console.log(err.response.data);
-        });
-    });
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        alert("Invalid Username and Password");
+        // console.log(err.response.data);
+      });
   };
 
   const handleInputChange = (name, value) => {

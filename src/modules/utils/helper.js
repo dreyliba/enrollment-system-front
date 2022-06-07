@@ -1,4 +1,3 @@
-import ipAddress from "./ip_address.txt";
 import Reevalidate from "ree-validate";
 import moment from "moment";
 
@@ -8,14 +7,6 @@ export const isAuth = () => {
   const token = localStorage.getItem("accessToken");
 
   return !!token;
-};
-
-export const API = () => {
-  return fetch(ipAddress)
-    .then((res) => res.text())
-    .then((res) => {
-      return res;
-    });
 };
 
 export const schoolYearOptions = () => {

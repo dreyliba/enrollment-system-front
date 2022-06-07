@@ -9,7 +9,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import PrintIcon from "@material-ui/icons/Print";
-import { API, levelOptions } from "../../utils/helper";
+import { levelOptions } from "../../utils/helper";
 import Http from "../../utils/Http";
 import {
   Grid,
@@ -40,36 +40,32 @@ function Report() {
   useEffect(() => {
     fetchData();
 
-    API().then((ip) => {
-      Http.get(`${ip}/enrollments/options`).then((res) => {
-        if (res.data.tracks) {
-          setTracks(res.data.tracks);
-          setStrands(res.data.strands);
-        }
-      });
+    Http.get(`/enrollments/options`).then((res) => {
+      if (res.data.tracks) {
+        setTracks(res.data.tracks);
+        setStrands(res.data.strands);
+      }
     }); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchData = (params = {}) => {
     setFetching(true);
-    API().then((ip) => {
-      Http.get(`${ip}/enrollments`, {
-        params: {
-          ...filters,
-          ...params,
-        },
-      })
-        .then((res) => {
-          if (res.data) {
-            setEnrollments(res.data);
-          }
+    Http.get(`/enrollments`, {
+      params: {
+        ...filters,
+        ...params,
+      },
+    })
+      .then((res) => {
+        if (res.data) {
+          setEnrollments(res.data);
+        }
 
-          setFetching(false);
-        })
-        .catch(() => {
-          setFetching(false);
-        });
-    });
+        setFetching(false);
+      })
+      .catch(() => {
+        setFetching(false);
+      });
   };
 
   const handleChangePage = (event, newPage) => {

@@ -8,7 +8,6 @@ import {
   DialogTitle,
   Slide,
 } from "@material-ui/core";
-import { API } from "../../utils/helper";
 import Http from "../../utils/Http";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -50,15 +49,11 @@ export default function EditStrand({
       formData.append(key, formValues[key]);
     }
 
-    API().then((ip) => {
-      Http.post(`${ip}/strand/${selectedStrandValues.id}`, formData).then(
-        (res) => {
-          if (res.data.code === 200) {
-            handleClose(false);
-            refetch();
-          }
-        }
-      );
+    Http.post(`/strand/${selectedStrandValues.id}`, formData).then((res) => {
+      if (res.data.code === 200) {
+        handleClose(false);
+        refetch();
+      }
     });
   };
 
