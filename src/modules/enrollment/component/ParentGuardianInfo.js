@@ -33,7 +33,7 @@ function ParentGuardianInfo() {
         </Typography>
       </Grid>
       <Grid item xs={12} sm={4}>
-        <FormLabel>{"Father (last name, middel name, first name)"}</FormLabel>
+        <FormLabel>{"Father (Last Name, Middel Name, First Name)"}</FormLabel>
         <FormField
           label="Full Name"
           name="father"
@@ -189,11 +189,11 @@ function ParentGuardianInfo() {
         </Grid>
       </Grid>
       <Grid item xs={12} sm={4}>
-        <FormLabel>{"Mother (last name, middel name, first name)"}</FormLabel>
+        <FormLabel>{"Mother (Last Name, Middel Name, First Name)"}</FormLabel>
         <FormField
           label="Full Name"
           name="mother"
-          onChange={(e) => handleChange("mother", e.target.value)}
+          onChange={(e) => handleChange("mother", e.target.value, true)}
           errors={formValues.errors}
           value={formValues.values.mother || ""}
         ></FormField>
@@ -345,11 +345,11 @@ function ParentGuardianInfo() {
         </Grid>
       </Grid>
       <Grid item xs={12} sm={4}>
-        <FormLabel>{"Guardian(last name, middel name, first name)"}</FormLabel>
+        <FormLabel>{"Guardian(Last Name, Middel Name, First Name)"}</FormLabel>
         <FormField
           label="Full Name"
           name="guardian"
-          onChange={(e) => handleChange("guardian", e.target.value)}
+          onChange={(e) => handleChange("guardian", e.target.value, true)}
           errors={formValues.errors}
           value={formValues.values.guardian || ""}
         />
