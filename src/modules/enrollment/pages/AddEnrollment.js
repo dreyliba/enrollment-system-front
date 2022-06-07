@@ -10,7 +10,7 @@ import {
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Revalidate } from "../../utils/helper";
 import HouseHoldCapcity from "../component/HouseHoldCapcity";
-import LimitedFtoF from "../component/LimitedFtoF";
+// import LimitedFtoF from "../component/LimitedFtoF";
 import ParentGuardianInfo from "../component/ParentGuardianInfo";
 import SchoolInformation from "../component/SchoolInformation";
 import StudentInfomation from "../component/StudentInfomation";
@@ -154,9 +154,9 @@ export default function AddEnrollment() {
       last_school_attended_address: "",
       last_school_attended_id: "",
       school_type: "",
-      school_to_enroll_name: "",
-      school_to_enroll_address: "",
-      school_to_enroll_in_id: "",
+      school_to_enroll_name: "Hilongos National Vocational School",
+      school_to_enroll_address: "R.V Fulache Hilongos, Leyte",
+      school_to_enroll_in_id: "303374",
 
       kinder: "",
       grade_1: "",
@@ -183,7 +183,7 @@ export default function AddEnrollment() {
       learning_challenges_others: "",
 
       limited_face_to_face: "",
-      limited_classes_allowed: "",
+      limited_classes_allowed: "Yes",
       limited_face_to_face_others: "",
 
       father: "",
@@ -248,9 +248,9 @@ export default function AddEnrollment() {
   };
 
   const handleChange = useCallback(
-    (name, value) => {
+    (name, value, isUpperCase = false) => {
       let newValues = {
-        [name]: value,
+        [name]: isUpperCase ? value.toUpperCase() : value,
       };
 
       if (
@@ -389,7 +389,7 @@ export default function AddEnrollment() {
             <StudentInfomation />
             <ParentGuardianInfo />
             <HouseHoldCapcity />
-            <LimitedFtoF />
+            {/* <LimitedFtoF /> */}
             <Grid item xs={12}>
               {formValues.errors.items &&
                 formValues.errors.items.length > 0 && (

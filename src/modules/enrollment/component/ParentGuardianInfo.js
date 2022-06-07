@@ -37,7 +37,7 @@ function ParentGuardianInfo() {
         <FormField
           label="Full Name"
           name="father"
-          onChange={(e) => handleChange("father", e.target.value)}
+          onChange={(e) => handleChange("father", e.target.value, true)}
           errors={formValues.errors}
           value={formValues.values.father || ""}
         ></FormField>

@@ -26,8 +26,8 @@ function SchoolInformation({ tracks, strands }) {
   const classes = useStyles();
   const { formValues, handleChange } = useContext(EnrollmentContext);
 
-  const handleFormChange = (name, value) => {
-    handleChange(name, value);
+  const handleFormChange = (name, value, isUpperCase = false) => {
+    handleChange(name, value, isUpperCase);
   };
 
   const getStrandOptions = (id) => {
@@ -207,7 +207,7 @@ function SchoolInformation({ tracks, strands }) {
           name="last_school_attended_name"
           label="Last School Attended"
           onChange={(e) =>
-            handleFormChange("last_school_attended_name", e.target.value)
+            handleFormChange("last_school_attended_name", e.target.value, true)
           }
           value={formValues.values.last_school_attended_name || ""}
           errors={formValues.errors}
@@ -228,9 +228,13 @@ function SchoolInformation({ tracks, strands }) {
         <FormField
           fullWidth
           name="last_school_attended_address"
-          label="School Adress"
+          label="School Address"
           onChange={(e) =>
-            handleFormChange("last_school_attended_address", e.target.value)
+            handleFormChange(
+              "last_school_attended_address",
+              e.target.value,
+              true
+            )
           }
           value={formValues.values.last_school_attended_address || ""}
           errors={formValues.errors}
@@ -275,10 +279,11 @@ function SchoolInformation({ tracks, strands }) {
           label="School to enroll in"
           name="school_to_enroll_name"
           onChange={(e) =>
-            handleFormChange("school_to_enroll_name", e.target.value)
+            handleFormChange("school_to_enroll_name", e.target.value, true)
           }
           value={formValues.values.school_to_enroll_name || ""}
           errors={formValues.errors}
+          disabled
         />
       </Grid>
       <Grid item xs={12} md={4}>
@@ -286,21 +291,23 @@ function SchoolInformation({ tracks, strands }) {
           label="School ID"
           name="school_to_enroll_in_id"
           onChange={(e) =>
-            handleFormChange("school_to_enroll_in_id", e.target.value)
+            handleFormChange("school_to_enroll_in_id", e.target.value, true)
           }
           value={formValues.values.school_to_enroll_in_id || ""}
           errors={formValues.errors}
+          disabled
         />
       </Grid>
       <Grid item xs={12}>
         <FormField
-          label="School Adress"
+          label="School Address"
           name="school_to_enroll_address"
           onChange={(e) =>
-            handleFormChange("school_to_enroll_address", e.target.value)
+            handleFormChange("school_to_enroll_address", e.target.value, true)
           }
           value={formValues.values.school_to_enroll_address || ""}
           errors={formValues.errors}
+          disabled
         />
       </Grid>
     </Fragment>

@@ -22,7 +22,7 @@ export const schoolYearOptions = () => {
 
 export const levelOptions = () => {
   const level = [];
-  for (let index = 7; index <= 12; index++) {
+  for (let index = 11; index <= 12; index++) {
     level.push(index);
   }
 

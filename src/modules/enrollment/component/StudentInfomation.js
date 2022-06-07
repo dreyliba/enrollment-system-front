@@ -60,7 +60,7 @@ function StudentInfomation() {
         <FormField
           label="Last Name"
           name="last_name"
-          onChange={(e) => handleChange("last_name", e.target.value)}
+          onChange={(e) => handleChange("last_name", e.target.value, true)}
           errors={formValues.errors}
           value={formValues.values.last_name || ""}
         />
@@ -69,7 +69,7 @@ function StudentInfomation() {
         <FormField
           label="First Name"
           name="first_name"
-          onChange={(e) => handleChange("first_name", e.target.value)}
+          onChange={(e) => handleChange("first_name", e.target.value, true)}
           errors={formValues.errors}
           value={formValues.values.first_name || ""}
         />
@@ -78,7 +78,7 @@ function StudentInfomation() {
         <FormField
           label="Middle Name"
           name="middle_name"
-          onChange={(e) => handleChange("middle_name", e.target.value)}
+          onChange={(e) => handleChange("middle_name", e.target.value, true)}
           errors={formValues.errors}
           value={formValues.values.middle_name || ""}
         />
@@ -88,7 +88,7 @@ function StudentInfomation() {
           placeholder="e.g . Jr., III (if applicable)"
           label="Extension Name"
           name="extension_name"
-          onChange={(e) => handleChange("extension_name", e.target.value)}
+          onChange={(e) => handleChange("extension_name", e.target.value, true)}
           errors={formValues.errors}
           value={formValues.values.extension_name || ""}
         />
@@ -348,7 +348,9 @@ function StudentInfomation() {
         <FormField
           label="House Number and Street"
           name="house_number_street"
-          onChange={(e) => handleChange("house_number_street", e.target.value)}
+          onChange={(e) =>
+            handleChange("house_number_street", e.target.value, true)
+          }
           errors={formValues.errors}
           value={formValues.values.house_number_street || ""}
         />
@@ -358,7 +360,7 @@ function StudentInfomation() {
           label="Subdivision/ Village/ Zone"
           name="subdivision_village_zone"
           onChange={(e) =>
-            handleChange("subdivision_village_zone", e.target.value)
+            handleChange("subdivision_village_zone", e.target.value, true)
           }
           value={formValues.values.subdivision_village_zone || ""}
         />
@@ -367,7 +369,7 @@ function StudentInfomation() {
         <FormField
           label="Barangay"
           name="barangay"
-          onChange={(e) => handleChange("barangay", e.target.value)}
+          onChange={(e) => handleChange("barangay", e.target.value, true)}
           errors={formValues.errors}
           value={formValues.values.barangay || ""}
         />
@@ -376,7 +378,7 @@ function StudentInfomation() {
         <FormField
           label="City/ Municipality"
           name="municipality"
-          onChange={(e) => handleChange("municipality", e.target.value)}
+          onChange={(e) => handleChange("municipality", e.target.value, true)}
           errors={formValues.errors}
           value={formValues.values.municipality || ""}
         />
@@ -385,7 +387,7 @@ function StudentInfomation() {
         <FormField
           label="Province"
           name="province"
-          onChange={(e) => handleChange("province", e.target.value)}
+          onChange={(e) => handleChange("province", e.target.value, true)}
           errors={formValues.errors}
           value={formValues.values.province || ""}
         />
@@ -394,7 +396,7 @@ function StudentInfomation() {
         <FormField
           label="Region"
           name="region"
-          onChange={(e) => handleChange("region", e.target.value)}
+          onChange={(e) => handleChange("region", e.target.value, true)}
           errors={formValues.errors}
           value={formValues.values.region || ""}
         />
