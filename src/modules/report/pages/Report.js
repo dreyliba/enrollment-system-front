@@ -19,6 +19,7 @@ import {
 } from "@material-ui/core";
 import SelectField from "../../../components/common/SelectField";
 import FormField from "../../../components/common/FormField";
+import moment from "moment";
 
 function Report() {
   const [tracks, setTracks] = useState([]);
@@ -33,6 +34,8 @@ function Report() {
     limit: 15,
     search: "",
     level: "",
+    date_from: moment().format("YYYY-MM-DD"),
+    date_to: moment().format("YYYY-MM-DD"),
   });
 
   const [fetching, setFetching] = useState(false);
@@ -77,11 +80,19 @@ function Report() {
   };
 
   const handleChangeFilter = (name, value) => {
-    fetchData({ [name]: value });
+    const newValues = {
+      [name]: value,
+    };
+
+    if (name === "date_from") {
+      newValues.date_to = value;
+    }
+
+    fetchData(newValues);
 
     setFilters((prev) => ({
       ...prev,
-      [name]: value,
+      ...newValues,
     }));
   };
 
@@ -102,14 +113,7 @@ function Report() {
     <Card>
       <CardContent>
         <Grid container spacing={1}>
-          <Grid item xs={12} md={4}>
-            <FormField
-              label="Search"
-              value={filters.search}
-              onChange={(e) => handleChangeFilter("search", e.target.value)}
-            />
-          </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} sm={6} md={2}>
             <SelectField
               label="Grade"
               onChange={(e) => handleChangeFilter("level", e.target.value)}
@@ -117,7 +121,7 @@ function Report() {
               // style={{ maxWidth: 200 }}
             />
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} sm={6} md={2}>
             <SelectField
               label="Tracks"
               keyValuePair="id,name"
@@ -126,12 +130,31 @@ function Report() {
               // style={{ maxWidth: 200 }}
             />
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} sm={6} md={2}>
             <SelectField
               label="Strand"
               keyValuePair="id,name"
               options={getStrandOptions()}
               // style={{ maxWidth: 200 }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={2}>
+            <FormField
+              label="Date From"
+              type="date"
+              shrinkLabel
+              value={filters.date_from}
+              onChange={(e) => handleChangeFilter("date_from", e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={2}>
+            <FormField
+              label="Date To"
+              type="date"
+              shrinkLabel
+              inputProps={{ min: filters.date_from }}
+              value={filters.date_to}
+              onChange={(e) => handleChangeFilter("date_to", e.target.value)}
             />
           </Grid>
           <Grid item xs={12} md={2}>
@@ -146,6 +169,13 @@ function Report() {
               <PrintIcon />
               Print
             </Button>
+          </Grid>
+          <Grid item xs={12}>
+            <FormField
+              label="Search"
+              value={filters.search}
+              onChange={(e) => handleChangeFilter("search", e.target.value)}
+            />
           </Grid>
         </Grid>
         {fetching && <LinearProgress />}

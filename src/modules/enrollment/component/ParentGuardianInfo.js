@@ -501,7 +501,7 @@ function ParentGuardianInfo() {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        <FormControl error={formValues.errors.has("is_benificiary")}>
+        <FormControl error={formValues.errors.has("is_4ps_benificiary")}>
           <FormLabel>Is your family a beneficiary yof 4Ps?</FormLabel>
           <FormGroup row>
             <FormControlLabel
@@ -509,9 +509,11 @@ function ParentGuardianInfo() {
                 <Checkbox
                   color="primary"
                   checked={
-                    formValues.values.is_benificiary === "Yes" ? true : false
+                    formValues.values.is_4ps_benificiary === "Yes"
+                      ? true
+                      : false
                   }
-                  onChange={() => handleChange("is_benificiary", "Yes")}
+                  onChange={() => handleChange("is_4ps_benificiary", "Yes")}
                 />
               }
               label="Yes"
@@ -521,15 +523,15 @@ function ParentGuardianInfo() {
                 <Checkbox
                   color="primary"
                   checked={
-                    formValues.values.is_benificiary === "No" ? true : false
+                    formValues.values.is_4ps_benificiary === "No" ? true : false
                   }
-                  onChange={() => handleChange("is_benificiary", "No")}
+                  onChange={() => handleChange("is_4ps_benificiary", "No")}
                 />
               }
               label="No"
             />
           </FormGroup>
-          {formValues.errors.has("is_benificiary") && (
+          {formValues.errors.has("is_4ps_benificiary") && (
             <FormHelperText error>This field is required</FormHelperText>
           )}
         </FormControl>

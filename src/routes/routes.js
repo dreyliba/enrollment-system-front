@@ -37,6 +37,10 @@ const routes = [
     auth: true,
   },
   {
+    path: "/enrollments/:id/print",
+    component: EditEnrollment,
+  },
+  {
     path: "/reports",
     component: Report,
     auth: true,

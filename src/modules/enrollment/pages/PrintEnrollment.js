@@ -10,14 +10,13 @@ import {
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Revalidate } from "../../utils/helper";
 import HouseHoldCapcity from "../component/HouseHoldCapcity";
-// import LimitedFtoF from "../component/LimitedFtoF";
+import LimitedFtoF from "../component/LimitedFtoF";
 import ParentGuardianInfo from "../component/ParentGuardianInfo";
 import SchoolInformation from "../component/SchoolInformation";
 import StudentInfomation from "../component/StudentInfomation";
 import EnrollmentContext from "../context/EnrollmentContent";
 import Http from "../../utils/Http";
 import MessageModal from "../../../components/MessageModal";
-import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   parentContainer: {
@@ -120,24 +119,64 @@ const dictionary = {
 
 validator.localize("en", dictionary);
 
-export default function AddEnrollment() {
+export default function PrintEnrollment({ match }) {
+  const { params } = match;
   const classes = useStyles();
-  const history = useHistory();
 
   const [tracks, setTracks] = useState([]);
   const [strands, setStrands] = useState([]);
 
+  const [fetching, setFetching] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
+  useEffect(() => {}, []);
+
   useEffect(() => {
+    setFetching(true);
+
     Http.get(`/enrollments/options`).then((res) => {
       if (res.data.tracks) {
         setTracks(res.data.tracks);
         setStrands(res.data.strands);
+
+        Http.get(`/enrollments/${params.id}`)
+          .then((res) => {
+            if (res.data.data) {
+              const item = res.data.data;
+
+              const values = {};
+
+              for (const key in formValues.values) {
+                if (item[key]) {
+                  values[key] = item[key];
+                }
+              }
+
+              setFormValues((prev) => ({
+                ...prev,
+                values: {
+                  ...prev.values,
+                  ...values,
+                },
+              }));
+
+              // setTimeout(() => {
+              //   window.print();
+              //   window.close();
+              // }, 1000);
+            }
+
+            setFetching(false);
+          })
+          .catch(() => {
+            setFetching(false);
+          });
       }
     });
-  }, []);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params.id]);
 
   const [formValues, setFormValues] = useState({
     values: {
@@ -155,9 +194,9 @@ export default function AddEnrollment() {
       last_school_attended_address: "",
       last_school_attended_id: "",
       school_type: "",
-      school_to_enroll_name: "Hilongos National Vocational School",
-      school_to_enroll_address: "R.V Fulache Hilongos, Leyte",
-      school_to_enroll_in_id: "303374",
+      school_to_enroll_name: "",
+      school_to_enroll_address: "",
+      school_to_enroll_in_id: "",
 
       kinder: "",
       grade_1: "",
@@ -184,7 +223,7 @@ export default function AddEnrollment() {
       learning_challenges_others: "",
 
       limited_face_to_face: "",
-      limited_classes_allowed: "Yes",
+      limited_classes_allowed: "",
       limited_face_to_face_others: "",
 
       father: "",
@@ -250,9 +289,9 @@ export default function AddEnrollment() {
   };
 
   const handleChange = useCallback(
-    (name, value, isUpperCase = false) => {
+    (name, value) => {
       let newValues = {
-        [name]: isUpperCase ? value.toUpperCase() : value,
+        [name]: value,
       };
 
       if (
@@ -346,11 +385,10 @@ export default function AddEnrollment() {
 
   const handleSubmit = () => {
     setLoading(true);
-    Http.post(`/enrollments`, formValues.values)
+    Http.post(`/enrollments/${params.id}`, formValues.values)
       .then((res) => {
         if (res.data.code === 200) {
           setShowModal(true);
-          handleReset();
         }
 
         setLoading(false);
@@ -360,76 +398,60 @@ export default function AddEnrollment() {
       });
   };
 
-  const handleReset = () => {
-    const values = {};
-
-    for (const key in formValues.values) {
-      if (Array.isArray(formValues.values[key])) {
-        values[key] = [];
-      } else {
-        values[key] = "";
-      }
-    }
-
-    setFormValues((prev) => ({
-      ...prev,
-      values,
-    }));
-  };
-
-  const handleClose = () => {
-    setShowModal(false);
-    history.push("/enrollments");
-  };
-
   return (
     <div>
       <EnrollmentContext.Provider value={providerValue}>
         <Card className={classes.parentContainer}>
-          <Grid container spacing={1}>
-            <SchoolInformation tracks={tracks} strands={strands} />
-            <StudentInfomation />
-            <ParentGuardianInfo />
-            <HouseHoldCapcity />
-            {/* <LimitedFtoF /> */}
-            <Grid item xs={12}>
-              {formValues.errors.items &&
-                formValues.errors.items.length > 0 && (
-                  <FormHelperText error>
-                    Some information is required!
-                  </FormHelperText>
-                )}
-              {formValues.values.grade_level_to_enroll > 10 &&
-                formValues.values.track_id === "" && (
-                  <Typography color="error">
-                    Track and strand information is required
-                  </Typography>
-                )}
-
-              {formValues.values.last_grade_level_completed > 10 &&
-                formValues.values.last_year_track_id === "" && (
-                  <Typography color="error">
-                    Last grade level track and strand information is required
-                  </Typography>
-                )}
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                onClick={handleValidate}
-                disabled={loading}
-              >
-                {loading ? <CircularProgress size={24} /> : "Submit"}
-              </Button>
+          {fetching ? (
+            <Grid container justifyContent="center">
+              <CircularProgress />
             </Grid>
-          </Grid>
+          ) : (
+            <Grid container spacing={1}>
+              <SchoolInformation tracks={tracks} strands={strands} />
+              <StudentInfomation />
+              <ParentGuardianInfo />
+              <HouseHoldCapcity />
+              <LimitedFtoF />
+              <Grid item xs={12}>
+                {formValues.errors.items &&
+                  formValues.errors.items.length > 0 && (
+                    <FormHelperText error>
+                      Some information is required!
+                    </FormHelperText>
+                  )}
+                {formValues.values.grade_level_to_enroll > 10 &&
+                  formValues.values.track_id === "" && (
+                    <Typography color="error">
+                      Track and strand information is required
+                    </Typography>
+                  )}
+
+                {formValues.values.last_grade_level_completed > 10 &&
+                  formValues.values.last_year_track_id === "" && (
+                    <Typography color="error">
+                      Last grade level track and strand information is required
+                    </Typography>
+                  )}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  onClick={handleValidate}
+                  disabled={loading}
+                >
+                  {loading ? <CircularProgress size={24} /> : "Update"}
+                </Button>
+              </Grid>
+            </Grid>
+          )}
         </Card>
       </EnrollmentContext.Provider>
 
       <MessageModal
         open={showModal}
-        handleClose={handleClose}
-        message="Student Successfully Enrolled"
+        handleClose={() => setShowModal(false)}
+        message="Student Successfully Updated"
       />
     </div>
   );

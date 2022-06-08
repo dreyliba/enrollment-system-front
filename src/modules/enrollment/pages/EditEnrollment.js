@@ -81,7 +81,7 @@ const validator = Revalidate({
   father_heighest_edu_attainment: "",
   mother_heighest_edu_attainment: "",
   guardian_heighest_edu_attainment: "",
-  is_benificiary: "required",
+  is_4ps_benificiary: "required",
 
   psa: "",
   lrn: "",
@@ -91,6 +91,7 @@ const validator = Revalidate({
   extension_name: "",
   date_of_birth: "required",
   gender: "required",
+  has_children: "required",
   indigenous_status: "required",
   indigenous_status_name: "",
   mother_tongue: "required",
@@ -227,7 +228,7 @@ export default function EditEnrollment({ match }) {
       father_heighest_edu_attainment: "",
       mother_heighest_edu_attainment: "",
       guardian_heighest_edu_attainment: "",
-      is_benificiary: "",
+      is_4ps_benificiary: "",
 
       psa: "",
       lrn: "",
@@ -237,6 +238,7 @@ export default function EditEnrollment({ match }) {
       extension_name: "",
       date_of_birth: "",
       gender: "",
+      has_children: "",
       indigenous_status: "",
       indigenous_status_name: "",
       mother_tongue: "",

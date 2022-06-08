@@ -14,6 +14,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Http from "../../utils/Http";
+import PrintIcon from "@material-ui/icons/Print";
 import { useHistory } from "react-router-dom";
 import { IconButton, LinearProgress, TablePagination } from "@material-ui/core";
 
@@ -86,6 +87,10 @@ function Student() {
     }));
   };
 
+  const handlePrint = (id) => {
+    history.push(`/enrollments/${id}/print`);
+  };
+
   return (
     <Card>
       <CardContent>
@@ -123,7 +128,7 @@ function Student() {
                 <TableCell>Last Name</TableCell>
                 <TableCell>First Name</TableCell>
                 <TableCell>Middle Name</TableCell>
-                <TableCell>Email</TableCell>
+                <TableCell>Gender</TableCell>
                 <TableCell>Grade</TableCell>
                 <TableCell>Track</TableCell>
                 <TableCell>Strand</TableCell>
@@ -143,12 +148,18 @@ function Student() {
                       <IconButton size="small">
                         <DeleteIcon color="secondary" />
                       </IconButton>
+                      <IconButton
+                        size="small"
+                        onClick={() => handlePrint(enrollment.id)}
+                      >
+                        <PrintIcon color="secondary" />
+                      </IconButton>
                     </TableCell>
 
                     <TableCell>{enrollment.last_name}</TableCell>
                     <TableCell>{enrollment.first_name}</TableCell>
                     <TableCell>{enrollment.middle_name}</TableCell>
-                    <TableCell>{enrollment.email}</TableCell>
+                    <TableCell>{enrollment.gender}</TableCell>
                     <TableCell>{enrollment.grade_level_to_enroll}</TableCell>
                     <TableCell>
                       {(enrollment.track && enrollment.track.code) || ""}

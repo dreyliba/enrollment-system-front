@@ -171,6 +171,42 @@ function StudentInfomation() {
           />
         </Grid>
       )}
+
+      <Grid item xs={12}>
+        <FormControl error={formValues.errors.has("has_children")}>
+          <FormLabel>Do you have child/children?</FormLabel>
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={
+                    formValues.values.has_children === "Yes" ? true : false
+                  }
+                  onChange={() => handleChange("has_children", "Yes")}
+                />
+              }
+              label="Yes"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={
+                    formValues.values.has_children === "No" ? true : false
+                  }
+                  onChange={() => handleChange("has_children", "No")}
+                />
+              }
+              label="No"
+            />
+          </FormGroup>
+          {formValues.errors.has("has_children") && (
+            <FormHelperText error>This field is required</FormHelperText>
+          )}
+        </FormControl>
+      </Grid>
+
       <Grid item xs={12} md={8}>
         <FormField
           label="School to enroll in"
