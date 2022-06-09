@@ -9,6 +9,7 @@ import Profile from "../modules/profile/Profile";
 import Report from "../modules/report/pages/Report";
 import PrintEnrollmentReports from "../modules/report/pages/PrintEnrollmentReports";
 import EditEnrollment from "../modules/enrollment/pages/EditEnrollment";
+import ReportDesign from "../components/ReportDesign";
 
 const routes = [
   {
@@ -68,6 +69,11 @@ const routes = [
   {
     path: "/profile",
     component: Profile,
+    auth: true,
+  },
+  {
+    path: "/testing",
+    component: ReportDesign,
     auth: true,
   },
 ];
