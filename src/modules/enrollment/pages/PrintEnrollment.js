@@ -45,22 +45,118 @@ function PrintEnrollment({ match }) {
   const schoolInfo = {
     school_year: "School Year",
     lrn_status: "LRN Status",
+    returning: "Balik Aral",
+    grade_level_to_enroll: "Grade Level to Enroll",
+    track: "Track",
+    last_year_track_id: "Last Year Track ID",
+    strand_id: "Strand Id",
+    last_grade_level_completed: "Last Grade Level Completed",
+    last_school_yr_completed: "Last School Year Completed",
+    last_school_attended_name: "Last School Attended",
+    last_school_attended_address: "School Address",
+    last_school_attended_id: "School ID",
+    school_type: "School Type",
+    school_to_enroll_address: "School to enroll address",
+    school_to_enroll_in_id: "School ID",
+  };
+
+  const studentinfo = {
+    psa: "PSA",
+    lrn: "LRN",
+    last_name: "Last Name",
+    first_name: "First Name",
+    middle_name: "Middle Name",
+    extension_name: "Extension Name",
+    date_of_birth: "Date of Birth",
+    age: "Age",
+    gender: "Gender",
+    has_children: "Has child/children",
+    school_to_enroll_name: "School to enroll in",
+    indigenous_status: "Belonging to the Indigenous People ?",
+    mother_tongue: "Mother Tongue",
+    religion: "Religion",
+    is_special_education: "Does the learner special education needs?",
+    is_special_education_name: "Special Education Name",
+    has_devices_available_at_home:
+      "Assistive technology devices available at home?",
+    has_devices_available_at_home_name: "Assistive Technology Device Name",
+    email: "Email",
+    house_number_street: "House Number and Street",
+    subdivision_village_zone: "Subdivision/ Village/ Zone",
+    barangay: "Barangay",
+    municipality: "Municipality",
+    province: "Province",
+    region: "Region",
+  };
+
+  const parentinfo = {
+    father: "Father's Name",
+    father_contact: "Contact Info",
+    father_heighest_edu_attainment: "Heighest Educational Attainment",
+    mother: "Mother's Name",
+    mother_contact: "Contact Info",
+    mother_heighest_edu_attainment: "Heighest Educational Attainment",
+    guardian: "Guardian's Name",
+    guardian_contact: "Contact Info",
+    guardian_heighest_edu_attainment: "Heighest Educational Attainment",
+    is_4ps_benificiary: "Is your family a beneficiary of 4Ps?",
+  };
+
+  const householdcapacities = {
+    kinder: "Kinder",
+    grade_1: "Grade 1",
+    grade_2: "Grade 2",
+    grade_3: "Grade 3",
+    grade_4: "Grade 4",
+    grade_5: "Grade 5",
+    grade_6: "Grade 6",
+    grade_7: "Grade 7",
+    grade_8: "Grade 8",
+    grade_9: "Grade 9",
+    grade_10: "Grade 10",
+    grade_11: "Grade 11",
+    grade_12: "Grade 12",
+    other_grade: "Other Grade",
+    household_member:
+      "Who among the the household members can provide instructional support to the child's distance learning?",
+    available_device:
+      "What devices are available at home that the learner can use for learning?",
+    has_internet_connection: "Is there an internet signal in your area?",
+    internet_connection: "How do you connect to the internet?",
+    distance_learning:
+      "What distance learning modality/ies do you prefer for you child?",
+    distance_learning_others: "Other distance learning",
+    learning_challenges:
+      "What are the challenges that may affect your child's learning process through distance education?",
+    learning_challenges_others:
+      "Other challenges that may affect child's learning process through distance.",
+  };
+
+  const limitedfacetoface = {
+    limited_classes_allowed:
+      "In case limited face to face classes will be allowed, are you willing to allow your child/children to participate?",
+    limited_face_to_face: "Limited Face to Face",
+    limited_face_to_face_others: "Other Limited Face to Face",
+    enrolled_date: "Enrolled Date",
   };
 
   const getValues = (values) => {
     const data = [];
     for (const key in values) {
-      if (typeof enrollmentData[key] !== "undefined") {
-        if (typeof enrollmentData[key] === "string") {
-          data.push({ value: enrollmentData[key], label: values[key] });
-        }
-
-        if (Array.isArray(enrollmentData[key])) {
+      if (Array.isArray(enrollmentData[key])) {
+        data.push({
+          value: enrollmentData[key].join(","),
+          label: values[key],
+        });
+      } else if (typeof enrollmentData[key] === "object") {
+        if (enrollmentData[key] && enrollmentData[key].name) {
           data.push({
-            value: enrollmentData[key].join(","),
+            value: enrollmentData[key].name,
             label: values[key],
           });
         }
+      } else {
+        data.push({ value: enrollmentData[key] || "", label: values[key] });
       }
     }
 
@@ -92,11 +188,25 @@ function PrintEnrollment({ match }) {
           </Grid>
           {getValues(schoolInfo)}
           <Grid item xs={12}>
+            <Typography variant="h6">B. STUDENT INFORMATION</Typography>
+          </Grid>
+          {getValues(studentinfo)}
+          <Grid item xs={12}>
             <Typography variant="h6">
-              A. GRADE LEVEL AND SCHOOL INFORMATION
+              C. PARENT/ GUARDIAN INFORMATION
             </Typography>
           </Grid>
-          {getValues(schoolInfo)}
+          {getValues(parentinfo)}
+          <Grid item xs={12}>
+            <Typography variant="h6">
+              D. HOUSEHOLD CAPACITY AND ACCESS TO DISTANCE LEARNING
+            </Typography>
+          </Grid>
+          {getValues(householdcapacities)}
+          <Grid item xs={12}>
+            <Typography variant="h6">E. LIMITED FACE TO FACE</Typography>
+          </Grid>
+          {getValues(limitedfacetoface)}
         </Grid>
       )}
     </div>
