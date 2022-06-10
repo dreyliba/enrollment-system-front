@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   },
 });
 
-function StudentInfomation() {
+function StudentInfomation({ disabilityCategories }) {
   const classes = useStyles();
 
   const { formValues, handleChange } = useContext(EnrollmentContext);
@@ -161,7 +161,8 @@ function StudentInfomation() {
       {formValues.values.indigenous_status === "Yes" && (
         <Grid item xs={12}>
           <Typography>Please specify:</Typography>
-          <FormField
+          <SelectField
+            options={["Muslim", "Badjao"]}
             fullWidth={false}
             name="indigenous_status_name"
             onChange={(e) =>
@@ -292,7 +293,9 @@ function StudentInfomation() {
       {formValues.values.is_special_education === "Yes" && (
         <Grid item xs={12}>
           <Typography>Please specify:</Typography>
-          <FormField
+          <SelectField
+            options={disabilityCategories}
+            keyValuePair="name,name"
             fullWidth={false}
             name="is_special_education_name"
             onChange={(e) =>

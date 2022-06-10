@@ -129,12 +129,14 @@ export default function EditEnrollment({ match }) {
   const [fetching, setFetching] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [disabilityCategories, setDisabilityCategories] = useState([]);
 
   useEffect(() => {
     Http.get(`/enrollments/options`).then((res) => {
       if (res.data.tracks) {
         setTracks(res.data.tracks);
         setStrands(res.data.strands);
+        setDisabilityCategories(res.data.disability_categories);
       }
     });
   }, []);
@@ -401,7 +403,7 @@ export default function EditEnrollment({ match }) {
           ) : (
             <Grid container spacing={1}>
               <SchoolInformation tracks={tracks} strands={strands} />
-              <StudentInfomation />
+              <StudentInfomation disabilityCategories={disabilityCategories} />
               <ParentGuardianInfo />
               <HouseHoldCapcity />
               <LimitedFtoF />

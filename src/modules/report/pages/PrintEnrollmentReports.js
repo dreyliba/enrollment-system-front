@@ -6,7 +6,8 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Http from "../../utils/Http";
-import { LinearProgress, makeStyles } from "@material-ui/core";
+import { LinearProgress, makeStyles, Typography } from "@material-ui/core";
+import PrintHeader from "../../../components/common/PrintHeader";
 
 const useStyles = makeStyles({
   content: {
@@ -64,10 +65,10 @@ function Report() {
         if (res.data) {
           setEnrollments(res.data);
 
-          // setTimeout(() => {
-          //   window.print();
-          //   window.close();
-          // }, 1000);
+          setTimeout(() => {
+            window.print();
+            window.close();
+          }, 1000);
         }
 
         setFetching(false);
@@ -80,6 +81,12 @@ function Report() {
   return (
     <div className={classes.content}>
       {fetching && <LinearProgress />}
+      <PrintHeader />
+
+      <Typography variant="h6" align="center" gutterBottom>
+        Reports
+      </Typography>
+
       <TableContainer>
         <Table size="small">
           <TableHead id="th">

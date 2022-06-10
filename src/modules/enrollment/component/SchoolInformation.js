@@ -152,7 +152,7 @@ function SchoolInformation({ tracks, strands }) {
             handleFormChange("last_grade_level_completed", e.target.value)
           }
           value={formValues.values.last_grade_level_completed || ""}
-          options={levelOptions().map((level) => ({
+          options={[10, ...levelOptions()].map((level) => ({
             id: level,
             label: `Grade ${level}`,
           }))}

@@ -168,9 +168,9 @@ export default function Sidbar() {
             <List component="div" disablePadding>
               <ListItem
                 button
-                className={`${isActive("/settings") ? classes.active : ""} ${
-                  classes.nested
-                }`}
+                className={`${
+                  isActive("/settings/track") ? classes.active : ""
+                } ${classes.nested}`}
               >
                 <ListItemIcon>
                   <AccountBalanceIcon />
@@ -178,6 +178,24 @@ export default function Sidbar() {
                 <ListItemText
                   onClick={() => handleNavigate("/settings/track")}
                   primary="Track"
+                />
+              </ListItem>
+              <ListItem
+                button
+                className={`${
+                  isActive("/settings/disability-categories")
+                    ? classes.active
+                    : ""
+                } ${classes.nested}`}
+              >
+                <ListItemIcon>
+                  <AccountBalanceIcon />
+                </ListItemIcon>
+                <ListItemText
+                  onClick={() =>
+                    handleNavigate("/settings/disability-categories")
+                  }
+                  primary="Disability Categories"
                 />
               </ListItem>
             </List>

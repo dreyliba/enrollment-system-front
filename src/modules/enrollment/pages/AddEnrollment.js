@@ -126,6 +126,7 @@ export default function AddEnrollment() {
 
   const [tracks, setTracks] = useState([]);
   const [strands, setStrands] = useState([]);
+  const [disabilityCategories, setDisabilityCategories] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -135,6 +136,7 @@ export default function AddEnrollment() {
       if (res.data.tracks) {
         setTracks(res.data.tracks);
         setStrands(res.data.strands);
+        setDisabilityCategories(res.data.disability_categories);
       }
     });
   }, []);
@@ -388,7 +390,7 @@ export default function AddEnrollment() {
         <Card className={classes.parentContainer}>
           <Grid container spacing={1}>
             <SchoolInformation tracks={tracks} strands={strands} />
-            <StudentInfomation />
+            <StudentInfomation disabilityCategories={disabilityCategories} />
             <ParentGuardianInfo />
             <HouseHoldCapcity />
             {/* <LimitedFtoF /> */}

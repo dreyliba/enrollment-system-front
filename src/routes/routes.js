@@ -9,7 +9,8 @@ import Profile from "../modules/profile/Profile";
 import Report from "../modules/report/pages/Report";
 import PrintEnrollmentReports from "../modules/report/pages/PrintEnrollmentReports";
 import EditEnrollment from "../modules/enrollment/pages/EditEnrollment";
-import ReportDesign from "../components/ReportDesign";
+import DisabilityCategories from "../modules/disability-categories/pages/DisabilityCategories";
+import PrintDailyReports from "../modules/dashboard/pages/PrintDailyReports";
 
 const routes = [
   {
@@ -52,6 +53,11 @@ const routes = [
     // auth: true,
   },
   {
+    path: "/reports/print-daily",
+    component: PrintDailyReports,
+    // auth: true,
+  },
+  {
     path: "/users",
     component: UserList,
     auth: true,
@@ -67,13 +73,13 @@ const routes = [
     auth: true,
   },
   {
-    path: "/profile",
-    component: Profile,
+    path: "/settings/disability-categories",
+    component: DisabilityCategories,
     auth: true,
   },
   {
-    path: "/testing",
-    component: ReportDesign,
+    path: "/profile",
+    component: Profile,
     auth: true,
   },
 ];

@@ -591,7 +591,7 @@ function HouseHoldCapcity() {
           label="none"
         />
       </Grid>
-      {/* <Grid item xs={12} md={8}>
+      <Grid item xs={12} md={8}>
         <Typography>
           D6. What distance learning modality/ies do you prefer for you child?
           Choose all that applies.
@@ -904,7 +904,7 @@ function HouseHoldCapcity() {
             />
           </div>
         )}
-      </Grid> */}
+      </Grid>
     </Fragment>
   );
 }
