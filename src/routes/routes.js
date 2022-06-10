@@ -11,6 +11,7 @@ import PrintEnrollmentReports from "../modules/report/pages/PrintEnrollmentRepor
 import EditEnrollment from "../modules/enrollment/pages/EditEnrollment";
 import DisabilityCategories from "../modules/disability-categories/pages/DisabilityCategories";
 import PrintDailyReports from "../modules/dashboard/pages/PrintDailyReports";
+import Slip from "../components/common/Slip";
 
 const routes = [
   {
@@ -81,6 +82,11 @@ const routes = [
     path: "/profile",
     component: Profile,
     auth: true,
+  },
+  {
+    path: "/testing",
+    component: Slip,
+    // auth: true,
   },
 ];
 

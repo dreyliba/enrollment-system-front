@@ -8,7 +8,7 @@ import HnvsLogo from "../../assets/images/hnvs-logo.png";
 const useStyles = makeStyles({
   content: {
     display: "flex",
-    borderTop: "1px solid #000",
+    // borderTop: "1px solid #000",
     paddingTop: 20,
   },
   text: {
