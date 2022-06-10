@@ -11,6 +11,7 @@ import PrintEnrollmentReports from "../modules/report/pages/PrintEnrollmentRepor
 import EditEnrollment from "../modules/enrollment/pages/EditEnrollment";
 import DisabilityCategories from "../modules/disability-categories/pages/DisabilityCategories";
 import PrintDailyReports from "../modules/dashboard/pages/PrintDailyReports";
+import PrintEnrollment from "../modules/enrollment/pages/PrintEnrollment";
 
 const routes = [
   {
@@ -40,7 +41,7 @@ const routes = [
   },
   {
     path: "/enrollments/:id/print",
-    component: EditEnrollment,
+    component: PrintEnrollment,
   },
   {
     path: "/reports",
