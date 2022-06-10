@@ -5,6 +5,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
+import PrintFooter from "../../../components/common/PrintFooter";
 import PrintHeader from "../../../components/common/PrintHeader";
 import Http from "../../utils/Http";
 
@@ -86,6 +87,9 @@ function PrintDailyReports() {
   return (
     <div>
       <PrintHeader />
+
+      <div></div>
+      <PrintFooter />
       <div>
         <Typography>
           Reports (From: {filters.date_from || ""} - {filters.date_to || ""}){" "}

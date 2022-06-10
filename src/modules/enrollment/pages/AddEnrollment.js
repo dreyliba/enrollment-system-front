@@ -10,7 +10,7 @@ import {
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Revalidate } from "../../utils/helper";
 import HouseHoldCapcity from "../component/HouseHoldCapcity";
-// import LimitedFtoF from "../component/LimitedFtoF";
+import LimitedFtoF from "../component/LimitedFtoF";
 import ParentGuardianInfo from "../component/ParentGuardianInfo";
 import SchoolInformation from "../component/SchoolInformation";
 import StudentInfomation from "../component/StudentInfomation";
@@ -393,7 +393,7 @@ export default function AddEnrollment() {
             <StudentInfomation disabilityCategories={disabilityCategories} />
             <ParentGuardianInfo />
             <HouseHoldCapcity />
-            {/* <LimitedFtoF /> */}
+            <LimitedFtoF />
             <Grid item xs={12}>
               {formValues.errors.items &&
                 formValues.errors.items.length > 0 && (
