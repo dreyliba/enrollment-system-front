@@ -88,11 +88,16 @@ function Student() {
   };
 
   const handlePrint = (id) => {
-    history.push(`/enrollments/${id}/print`);
+    const win = window.open(`/enrollments/${id}/print`, "_blank");
+    win.focus();
   };
 
   const handlePrintReceipt = (id) => {
-    history.push(`/enrollments/${id}/print-completion-form`);
+    const win = window.open(
+      `/enrollments/${id}/print-completion-form`,
+      "_blank"
+    );
+    win.focus();
   };
 
   return (

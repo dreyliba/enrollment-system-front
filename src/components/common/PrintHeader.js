@@ -5,7 +5,6 @@ import DepEDLogo from "../../assets/images/DepED_Logo.png";
 const useStyles = makeStyles({
   content: {
     marginBottom: 10,
-    paddingBottom: 20,
   },
   repub_txt: {
     fontFamily: "Old English Text MT",
