@@ -91,6 +91,10 @@ function Student() {
     history.push(`/enrollments/${id}/print`);
   };
 
+  const handlePrintReceipt = (id) => {
+    history.push(`/enrollments/${id}/print-completion-form`);
+  };
+
   return (
     <Card>
       <CardContent>
@@ -149,8 +153,16 @@ function Student() {
                         <DeleteIcon color="secondary" />
                       </IconButton>
                       <IconButton
+                        title="Print Enrollment Form"
                         size="small"
                         onClick={() => handlePrint(enrollment.id)}
+                      >
+                        <PrintIcon color="secondary" />
+                      </IconButton>
+                      <IconButton
+                        title="Print Completion Form"
+                        size="small"
+                        onClick={() => handlePrintReceipt(enrollment.id)}
                       >
                         <PrintIcon color="secondary" />
                       </IconButton>

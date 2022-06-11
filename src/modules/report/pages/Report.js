@@ -191,7 +191,7 @@ function Report() {
                 <TableCell>Last Name</TableCell>
                 <TableCell>First Name</TableCell>
                 <TableCell>Middle Name</TableCell>
-                <TableCell>Email</TableCell>
+                <TableCell>Gender</TableCell>
                 <TableCell>Grade</TableCell>
                 <TableCell>Track</TableCell>
                 <TableCell>Strand</TableCell>
@@ -204,7 +204,7 @@ function Report() {
                     <TableCell>{enrollment.last_name}</TableCell>
                     <TableCell>{enrollment.first_name}</TableCell>
                     <TableCell>{enrollment.middle_name}</TableCell>
-                    <TableCell>{enrollment.email}</TableCell>
+                    <TableCell>{enrollment.gender}</TableCell>
                     <TableCell>{enrollment.grade_level_to_enroll}</TableCell>
                     <TableCell>
                       {(enrollment.track && enrollment.track.code) || ""}
