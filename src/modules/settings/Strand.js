@@ -2,6 +2,7 @@ import {
   Button,
   Card,
   CardContent,
+  Grid,
   IconButton,
   makeStyles,
   Table,
@@ -10,7 +11,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
   Typography,
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
@@ -23,11 +23,10 @@ import AddStrand from "./pages/AddStrand";
 import Http from "../utils/Http";
 
 const useStyles = makeStyles({
-  spaceBetween: {
+  floatRight: {
     display: "flex",
-    justifyContent: "space-between",
-    marginLeft: 15,
-    marginRight: 15,
+    justifyContent: "flex-end",
+    paddingRight: 15,
   },
   tblHeader: {
     backgroundColor: "#ccc;",
@@ -36,9 +35,11 @@ const useStyles = makeStyles({
     fontWeight: "bold",
     fontSize: 16,
   },
-  trackTxt: {
-    marginLeft: 15,
+  trackName: {
+    position: "absolute",
+    top: 90,
     fontSize: 16,
+    paddingLeft: 15,
   },
 });
 
@@ -101,22 +102,14 @@ function Strand({ match }) {
 
   return (
     <Card>
-      <div>
+      <Grid item xs={12} className={classes.trackName}>
         <Typography>
           <span className={classes.trackTxt}>Track: </span>
           <span className={classes.title}>{trackData.name}</span>
         </Typography>
-      </div>
-      <div className={classes.spaceBetween}>
-        <div>
-          <TextField
-            style={{ marginBottom: 0 }}
-            sx={{ width: 300 }}
-            label="Search Input"
-            variant="outlined"
-            margin="dense"
-          />
-        </div>
+      </Grid>
+
+      <div className={classes.floatRight}>
         <div>
           <Button
             variant="contained"

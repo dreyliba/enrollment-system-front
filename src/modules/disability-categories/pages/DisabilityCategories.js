@@ -10,7 +10,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
@@ -22,11 +21,10 @@ import EditCategory from "../component/EditCategory";
 import AddCategory from "../component/AddCategory";
 
 const useStyles = makeStyles({
-  spaceBetween: {
+  floatRight: {
     display: "flex",
-    justifyContent: "space-between",
-    marginLeft: 15,
-    marginRight: 15,
+    justifyContent: "flex-end",
+    paddingRight: 15,
   },
   tblHeader: {
     backgroundColor: "#ccc;",
@@ -79,16 +77,7 @@ function DisabilityCategories() {
 
   return (
     <Card>
-      <div className={classes.spaceBetween}>
-        <div>
-          <TextField
-            style={{ marginBottom: 0 }}
-            sx={{ width: 300 }}
-            label="Search Input"
-            variant="outlined"
-            margin="dense"
-          />
-        </div>
+      <div className={classes.floatRight}>
         <div>
           <Button
             variant="contained"

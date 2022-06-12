@@ -10,7 +10,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
@@ -24,11 +23,10 @@ import Http from "../utils/Http";
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
-  spaceBetween: {
+  floatRight: {
     display: "flex",
-    justifyContent: "space-between",
-    marginLeft: 15,
-    marginRight: 15,
+    justifyContent: "flex-end",
+    paddingRight: 15,
   },
   tblHeader: {
     backgroundColor: "#ccc;",
@@ -85,28 +83,17 @@ function Track() {
 
   return (
     <Card>
-      <div className={classes.spaceBetween}>
-        <div>
-          <TextField
-            style={{ marginBottom: 0 }}
-            sx={{ width: 300 }}
-            label="Search Input"
-            variant="outlined"
-            margin="dense"
-          />
-        </div>
-        <div>
-          <Button
-            variant="contained"
-            color="primary"
-            size="small"
-            style={{ marginTop: 10 }}
-            onClick={handleOpenAddTrack}
-          >
-            <AddIcon style={{ margin: "0px 5px 2px 0px" }} />
-            ADD TRACK
-          </Button>
-        </div>
+      <div className={classes.floatRight}>
+        <Button
+          variant="contained"
+          color="primary"
+          size="small"
+          style={{ marginTop: 10 }}
+          onClick={handleOpenAddTrack}
+        >
+          <AddIcon style={{ margin: "0px 5px 2px 0px" }} />
+          ADD TRACK
+        </Button>
       </div>
       <CardContent>
         <TableContainer>

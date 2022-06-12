@@ -13,7 +13,6 @@ import AddIcon from "@material-ui/icons/Add";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import AddUser from "./pages/AddUser";
 import EditUser from "./pages/EditUser";
 import DeleteUser from "./pages/DeleteUser";
@@ -99,13 +98,13 @@ function Users() {
     <Card>
       <div className={classes.spaceBetween}>
         <div>
-          <TextField
+          {/* <TextField
             style={{ marginBottom: 0 }}
             sx={{ width: 300 }}
             label="Search Input"
             variant="outlined"
             margin="dense"
-          />
+          /> */}
         </div>
         <div>
           <Button
