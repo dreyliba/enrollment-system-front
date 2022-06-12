@@ -17,6 +17,7 @@ import Http from "../../utils/Http";
 import PrintIcon from "@material-ui/icons/Print";
 import { useHistory } from "react-router-dom";
 import { IconButton, LinearProgress, TablePagination } from "@material-ui/core";
+import DeleteEnrollment from "./DeleteEnrollment";
 
 const useStyles = makeStyles({
   spaceBetween: {
@@ -24,11 +25,16 @@ const useStyles = makeStyles({
     justifyContent: "space-between",
     padding: 15,
   },
+  tblHeader: {
+    backgroundColor: "#ccc",
+  },
 });
 
 function Student() {
   const classes = useStyles();
   const history = useHistory();
+  const [selectedID, setSelectedID] = useState("");
+  const [openDeleteEnrollment, setOpenDeleteEnrollment] = useState(false);
 
   const [enrollments, setEnrollments] = useState({
     data: [],
@@ -91,6 +97,20 @@ function Student() {
     history.push(`/enrollments/${id}/print`);
   };
 
+  const handleOpenDeleteEnrollment = (enrollmentID) => {
+    setSelectedID(enrollmentID);
+    setOpenDeleteEnrollment(true);
+  };
+
+  const handleConfirmDelete = () => {
+    Http.delete(`/enrollments/${selectedID}`).then((res) => {
+      if (res.data) {
+        setOpenDeleteEnrollment(false);
+        fetchData();
+      }
+    });
+  };
+
   return (
     <Card>
       <CardContent>
@@ -122,7 +142,7 @@ function Student() {
         {fetching && <LinearProgress />}
         <TableContainer>
           <Table size="small">
-            <TableHead id="th">
+            <TableHead id="th" className={classes.tblHeader}>
               <TableRow>
                 <TableCell>Actions</TableCell>
                 <TableCell>Last Name</TableCell>
@@ -145,7 +165,12 @@ function Student() {
                       >
                         <EditIcon color="primary" />
                       </IconButton>
-                      <IconButton size="small">
+                      <IconButton
+                        size="small"
+                        onClick={() =>
+                          handleOpenDeleteEnrollment(enrollment.id)
+                        }
+                      >
                         <DeleteIcon color="secondary" />
                       </IconButton>
                       <IconButton
@@ -182,6 +207,11 @@ function Student() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </CardContent>
+      <DeleteEnrollment
+        handleConfirmDelete={handleConfirmDelete}
+        handleOpen={openDeleteEnrollment}
+        handleClose={() => setOpenDeleteEnrollment(false)}
+      />
     </Card>
   );
 }

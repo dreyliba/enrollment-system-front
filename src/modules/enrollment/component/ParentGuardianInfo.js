@@ -33,7 +33,7 @@ function ParentGuardianInfo() {
         </Typography>
       </Grid>
       <Grid item xs={12} sm={4}>
-        <FormLabel>{"Father (Last Name, Middel Name, First Name)"}</FormLabel>
+        <FormLabel>{"Father (Last Name, Middle Name, First Name)"}</FormLabel>
         <FormField
           label="Full Name"
           name="father"
@@ -189,7 +189,7 @@ function ParentGuardianInfo() {
         </Grid>
       </Grid>
       <Grid item xs={12} sm={4}>
-        <FormLabel>{"Mother (Last Name, Middel Name, First Name)"}</FormLabel>
+        <FormLabel>{"Mother (Last Name, Middle Name, First Name)"}</FormLabel>
         <FormField
           label="Full Name"
           name="mother"
@@ -345,7 +345,7 @@ function ParentGuardianInfo() {
         </Grid>
       </Grid>
       <Grid item xs={12} sm={4}>
-        <FormLabel>{"Guardian(Last Name, Middel Name, First Name)"}</FormLabel>
+        <FormLabel>{"Guardian(Last Name, Middle Name, First Name)"}</FormLabel>
         <FormField
           label="Full Name"
           name="guardian"

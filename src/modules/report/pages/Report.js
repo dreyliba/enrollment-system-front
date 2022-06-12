@@ -14,6 +14,7 @@ import Http from "../../utils/Http";
 import {
   Grid,
   LinearProgress,
+  makeStyles,
   TablePagination,
   Typography,
 } from "@material-ui/core";
@@ -21,7 +22,20 @@ import SelectField from "../../../components/common/SelectField";
 import FormField from "../../../components/common/FormField";
 import moment from "moment";
 
+const useStyles = makeStyles({
+  tblHeader: {
+    backgroundColor: "#ccc",
+  },
+  totalStudent: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginTop: 5,
+    marginBottom: 5,
+  },
+});
+
 function Report() {
+  const classes = useStyles();
   const [tracks, setTracks] = useState([]);
   const [strands, setStrands] = useState([]);
 
@@ -180,13 +194,13 @@ function Report() {
         </Grid>
         {fetching && <LinearProgress />}
         <div>
-          <Typography>
+          <Typography className={classes.totalStudent}>
             Total Student(s): {enrollments.meta.total || 0}
           </Typography>
         </div>
         <TableContainer>
           <Table size="small">
-            <TableHead id="th">
+            <TableHead id="th" className={classes.tblHeader}>
               <TableRow>
                 <TableCell>Last Name</TableCell>
                 <TableCell>First Name</TableCell>
