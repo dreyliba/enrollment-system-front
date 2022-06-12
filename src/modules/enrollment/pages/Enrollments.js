@@ -94,7 +94,16 @@ function Student() {
   };
 
   const handlePrint = (id) => {
-    history.push(`/enrollments/${id}/print`);
+    const win = window.open(`/enrollments/${id}/print`, "_blank");
+    win.focus();
+  };
+
+  const handlePrintReceipt = (id) => {
+    const win = window.open(
+      `/enrollments/${id}/print-completion-form`,
+      "_blank"
+    );
+    win.focus();
   };
 
   const handleOpenDeleteEnrollment = (enrollmentID) => {
@@ -174,8 +183,16 @@ function Student() {
                         <DeleteIcon color="secondary" />
                       </IconButton>
                       <IconButton
+                        title="Print Enrollment Form"
                         size="small"
                         onClick={() => handlePrint(enrollment.id)}
+                      >
+                        <PrintIcon color="secondary" />
+                      </IconButton>
+                      <IconButton
+                        title="Print Completion Form"
+                        size="small"
+                        onClick={() => handlePrintReceipt(enrollment.id)}
                       >
                         <PrintIcon color="secondary" />
                       </IconButton>

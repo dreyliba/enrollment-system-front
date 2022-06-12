@@ -12,7 +12,7 @@ import EditEnrollment from "../modules/enrollment/pages/EditEnrollment";
 import DisabilityCategories from "../modules/disability-categories/pages/DisabilityCategories";
 import PrintDailyReports from "../modules/dashboard/pages/PrintDailyReports";
 import PrintEnrollment from "../modules/enrollment/pages/PrintEnrollment";
-import Slip from "../components/common/Slip";
+import PrintCompletionForm from "../modules/enrollment/pages/PrintCompletionForm";
 
 const routes = [
   {
@@ -43,6 +43,10 @@ const routes = [
   {
     path: "/enrollments/:id/print",
     component: PrintEnrollment,
+  },
+  {
+    path: "/enrollments/:id/print-completion-form",
+    component: PrintCompletionForm,
   },
   {
     path: "/reports",
@@ -83,11 +87,6 @@ const routes = [
     path: "/profile",
     component: Profile,
     auth: true,
-  },
-  {
-    path: "/testing",
-    component: Slip,
-    // auth: true,
   },
 ];
 

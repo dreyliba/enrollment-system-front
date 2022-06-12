@@ -1,17 +1,35 @@
 import {
   CircularProgress,
+  FormLabel,
   Grid,
   makeStyles,
   Typography,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import Http from "../../utils/Http";
+import _ from "lodash";
+import PrintHeader from "../../../components/common/PrintHeader";
 
 const useStyles = makeStyles({
   content: {
     width: "100%",
     maxWidth: 850,
     margin: "0 auto",
+  },
+  text: {
+    borderBottom: "1px solid #000",
+    paddingLeft: 6,
+    fontSize: 11,
+  },
+  label: {
+    fontSize: 11,
+  },
+  field: {
+    marginBottom: 4,
+    padding: "0 4px",
+  },
+  header: {
+    fontSize: 14,
   },
 });
 
@@ -28,10 +46,10 @@ function PrintEnrollment({ match }) {
         if (res.data.data) {
           setEnrollmentData(res.data.data);
 
-          // setTimeout(() => {
-          //   window.print();
-          //   window.close();
-          // }, 1000);
+          setTimeout(() => {
+            window.print();
+            window.close();
+          }, 1000);
         }
 
         setFetching(false);
@@ -48,20 +66,21 @@ function PrintEnrollment({ match }) {
     returning: "Balik Aral",
     grade_level_to_enroll: "Grade Level to Enroll",
     track: "Track",
-    last_year_track_id: "Last Year Track ID",
-    strand_id: "Strand Id",
+    strand: "Strand",
+    last_year_track: "Last Year Track",
+    last_year_strand: "Last Year Strand",
     last_grade_level_completed: "Last Grade Level Completed",
     last_school_yr_completed: "Last School Year Completed",
-    last_school_attended_name: "Last School Attended",
-    last_school_attended_address: "School Address",
-    last_school_attended_id: "School ID",
+    last_school_attended_name: "Last School Attended Name",
+    last_school_attended_address: "Last School Attended Address",
+    last_school_attended_id: "Last School Attended ID",
     school_type: "School Type",
     school_to_enroll_address: "School to enroll address",
     school_to_enroll_in_id: "School ID",
   };
 
   const studentinfo = {
-    psa: "PSA",
+    psa: "PSA (Birth Certificate Number)",
     lrn: "LRN",
     last_name: "Last Name",
     first_name: "First Name",
@@ -72,13 +91,16 @@ function PrintEnrollment({ match }) {
     gender: "Gender",
     has_children: "Has child/children",
     school_to_enroll_name: "School to enroll in",
-    indigenous_status: "Belonging to the Indigenous People ?",
+    indigenous_status:
+      "Belonging to the Indigenous People (IP) Community/Indigenous Cultural Community",
+    indigenous_status_name: "Indigenous People Info",
     mother_tongue: "Mother Tongue",
     religion: "Religion",
-    is_special_education: "Does the learner special education needs?",
-    is_special_education_name: "Special Education Name",
+    is_special_education:
+      "Does the learner special education needs? (i.e. physical, social disablity, medical condition, giftedness, among others)",
+    is_special_education_name: "Special Education Info",
     has_devices_available_at_home:
-      "Assistive technology devices available at home?",
+      "Do you have any assistive technology devices available at home? (i.e. screen reader, Braille, DAISY)",
     has_devices_available_at_home_name: "Assistive Technology Device Name",
     email: "Email",
     house_number_street: "House Number and Street",
@@ -135,9 +157,9 @@ function PrintEnrollment({ match }) {
   const limitedfacetoface = {
     limited_classes_allowed:
       "In case limited face to face classes will be allowed, are you willing to allow your child/children to participate?",
-    limited_face_to_face: "Limited Face to Face",
+    limited_face_to_face: "Limited Face to Face Reason",
     limited_face_to_face_others: "Other Limited Face to Face",
-    enrolled_date: "Enrolled Date",
+    // enrolled_date: "Enrolled Date",
   };
 
   const getValues = (values) => {
@@ -148,13 +170,11 @@ function PrintEnrollment({ match }) {
           value: enrollmentData[key].join(","),
           label: values[key],
         });
-      } else if (typeof enrollmentData[key] === "object") {
-        if (enrollmentData[key] && enrollmentData[key].name) {
-          data.push({
-            value: enrollmentData[key].name,
-            label: values[key],
-          });
-        }
+      } else if (enrollmentData[key] && _.isObject(enrollmentData[key])) {
+        data.push({
+          value: enrollmentData[key].name || "",
+          label: values[key],
+        });
       } else {
         data.push({ value: enrollmentData[key] || "", label: values[key] });
       }
@@ -165,46 +185,61 @@ function PrintEnrollment({ match }) {
 
   const renderValues = (values) => {
     return values.map((val, index) => (
-      <Grid key={index} item xs={6}>
-        <Typography>
-          {val.label} : {val.value}
-        </Typography>
+      <Grid key={index} item xs={4}>
+        <div className={classes.field}>
+          <FormLabel className={classes.label}>{val.label}</FormLabel>
+          <div>
+            <Typography className={classes.text}>{val.value || "-"}</Typography>
+          </div>
+        </div>
       </Grid>
     ));
   };
 
   return (
     <div className={classes.content}>
+      <PrintHeader />
+      <Typography align="center" variant="h6">
+        Enrollment Form
+      </Typography>
       {fetching ? (
         <Grid container justifyContent="center">
           <CircularProgress />
         </Grid>
       ) : (
-        <Grid container spacing={1}>
+        <Grid container>
           <Grid item xs={12}>
-            <Typography variant="h6">
+            <Typography variant="h6" className={classes.header}>
               A. GRADE LEVEL AND SCHOOL INFORMATION
             </Typography>
           </Grid>
           {getValues(schoolInfo)}
           <Grid item xs={12}>
-            <Typography variant="h6">B. STUDENT INFORMATION</Typography>
+            <Typography variant="h6" className={classes.header}>
+              B. STUDENT INFORMATION
+            </Typography>
           </Grid>
           {getValues(studentinfo)}
           <Grid item xs={12}>
-            <Typography variant="h6">
+            <Typography variant="h6" className={classes.header}>
               C. PARENT/ GUARDIAN INFORMATION
             </Typography>
           </Grid>
           {getValues(parentinfo)}
           <Grid item xs={12}>
-            <Typography variant="h6">
+            <Typography variant="h6" className={classes.header}>
               D. HOUSEHOLD CAPACITY AND ACCESS TO DISTANCE LEARNING
             </Typography>
+            <FormLabel className={classes.label}>
+              D1. How many of your household members (including the enrollee)
+              are studying in School Year 2021-2022? Please specify each.
+            </FormLabel>
           </Grid>
           {getValues(householdcapacities)}
           <Grid item xs={12}>
-            <Typography variant="h6">E. LIMITED FACE TO FACE</Typography>
+            <Typography variant="h6" className={classes.header}>
+              E. LIMITED FACE TO FACE
+            </Typography>
           </Grid>
           {getValues(limitedfacetoface)}
         </Grid>

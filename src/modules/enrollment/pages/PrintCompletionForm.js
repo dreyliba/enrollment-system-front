@@ -1,41 +1,149 @@
-import { Grid, makeStyles, Typography } from "@material-ui/core";
-import React, { Fragment } from "react";
+import {
+  CircularProgress,
+  Grid,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import PrintHeader from "../../../components/common/PrintHeader";
+import PrintFooter from "../../../components/common/PrintFooter";
+import Http from "../../utils/Http";
 const useStyles = makeStyles({
   content: {
-    marginLeft: 100,
-    marginRight: 100,
+    maxWidth: 780,
+    width: "100%",
+    margin: "0 auto",
   },
-  header: {
+  cert: {
     fontFamily: "Bodoni MT",
-    fontSize: 24,
+    fontSize: 20,
+    letterSpacing: 3,
     textAlign: "center",
-    letterSpacing: 6,
   },
-  schoolYear: {
+  school_year: {
     textAlign: "center",
     fontFamily: "Arial",
   },
-  intro: {
-    // marginLeft: 200,
+  date: {
+    display: "flex",
+    justifyContent: "flex-end",
+    marginTop: 12,
+  },
+  dateLine: {
+    borderTop: "1px solid black",
+    display: "block",
+    textAlign: "center",
+    width: 150,
+  },
+  introtxt: {
+    paddingLeft: 50,
+    marginTop: 10,
+  },
+  enrollingTeacher: {
+    display: "flex",
+    justifyContent: "flex-end",
+    marginTop: 16,
+    marginBottom: 10,
+  },
+  name: {
+    borderBottom: "1px solid #000",
+    padding: "0 24px",
+    textAlign: "center",
+    margin: "0 12px",
+  },
+  grade: {
+    borderBottom: "1px solid #000",
+    padding: "0 24px",
+    textAlign: "center",
+    margin: "0 12px",
+  },
+  teacher: {
+    borderBottom: "1px solid #000",
+    padding: "0 24px",
+    textAlign: "center",
+    margin: "0 12px",
+  },
+  dateInfo: {
+    borderBottom: "1px solid #000",
+    padding: "0 12px",
+    textAlign: "center",
+    margin: "0 12px",
   },
 });
 
-function PrintCompletionForm() {
+function PrintCompletionForm({ match }) {
+  const { params } = match;
   const classes = useStyles();
+
+  const [fetching, setFetching] = useState(false);
+  const [enrollmentData, setEnrollmentData] = useState({});
+
+  useEffect(() => {
+    setFetching(true);
+    Http.get(`/enrollments/${params.id}`)
+      .then((res) => {
+        if (res.data.data) {
+          setEnrollmentData(res.data.data);
+
+          setTimeout(() => {
+            window.print();
+            window.close();
+          }, 1000);
+        }
+
+        setFetching(false);
+      })
+      .catch(() => {
+        setFetching(false);
+      }); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params.id]);
+
   return (
-    <Fragment>
-      <Grid item xs={12}>
-        <Typography className={classes.header}>
-          CERTIFICATE OF ENROLLMENT
-        </Typography>
-        <Typography className={classes.schoolYear}>School Year:</Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <Typography className={classes.intro}>
-          TO WHOM IT MAY CONCERN:
-        </Typography>
-      </Grid>
-    </Fragment>
+    <div className={classes.content}>
+      {fetching ? (
+        <Grid container justifyContent="center">
+          <CircularProgress />
+        </Grid>
+      ) : (
+        <>
+          <PrintHeader />
+          <Typography className={classes.cert}>
+            CERTIFICATE OF ENROLLMENT
+          </Typography>
+          <Typography className={classes.school_year}>
+            School Year: <span>{enrollmentData.school_year || ""}</span>
+          </Typography>
+          <Typography className={classes.date}>
+            Date:
+            <span className={classes.dateInfo}>
+              {enrollmentData.enrolled_date || ""}
+            </span>
+          </Typography>
+          <Typography>TO WHOM IT MAY CONCERN:</Typography>
+          <Typography className={classes.introtxt}>
+            THIS IS TO CERTIFY that
+            <span className={classes.name}>
+              {(enrollmentData.full_name &&
+                enrollmentData.full_name.toUpperCase()) ||
+                ""}
+            </span>
+            is officially enrolled as a regular/an irregular
+            <span className={classes.grade}>
+              Grade {enrollmentData.grade_level_to_enroll || ""}
+            </span>
+            student of this school.
+          </Typography>
+          <Typography className={classes.enrollingTeacher}>
+            Enrolling Teacher:
+            <span className={classes.teacher}>
+              {(enrollmentData.user && enrollmentData.user.full_name) || ""}
+            </span>
+          </Typography>
+
+          <PrintFooter />
+        </>
+      )}
+    </div>
   );
 }
 
