@@ -234,7 +234,7 @@ function Report() {
         <TablePagination
           rowsPerPageOptions={[15, 25, 50, 100]}
           component="div"
-          count={enrollments.data.length}
+          count={enrollments.meta.total || 0}
           rowsPerPage={filters.limit}
           page={enrollments.meta.current_page - 1 || 0}
           onPageChange={handleChangePage}
