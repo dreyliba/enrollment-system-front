@@ -17,6 +17,7 @@ import StudentInfomation from "../component/StudentInfomation";
 import EnrollmentContext from "../context/EnrollmentContent";
 import Http from "../../utils/Http";
 import MessageModal from "../../../components/MessageModal";
+import FormField from "../../../components/common/FormField";
 
 const useStyles = makeStyles({
   parentContainer: {
@@ -174,6 +175,7 @@ export default function EditEnrollment({ match }) {
 
   const [formValues, setFormValues] = useState({
     values: {
+      enrolled_date: "",
       school_year: "",
       lrn_status: "",
       returning: "",
@@ -402,6 +404,21 @@ export default function EditEnrollment({ match }) {
             </Grid>
           ) : (
             <Grid container spacing={1}>
+              <div>
+                <FormField
+                  type="date"
+                  label="Enrollment Date"
+                  name="enrolled_date"
+                  onChange={(e) =>
+                    handleChange("enrolled_date", e.target.value)
+                  }
+                  errors={formValues.errors}
+                  value={formValues.values.enrolled_date || ""}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </div>
               <SchoolInformation tracks={tracks} strands={strands} />
               <StudentInfomation disabilityCategories={disabilityCategories} />
               <ParentGuardianInfo />

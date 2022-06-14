@@ -391,6 +391,7 @@ export default function AddEnrollment() {
           <Grid container spacing={1}>
             <SchoolInformation tracks={tracks} strands={strands} />
             <StudentInfomation disabilityCategories={disabilityCategories} />
+
             <ParentGuardianInfo />
             <HouseHoldCapcity />
             <LimitedFtoF />

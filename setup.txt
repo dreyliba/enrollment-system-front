@@ -1,0 +1,7 @@
+1. clone repo
+2. npm install
+3. create file .env in the root directory
+4. copy .env.example to .env
+5. npm run build
+6. create file .htaccess in /build directory
+7. copy .htaccess.example content to .htaccess on /build directory
