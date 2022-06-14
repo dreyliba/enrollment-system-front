@@ -208,7 +208,7 @@ function StudentInfomation({ disabilityCategories }) {
         </FormControl>
       </Grid>
 
-      <Grid item xs={12} md={8}>
+      {/* <Grid item xs={12} md={8}>
         <FormField
           label="School to enroll in"
           name="school_to_enroll_name"
@@ -218,7 +218,7 @@ function StudentInfomation({ disabilityCategories }) {
           value={formValues.values.school_to_enroll_name || ""}
           errors={formValues.errors}
         />
-      </Grid>
+      </Grid> */}
 
       <Grid item xs={12} md={4}>
         <FormField
