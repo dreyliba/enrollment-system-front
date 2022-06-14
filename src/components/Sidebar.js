@@ -19,6 +19,7 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import Http from "../modules/utils/Http";
 
 const drawerWidth = 240;
 
@@ -66,6 +67,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Sidbar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [user, setUser] = React.useState({});
   const location = useLocation();
   const history = useHistory();
 
@@ -81,10 +83,20 @@ export default function Sidbar() {
     if (location.pathname.includes("track")) {
       setOpen(true);
     }
+
+    Http.get("/user").then((res) => {
+      if (res.data.data) {
+        setUser(res.data.data);
+      }
+    });
   }, [location.pathname]);
 
   const handleNavigate = (url) => {
     history.push(url);
+  };
+
+  const isAdmin = () => {
+    return user.roles && user.roles.includes("Admin");
   };
 
   return (
@@ -144,62 +156,70 @@ export default function Sidbar() {
               primary={"Reports"}
             />
           </ListItem>
-          <ListItem button className={isActive("/users") ? classes.active : ""}>
-            <ListItemIcon>
-              <GroupIcon />
-            </ListItemIcon>
-            <ListItemText
-              onClick={() => handleNavigate("/users")}
-              primary={"Users"}
-            />
-          </ListItem>
-          <ListItem
-            button
-            onClick={handleClick}
-            className={isActive("/settings") ? classes.active : ""}
-          >
-            <ListItemIcon>
-              <SettingsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Settings" />
-            {open ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
+
+          {isAdmin() && (
+            <>
               <ListItem
                 button
-                className={`${
-                  isActive("/settings/track") ? classes.active : ""
-                } ${classes.nested}`}
+                className={isActive("/users") ? classes.active : ""}
               >
                 <ListItemIcon>
-                  <AccountBalanceIcon />
+                  <GroupIcon />
                 </ListItemIcon>
                 <ListItemText
-                  onClick={() => handleNavigate("/settings/track")}
-                  primary="Track"
+                  onClick={() => handleNavigate("/users")}
+                  primary={"Users"}
                 />
               </ListItem>
               <ListItem
                 button
-                className={`${
-                  isActive("/settings/disability-categories")
-                    ? classes.active
-                    : ""
-                } ${classes.nested}`}
+                onClick={handleClick}
+                className={isActive("/settings") ? classes.active : ""}
               >
                 <ListItemIcon>
-                  <AccountBalanceIcon />
+                  <SettingsIcon />
                 </ListItemIcon>
-                <ListItemText
-                  onClick={() =>
-                    handleNavigate("/settings/disability-categories")
-                  }
-                  primary="Disability Categories"
-                />
+                <ListItemText primary="Settings" />
+                {open ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
-            </List>
-          </Collapse>
+              <Collapse in={open} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  <ListItem
+                    button
+                    className={`${
+                      isActive("/settings/track") ? classes.active : ""
+                    } ${classes.nested}`}
+                  >
+                    <ListItemIcon>
+                      <AccountBalanceIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      onClick={() => handleNavigate("/settings/track")}
+                      primary="Track"
+                    />
+                  </ListItem>
+                  <ListItem
+                    button
+                    className={`${
+                      isActive("/settings/disability-categories")
+                        ? classes.active
+                        : ""
+                    } ${classes.nested}`}
+                  >
+                    <ListItemIcon>
+                      <AccountBalanceIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      onClick={() =>
+                        handleNavigate("/settings/disability-categories")
+                      }
+                      primary="Disability Categories"
+                    />
+                  </ListItem>
+                </List>
+              </Collapse>
+            </>
+          )}
         </List>
         <Divider />
       </Drawer>
