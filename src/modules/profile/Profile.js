@@ -13,7 +13,8 @@ import EditProfile from "./pages/EditProfile";
 
 const usestyles = makeStyles({
   root: {
-    width: "35%",
+    width: "100%",
+    maxWidth: 600,
     marginTop: 30,
     margin: "0 auto",
   },
@@ -58,9 +59,9 @@ function Profile() {
   }, []);
 
   const fetchData = () => {
-    Http.get(`/users`).then((res) => {
-      if (res.data) {
-        setUser(res.data);
+    Http.get(`/user`).then((res) => {
+      if (res.data.data) {
+        setUser(res.data.data);
       }
     });
   };
@@ -104,6 +105,14 @@ function Profile() {
               style={{ textAlign: "center" }}
             >
               {user.email || ""}
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              component="div"
+              gutterBottom
+              style={{ textAlign: "center" }}
+            >
+              {(user.roles && user.roles[0]) || ""}
             </Typography>
           </CardContent>
           <CardActions className={classes.actionBtns}>

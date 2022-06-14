@@ -9,6 +9,7 @@ import {
   Slide,
 } from "@material-ui/core";
 import Http from "../../utils/Http";
+import SelectField from "../../../components/common/SelectField";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -35,6 +36,7 @@ export default function EditUser({
         middle_name: selectedUserValues.middle_name,
         last_name: selectedUserValues.last_name,
         email: selectedUserValues.email,
+        role: (selectedUserValues.roles && selectedUserValues.roles[0]) || "",
       }));
     }
   }, [handleOpen, selectedUserValues]);
@@ -119,6 +121,13 @@ export default function EditUser({
             fullWidth
             onChange={(e) => handleChange("email", e.target.value)}
             value={formValues.email || ""}
+          />
+          <SelectField
+            label="Role"
+            options={["Teacher", "Admin"]}
+            name="role"
+            value={formValues.role}
+            onChange={(e) => handleChange("role", e.target.value)}
           />
         </DialogContent>
         <DialogActions>

@@ -7,6 +7,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import { TextField } from "@material-ui/core";
 import Http from "../../utils/Http";
+import SelectField from "../../../components/common/SelectField";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -20,6 +21,7 @@ export default function AddUser({ handleOpen, handleClose, refetch }) {
     email: "",
     password: "",
     confirm_password: "",
+    role: "",
   });
 
   useEffect(() => {
@@ -29,6 +31,7 @@ export default function AddUser({ handleOpen, handleClose, refetch }) {
         middle_name: "",
         last_name: "",
         email: "",
+        role: "",
         password: "",
         confirm_password: "",
       });
@@ -119,6 +122,13 @@ export default function AddUser({ handleOpen, handleClose, refetch }) {
             type="email"
             fullWidth
             value={formValues.email}
+            onChange={handleChange}
+          />
+          <SelectField
+            label="Role"
+            options={["Teacher", "Admin"]}
+            name="role"
+            value={formValues.role}
             onChange={handleChange}
           />
           <TextField

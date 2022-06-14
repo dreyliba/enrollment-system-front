@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Slide from "@material-ui/core/Slide";
-import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
-import { styled } from "@material-ui/core/styles";
 import {
   CardContent,
   makeStyles,
@@ -10,9 +8,7 @@ import {
   DialogActions,
   Dialog,
   Button,
-  IconButton,
 } from "@material-ui/core";
-import Profile from "../../../assets/images/Profile.jpg";
 import Http from "../../utils/Http";
 
 const useStyles = makeStyles({
@@ -48,7 +44,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 function EditProfile({ handleOpen, handleClose, refetch, user }) {
   const classes = useStyles();
-  const [imagePreview, setImagePreview] = useState("");
   const [formValues, setFormValues] = useState({
     profile_pic: "",
     last_name: "",
@@ -59,10 +54,6 @@ function EditProfile({ handleOpen, handleClose, refetch, user }) {
 
   useEffect(() => {
     if (handleOpen) {
-      setImagePreview("");
-      if (user.profile_pic) {
-        setImagePreview(user.profile_pic);
-      }
       setFormValues((prev) => ({
         ...prev,
         profile_pic: user.profile_pic,
@@ -81,24 +72,14 @@ function EditProfile({ handleOpen, handleClose, refetch, user }) {
     }));
   };
 
-  const Input = styled("input")({
-    display: "none",
-  });
-
   const handleSubmit = () => {
-    const token = localStorage.getItem("accessToken");
-
     const formData = new FormData();
 
     for (const key in formValues) {
       formData.append(key, formValues[key]);
     }
 
-    Http.post(`/updateUser/${user.id}`, formData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
+    Http.post(`/user/${user.id}/update`, formData).then((res) => {
       if (res.data) {
         handleClose(false);
         refetch();
@@ -106,50 +87,10 @@ function EditProfile({ handleOpen, handleClose, refetch, user }) {
     });
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      setImagePreview(URL.createObjectURL(file));
-    } else {
-      setImagePreview("");
-    }
-
-    setFormValues((prev) => ({
-      ...prev,
-      profile_pic: file,
-    }));
-  };
-
   return (
     <div>
       <Dialog open={handleOpen} TransitionComponent={Transition} keepMounted>
         <Typography className={classes.titleHolder}>Edit Profile</Typography>
-        <div className={classes.img_holder}>
-          <img
-            className={classes.profile_image}
-            src={imagePreview ? imagePreview : Profile}
-            alt="PROFILE"
-          />
-        </div>
-
-        <div className={classes.cam_holder}>
-          <label htmlFor="icon-button-file">
-            <Input
-              accept="img/*"
-              id="icon-button-file"
-              type="file"
-              onChange={handleFileChange}
-            />
-            <IconButton
-              color="primary"
-              aria-label="upload picture"
-              component="span"
-            >
-              <AddAPhotoIcon />
-            </IconButton>
-          </label>
-        </div>
         <CardContent className={classes.contentHolder}>
           <TextField
             variant="outlined"

@@ -19,7 +19,6 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import Http from "../modules/utils/Http";
 
 const drawerWidth = 240;
 
@@ -64,10 +63,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Sidbar() {
+export default function Sidbar({ user }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [user, setUser] = React.useState({});
+
   const location = useLocation();
   const history = useHistory();
 
@@ -83,12 +82,6 @@ export default function Sidbar() {
     if (location.pathname.includes("track")) {
       setOpen(true);
     }
-
-    Http.get("/user").then((res) => {
-      if (res.data.data) {
-        setUser(res.data.data);
-      }
-    });
   }, [location.pathname]);
 
   const handleNavigate = (url) => {

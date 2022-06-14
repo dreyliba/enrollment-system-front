@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   navIconHolder: {},
 }));
 
-export default function Header() {
+export default function Header({ user }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -65,6 +65,7 @@ export default function Header() {
           <div className={classes.navTitle}>
             <Typography variant="h6" noWrap></Typography>
           </div>
+          <Typography>{user.first_name || ""}</Typography>
           <div>
             <IconButton
               aria-controls="menu-appbar"

@@ -130,26 +130,37 @@ function Users() {
                 <TableCell>First Name</TableCell>
                 <TableCell>Middle Name</TableCell>
                 <TableCell>Email</TableCell>
+                <TableCell>Role</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {userList.users.map((users, key) => (
+              {userList.users.map((user, key) => (
                 <TableRow key={key}>
                   <TableCell>
-                    <IconButton onClick={() => handleOpenEditUser(users)}>
+                    <IconButton
+                      size="small"
+                      onClick={() => handleOpenEditUser(user)}
+                    >
                       <EditIcon color="primary" />
                     </IconButton>
-                    <IconButton onClick={() => handleOpenDeleteUser(users.id)}>
+                    <IconButton
+                      size="small"
+                      onClick={() => handleOpenDeleteUser(user.id)}
+                    >
                       <DeleteIcon color="secondary" />
                     </IconButton>
-                    <IconButton onClick={() => handleOpenChangePass()}>
+                    <IconButton
+                      size="small"
+                      onClick={() => handleOpenChangePass()}
+                    >
                       <VpnKeyIcon color="primary" />
                     </IconButton>
                   </TableCell>
-                  <TableCell>{users.first_name}</TableCell>
-                  <TableCell>{users.last_name}</TableCell>
-                  <TableCell>{users.middle_name}</TableCell>
-                  <TableCell>{users.email}</TableCell>
+                  <TableCell>{user.first_name}</TableCell>
+                  <TableCell>{user.last_name}</TableCell>
+                  <TableCell>{user.middle_name}</TableCell>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell>{(user.roles && user.roles[0]) || ""}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
