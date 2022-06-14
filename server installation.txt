@@ -7,7 +7,7 @@
   ServerName localhost
   ServerAlias localhost
   DocumentRoot "D:/Enrollment-System/enrollment-system-front/build"
-  <Directory "D:/Enrollment-System/enrollment-system-back/build/">
+  <Directory "D:/Enrollment-System/enrollment-system-front/build/">
     Options +Indexes +Includes +FollowSymLinks +MultiViews
     AllowOverride All
     Require all granted
@@ -46,3 +46,4 @@
         Require all granted - change this one
     </Directory>
 7. Restart Wamp Server
+8. copy the IP Address of your computer into .env of your host.
