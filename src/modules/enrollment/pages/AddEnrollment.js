@@ -18,6 +18,7 @@ import EnrollmentContext from "../context/EnrollmentContent";
 import Http from "../../utils/Http";
 import MessageModal from "../../../components/MessageModal";
 import { useHistory } from "react-router-dom";
+import FormField from "../../../components/common/FormField";
 
 const useStyles = makeStyles({
   parentContainer: {
@@ -92,6 +93,7 @@ const validator = Revalidate({
   extension_name: "",
   date_of_birth: "required",
   gender: "required",
+  age: "required",
   has_children: "required",
   indigenous_status: "required",
   indigenous_status_name: "",
@@ -209,6 +211,7 @@ export default function AddEnrollment() {
       extension_name: "",
       date_of_birth: "",
       gender: "",
+      age: "",
       has_children: "",
       indigenous_status: "",
       indigenous_status_name: "",
@@ -389,6 +392,19 @@ export default function AddEnrollment() {
       <EnrollmentContext.Provider value={providerValue}>
         <Card className={classes.parentContainer}>
           <Grid container spacing={1}>
+            <div>
+              <FormField
+                type="date"
+                label="Enrollment Date"
+                name="enrolled_date"
+                onChange={(e) => handleChange("enrolled_date", e.target.value)}
+                errors={formValues.errors}
+                value={formValues.values.enrolled_date || ""}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </div>
             <SchoolInformation tracks={tracks} strands={strands} />
             <StudentInfomation disabilityCategories={disabilityCategories} />
 

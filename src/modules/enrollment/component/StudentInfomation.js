@@ -107,7 +107,17 @@ function StudentInfomation({ disabilityCategories }) {
           }}
         />
       </Grid>
-      <Grid item xs={8}>
+      <Grid item xs={12} md={2}>
+        <FormField
+          placeholder="Age"
+          label="Age"
+          name="age"
+          onChange={(e) => handleChange("age", e.target.value, true)}
+          errors={formValues.errors}
+          value={formValues.values.age || ""}
+        />
+      </Grid>
+      <Grid item xs={12} md={2}>
         <FormControl>
           <SelectField
             label="Gender"
@@ -119,7 +129,6 @@ function StudentInfomation({ disabilityCategories }) {
           />
         </FormControl>
       </Grid>
-
       <Grid item xs={12}>
         <FormControl error={formValues.errors.has("indigenous_status")}>
           <FormLabel>
