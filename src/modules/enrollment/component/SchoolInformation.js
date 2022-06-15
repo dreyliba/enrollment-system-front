@@ -43,7 +43,7 @@ function SchoolInformation({ tracks, strands }) {
         <SelectField
           fullWidth={false}
           name="school_year"
-          label="School Year"
+          label="*School Year"
           onChange={(e) => handleFormChange("school_year", e.target.value)}
           errors={formValues.errors}
           value={formValues.values.school_year || ""}
@@ -103,7 +103,7 @@ function SchoolInformation({ tracks, strands }) {
         />
       </Grid>
       <Grid item xs={12} sm={3}>
-        <FormLabel>Grade Level to Enroll</FormLabel>
+        <FormLabel>*Grade Level to Enroll</FormLabel>
         <SelectField
           name="grade_level_to_enroll"
           onChange={(e) =>
@@ -242,7 +242,7 @@ function SchoolInformation({ tracks, strands }) {
       </Grid>
       <Grid item xs={12}>
         <FormControl error={formValues.errors.has("school_type")}>
-          <FormLabel>School Type</FormLabel>
+          <FormLabel>*School Type</FormLabel>
           <FormGroup row>
             <FormControlLabel
               control={

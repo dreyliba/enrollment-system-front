@@ -464,7 +464,7 @@ function HouseHoldCapcity() {
       </Grid>
       <Grid item xs={12} md={8}>
         <FormControl error={formValues.errors.has("has_internet_connection")}>
-          <FormLabel>D4. Is there an internet signal in your area?</FormLabel>
+          <FormLabel>*D4. Is there an internet signal in your area?</FormLabel>
           <FormGroup row>
             <FormControlLabel
               control={

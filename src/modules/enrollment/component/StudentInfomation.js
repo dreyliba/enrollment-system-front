@@ -58,7 +58,7 @@ function StudentInfomation({ disabilityCategories }) {
       </Hidden>
       <Grid item xs={12} md={3}>
         <FormField
-          label="Last Name"
+          label="*Last Name"
           name="last_name"
           onChange={(e) => handleChange("last_name", e.target.value, true)}
           errors={formValues.errors}
@@ -67,7 +67,7 @@ function StudentInfomation({ disabilityCategories }) {
       </Grid>
       <Grid item xs={12} md={3}>
         <FormField
-          label="First Name"
+          label="*First Name"
           name="first_name"
           onChange={(e) => handleChange("first_name", e.target.value, true)}
           errors={formValues.errors}
@@ -96,7 +96,7 @@ function StudentInfomation({ disabilityCategories }) {
       <Grid item xs={12} md={2}>
         <FormField
           type="date"
-          label="Date of Birth"
+          label="*Date of Birth"
           name="date_of_birth"
           onChange={(e) => handleChange("date_of_birth", e.target.value)}
           errors={formValues.errors}
@@ -109,8 +109,7 @@ function StudentInfomation({ disabilityCategories }) {
       </Grid>
       <Grid item xs={12} md={2}>
         <FormField
-          placeholder="Age"
-          label="Age"
+          label="*Age"
           name="age"
           onChange={(e) => handleChange("age", e.target.value, true)}
           errors={formValues.errors}
@@ -120,7 +119,7 @@ function StudentInfomation({ disabilityCategories }) {
       <Grid item xs={12} md={2}>
         <FormControl>
           <SelectField
-            label="Gender"
+            label="*Gender"
             name="gender"
             onChange={(e) => handleChange("gender", e.target.value)}
             value={formValues.values.gender || ""}
@@ -132,7 +131,7 @@ function StudentInfomation({ disabilityCategories }) {
       <Grid item xs={12}>
         <FormControl error={formValues.errors.has("indigenous_status")}>
           <FormLabel>
-            Belonging to the Indigenous People (IP) Community/Indigenous
+            *Belonging to the Indigenous People (IP) Community/Indigenous
             Cultural Community
           </FormLabel>
           <FormGroup row>
@@ -184,7 +183,7 @@ function StudentInfomation({ disabilityCategories }) {
 
       <Grid item xs={12}>
         <FormControl error={formValues.errors.has("has_children")}>
-          <FormLabel>Do you have child/children?</FormLabel>
+          <FormLabel>*Do you have child/children?</FormLabel>
           <FormGroup row>
             <FormControlLabel
               control={
@@ -231,7 +230,7 @@ function StudentInfomation({ disabilityCategories }) {
 
       <Grid item xs={12} md={4}>
         <FormField
-          label="Mother Tongue"
+          label="*Mother Tongue"
           name="mother_tongue"
           onChange={(e) => handleChange("mother_tongue", e.target.value)}
           errors={formValues.errors}
@@ -240,7 +239,7 @@ function StudentInfomation({ disabilityCategories }) {
       </Grid>
       <Grid item xs={12} md={4}>
         <FormField
-          label="Religion"
+          label="*Religion"
           name="religion"
           onChange={(e) => handleChange("religion", e.target.value)}
           errors={formValues.errors}
@@ -259,7 +258,7 @@ function StudentInfomation({ disabilityCategories }) {
           <FormLabel>
             <Typography style={{ fontSize: "14px" }}>
               {
-                "Does the learner  special education needs? (i.e. physical, social disablity, medical condition, giftedness, among others) "
+                "*Does the learner  special education needs? (i.e. physical, social disablity, medical condition, giftedness, among others) "
               }
             </Typography>
           </FormLabel>
@@ -321,7 +320,7 @@ function StudentInfomation({ disabilityCategories }) {
         >
           <FormLabel>
             {
-              "Do you have any assistive technology devices available at home? (i.e. screen reader, Braille, DAISY)"
+              "*Do you have any assistive technology devices available at home? (i.e. screen reader, Braille, DAISY)"
             }
           </FormLabel>
           <FormGroup row>
@@ -415,7 +414,7 @@ function StudentInfomation({ disabilityCategories }) {
       </Grid>
       <Grid item xs={12} md={3}>
         <FormField
-          label="Barangay"
+          label="*Barangay"
           name="barangay"
           onChange={(e) => handleChange("barangay", e.target.value, true)}
           errors={formValues.errors}
@@ -424,7 +423,7 @@ function StudentInfomation({ disabilityCategories }) {
       </Grid>
       <Grid item xs={12} md={3}>
         <FormField
-          label="City/ Municipality"
+          label="*City/ Municipality"
           name="municipality"
           onChange={(e) => handleChange("municipality", e.target.value, true)}
           errors={formValues.errors}
@@ -433,7 +432,7 @@ function StudentInfomation({ disabilityCategories }) {
       </Grid>
       <Grid item xs={12} md={3}>
         <FormField
-          label="Province"
+          label="*Province"
           name="province"
           onChange={(e) => handleChange("province", e.target.value, true)}
           errors={formValues.errors}
@@ -442,7 +441,7 @@ function StudentInfomation({ disabilityCategories }) {
       </Grid>
       <Grid item xs={12} md={3}>
         <FormField
-          label="Region"
+          label="*Region"
           name="region"
           onChange={(e) => handleChange("region", e.target.value, true)}
           errors={formValues.errors}

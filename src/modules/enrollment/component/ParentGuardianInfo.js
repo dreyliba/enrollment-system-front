@@ -502,7 +502,7 @@ function ParentGuardianInfo() {
       </Grid>
       <Grid item xs={12}>
         <FormControl error={formValues.errors.has("is_4ps_benificiary")}>
-          <FormLabel>Is your family a beneficiary of 4Ps?</FormLabel>
+          <FormLabel>*Is your family a beneficiary of 4Ps?</FormLabel>
           <FormGroup row>
             <FormControlLabel
               control={
