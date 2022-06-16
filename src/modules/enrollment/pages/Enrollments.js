@@ -190,7 +190,7 @@ function Student() {
                         <PrintIcon color="secondary" />
                       </IconButton>
                       <IconButton
-                        title="Print Completion Form"
+                        title="Print Enrollment Slip"
                         size="small"
                         onClick={() => handlePrintReceipt(enrollment.id)}
                       >
