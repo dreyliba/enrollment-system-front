@@ -10,6 +10,7 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
+import moment from "moment";
 import React, { Fragment, useContext } from "react";
 import FormField from "../../../components/common/FormField";
 import SelectField from "../../../components/common/SelectField";
@@ -102,6 +103,9 @@ function StudentInfomation({ disabilityCategories }) {
           errors={formValues.errors}
           value={formValues.values.date_of_birth || ""}
           SelectProps={{ native: true }}
+          inputProps={{
+            max: moment().subtract(10, "years").format("YYYY-MM-DD"),
+          }}
           InputLabelProps={{
             shrink: true,
           }}
@@ -111,11 +115,25 @@ function StudentInfomation({ disabilityCategories }) {
         <FormField
           label="*Age"
           name="age"
-          onChange={(e) => handleChange("age", e.target.value, true)}
-          errors={formValues.errors}
+          disabled
+          onChange={(e) => handleChange("age", e.target.value)}
           value={formValues.values.age || ""}
+          InputLabelProps={{
+            shrink: true,
+          }}
         />
       </Grid>
+      {/* <Grid item xs={12} md={2}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            height: "100%",
+          }}
+        >
+          <Typography>Age: {formValues.values.age}</Typography>
+        </div>
+      </Grid> */}
       <Grid item xs={12} md={2}>
         <FormControl>
           <SelectField

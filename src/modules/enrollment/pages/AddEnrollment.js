@@ -19,6 +19,7 @@ import Http from "../../utils/Http";
 import MessageModal from "../../../components/MessageModal";
 import { useHistory } from "react-router-dom";
 import FormField from "../../../components/common/FormField";
+import moment from "moment";
 
 const useStyles = makeStyles({
   parentContainer: {
@@ -27,7 +28,9 @@ const useStyles = makeStyles({
 });
 
 const validator = Revalidate({
+  enrolled_date: "required",
   school_year: "required",
+  semester: "required",
   lrn_status: "required",
   returning: "",
   grade_level_to_enroll: "required",
@@ -145,7 +148,9 @@ export default function AddEnrollment() {
 
   const [formValues, setFormValues] = useState({
     values: {
+      enrolled_date: moment().format("YYYY-MM-DD"),
       school_year: "",
+      semester: "",
       lrn_status: "",
       returning: "",
       grade_level_to_enroll: "",
@@ -232,6 +237,12 @@ export default function AddEnrollment() {
     errors: validator.errors,
   });
 
+  const getAge = (value) => {
+    if (value) {
+      return moment().diff(moment(value, "YYYY-MM-DD"), "years");
+    }
+  };
+
   const handleCheckboxChange = (name, value) => {
     setFormValues((prev) => {
       if (prev.values[name].includes(value)) {
@@ -310,6 +321,10 @@ export default function AddEnrollment() {
         newValues.limited_face_to_face_others = "";
       }
 
+      if (name === "date_of_birth" && value) {
+        newValues.age = getAge(value);
+      }
+
       setFormValues((prev) => ({
         ...prev,
         values: {
@@ -327,7 +342,7 @@ export default function AddEnrollment() {
           errors,
         }));
       });
-    },
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
     [formValues.values]
   );
 

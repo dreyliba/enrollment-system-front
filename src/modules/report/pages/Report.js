@@ -9,7 +9,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import PrintIcon from "@material-ui/icons/Print";
-import { levelOptions } from "../../utils/helper";
+import { levelOptions, schoolYearOptions } from "../../utils/helper";
 import Http from "../../utils/Http";
 import {
   Grid,
@@ -48,6 +48,8 @@ function Report() {
     limit: 15,
     search: "",
     level: "",
+    school_year: "",
+    semester: "",
     date_from: moment().format("YYYY-MM-DD"),
     date_to: moment().format("YYYY-MM-DD"),
   });
@@ -127,6 +129,24 @@ function Report() {
     <Card>
       <CardContent>
         <Grid container spacing={1}>
+          <Grid item xs={12} md={2}>
+            <SelectField
+              label="School Year"
+              options={schoolYearOptions()}
+              value={filters.school_year}
+              onChange={(e) =>
+                handleChangeFilter("school_year", e.target.value)
+              }
+            />
+          </Grid>
+          <Grid item xs={12} md={2}>
+            <SelectField
+              label="Semester"
+              options={[1, 2]}
+              value={filters.semester}
+              onChange={(e) => handleChangeFilter("semester", e.target.value)}
+            />
+          </Grid>
           <Grid item xs={12} sm={6} md={2}>
             <SelectField
               label="Grade"
@@ -171,14 +191,13 @@ function Report() {
               onChange={(e) => handleChangeFilter("date_to", e.target.value)}
             />
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12}>
             <Button
               variant="contained"
               color="primary"
               size="small"
               style={{ marginTop: 10 }}
               onClick={handlePrint}
-              fullWidth
             >
               <PrintIcon />
               Print

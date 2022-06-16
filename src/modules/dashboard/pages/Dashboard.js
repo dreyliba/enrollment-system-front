@@ -8,7 +8,7 @@ import {
 import React, { useEffect, useState } from "react";
 import FormField from "../../../components/common/FormField";
 import SelectField from "../../../components/common/SelectField";
-import { levelOptions } from "../../utils/helper";
+import { levelOptions, schoolYearOptions } from "../../utils/helper";
 import Http from "../../utils/Http";
 import moment from "moment";
 import PrintIcon from "@material-ui/icons/Print";
@@ -33,6 +33,8 @@ function Dashboard() {
     level: "",
     date_from: moment().format("YYYY-MM-DD"),
     date_to: moment().format("YYYY-MM-DD"),
+    school_year: "",
+    semester: "",
   });
 
   useEffect(() => {
@@ -103,8 +105,24 @@ function Dashboard() {
   return (
     <div>
       <Grid container spacing={1}>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12}>
           <Typography variant="h5">Reports</Typography>
+        </Grid>
+        <Grid item xs={12} md={2}>
+          <SelectField
+            label="School Year"
+            options={schoolYearOptions()}
+            value={filters.school_year}
+            onChange={(e) => handleFilterChange("school_year", e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={12} md={2}>
+          <SelectField
+            label="Semester"
+            options={[1, 2]}
+            value={filters.semester}
+            onChange={(e) => handleFilterChange("semester", e.target.value)}
+          />
         </Grid>
         <Grid item xs={12} md={2}>
           <SelectField
@@ -114,6 +132,7 @@ function Dashboard() {
             onChange={(e) => handleFilterChange("level", e.target.value)}
           />
         </Grid>
+
         <Grid item xs={12} md={2}>
           <FormField
             label="Date From"

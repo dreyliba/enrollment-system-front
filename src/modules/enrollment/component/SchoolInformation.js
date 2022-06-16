@@ -49,6 +49,15 @@ function SchoolInformation({ tracks, strands }) {
           value={formValues.values.school_year || ""}
           options={schoolYearOptions()}
         />
+        <SelectField
+          fullWidth={false}
+          name="semester"
+          label="*Semester"
+          onChange={(e) => handleFormChange("semester", e.target.value)}
+          errors={formValues.errors}
+          value={formValues.values.semester || ""}
+          options={[1, 2]}
+        />
       </Grid>
 
       <Grid item xs={12}>

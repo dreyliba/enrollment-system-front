@@ -48,7 +48,6 @@ function PrintEnrollment({ match }) {
 
           setTimeout(() => {
             window.print();
-            window.close();
           }, 1000);
         }
 
@@ -242,6 +241,25 @@ function PrintEnrollment({ match }) {
             </Typography>
           </Grid>
           {getValues(limitedfacetoface)}
+          <Grid item xs={12}>
+            <div
+              style={{
+                marginTop: 24,
+                display: "flex",
+                justifyContent: "flex-end",
+                textAlign: "center",
+              }}
+            >
+              <div>
+                <span
+                  style={{ borderBottom: "1px solid #000", padding: "0 24px" }}
+                >
+                  {(enrollmentData.user && enrollmentData.user.full_name) || ""}
+                </span>
+                <span style={{ display: "block" }}>Enrolling Teacher</span>
+              </div>
+            </div>
+          </Grid>
         </Grid>
       )}
     </div>

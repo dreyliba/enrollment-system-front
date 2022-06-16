@@ -44,6 +44,8 @@ function Student() {
   const [filters, setFilters] = useState({
     limit: 15,
     search: "",
+    semester: "",
+    school_year: "",
   });
 
   const [fetching, setFetching] = useState(false);

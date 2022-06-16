@@ -18,6 +18,7 @@ import EnrollmentContext from "../context/EnrollmentContent";
 import Http from "../../utils/Http";
 import MessageModal from "../../../components/MessageModal";
 import FormField from "../../../components/common/FormField";
+import moment from "moment";
 
 const useStyles = makeStyles({
   parentContainer: {
@@ -26,6 +27,7 @@ const useStyles = makeStyles({
 });
 
 const validator = Revalidate({
+  enrolled_date: "required",
   school_year: "required",
   lrn_status: "required",
   returning: "",
@@ -175,7 +177,7 @@ export default function EditEnrollment({ match }) {
 
   const [formValues, setFormValues] = useState({
     values: {
-      enrolled_date: "",
+      enrolled_date: moment().format("YYYY-MM-DD"),
       school_year: "",
       lrn_status: "",
       returning: "",
@@ -262,6 +264,12 @@ export default function EditEnrollment({ match }) {
     errors: validator.errors,
   });
 
+  const getAge = (value) => {
+    if (value) {
+      return moment().diff(moment(value, "YYYY-MM-DD"), "years");
+    }
+  };
+
   const handleCheckboxChange = (name, value) => {
     setFormValues((prev) => {
       if (prev.values[name].includes(value)) {
@@ -340,6 +348,10 @@ export default function EditEnrollment({ match }) {
         newValues.limited_face_to_face_others = "";
       }
 
+      if (name === "date_of_birth" && value) {
+        newValues.age = getAge(value);
+      }
+
       setFormValues((prev) => ({
         ...prev,
         values: {
@@ -357,7 +369,7 @@ export default function EditEnrollment({ match }) {
           errors,
         }));
       });
-    },
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
     [formValues.values]
   );
 
