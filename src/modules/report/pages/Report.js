@@ -129,7 +129,7 @@ function Report() {
     <Card>
       <CardContent>
         <Grid container spacing={1}>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} sm={6} md={4}>
             <SelectField
               label="School Year"
               options={schoolYearOptions()}
@@ -139,7 +139,7 @@ function Report() {
               }
             />
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} sm={6} md={4}>
             <SelectField
               label="Semester"
               options={[1, 2]}
@@ -147,7 +147,7 @@ function Report() {
               onChange={(e) => handleChangeFilter("semester", e.target.value)}
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={2}>
+          <Grid item xs={12} sm={6} md={4}>
             <SelectField
               label="Grade"
               onChange={(e) => handleChangeFilter("level", e.target.value)}
@@ -191,11 +191,12 @@ function Report() {
               onChange={(e) => handleChangeFilter("date_to", e.target.value)}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} sm={6} md={2}>
             <Button
               variant="contained"
               color="primary"
               size="small"
+              fullWidth
               style={{ marginTop: 10 }}
               onClick={handlePrint}
             >
