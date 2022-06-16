@@ -138,18 +138,21 @@ function Users() {
                 <TableRow key={key}>
                   <TableCell>
                     <IconButton
+                      title="Edit User"
                       size="small"
                       onClick={() => handleOpenEditUser(user)}
                     >
                       <EditIcon color="primary" />
                     </IconButton>
                     <IconButton
+                      title="Delete User"
                       size="small"
                       onClick={() => handleOpenDeleteUser(user.id)}
                     >
                       <DeleteIcon color="secondary" />
                     </IconButton>
                     <IconButton
+                      title="Change Password"
                       size="small"
                       onClick={() => handleOpenChangePass()}
                     >

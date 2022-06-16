@@ -141,12 +141,14 @@ function Strand({ match }) {
                   <TableCell>{strand.description}</TableCell>
                   <TableCell>
                     <IconButton
+                      title="Edit Strand"
                       size="small"
                       onClick={() => handleOpenEditStrand(strand)}
                     >
                       <EditIcon color="primary" />
                     </IconButton>
                     <IconButton
+                      title="Delete Strand"
                       size="small"
                       onClick={() => handleOpenDeleteStrand(strand.id)}
                     >

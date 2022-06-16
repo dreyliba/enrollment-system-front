@@ -169,12 +169,14 @@ function Student() {
                   <TableRow key={index}>
                     <TableCell>
                       <IconButton
+                        title="Edit Enrollment Form"
                         size="small"
                         onClick={() => handleNavigate(enrollment.id)}
                       >
                         <EditIcon color="primary" />
                       </IconButton>
                       <IconButton
+                        title="Delete Enrollment"
                         size="small"
                         onClick={() =>
                           handleOpenDeleteEnrollment(enrollment.id)

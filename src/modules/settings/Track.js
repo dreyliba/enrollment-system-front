@@ -103,7 +103,7 @@ function Track() {
                 <TableCell>Code</TableCell>
                 <TableCell>Name</TableCell>
                 <TableCell>Description</TableCell>
-                <TableCell>Strand</TableCell>
+                <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -114,6 +114,7 @@ function Track() {
                   <TableCell>{track.description}</TableCell>
                   <TableCell>
                     <IconButton
+                      title="View Track"
                       size="small"
                       onClick={() => {
                         history.push(`/settings/track/${track.id}/strand`);
@@ -122,12 +123,14 @@ function Track() {
                       <VisibilityIcon color="primary" />
                     </IconButton>
                     <IconButton
+                      title="Edit Track"
                       size="small"
                       onClick={() => handleOpenEditTrack(track)}
                     >
                       <EditIcon color="primary" />
                     </IconButton>
                     <IconButton
+                      title="Delete Track"
                       size="small"
                       onClick={() => handleOpenDeleteTrack(track.id)}
                     >
