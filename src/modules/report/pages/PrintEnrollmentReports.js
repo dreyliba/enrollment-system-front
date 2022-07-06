@@ -94,6 +94,7 @@ function Report() {
               <HeadCell>Last Name</HeadCell>
               <HeadCell>First Name</HeadCell>
               <HeadCell>Middle Name</HeadCell>
+              <HeadCell>Extension Name</HeadCell>
               <HeadCell>Gender</HeadCell>
               <HeadCell>Grade</HeadCell>
               <HeadCell>Track</HeadCell>
@@ -107,6 +108,7 @@ function Report() {
                   <Cell>{enrollment.last_name}</Cell>
                   <Cell>{enrollment.first_name}</Cell>
                   <Cell>{enrollment.middle_name}</Cell>
+                  <Cell>{enrollment.extension_name}</Cell>
                   <Cell>{enrollment.gender}</Cell>
                   <Cell>{enrollment.grade_level_to_enroll}</Cell>
                   <Cell>

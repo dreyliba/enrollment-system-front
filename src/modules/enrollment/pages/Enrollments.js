@@ -159,6 +159,7 @@ function Student() {
                 <TableCell>Last Name</TableCell>
                 <TableCell>First Name</TableCell>
                 <TableCell>Middle Name</TableCell>
+                <TableCell>Extension Name</TableCell>
                 <TableCell>Gender</TableCell>
                 <TableCell>Grade</TableCell>
                 <TableCell>Track</TableCell>
@@ -205,6 +206,7 @@ function Student() {
                     <TableCell>{enrollment.last_name}</TableCell>
                     <TableCell>{enrollment.first_name}</TableCell>
                     <TableCell>{enrollment.middle_name}</TableCell>
+                    <TableCell>{enrollment.extension_name}</TableCell>
                     <TableCell>{enrollment.gender}</TableCell>
                     <TableCell>{enrollment.grade_level_to_enroll}</TableCell>
                     <TableCell>

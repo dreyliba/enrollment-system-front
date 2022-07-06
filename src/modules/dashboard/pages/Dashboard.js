@@ -78,6 +78,34 @@ function Dashboard() {
     return reports.filter((item) => item.is_4ps_benificiary === "Yes").length;
   };
 
+  const getTotal4psMale = () => {
+    return reports.filter(
+      (item) => item.gender === "Male" && item.is_4ps_benificiary === "Yes"
+    ).length;
+  };
+
+  const getTotal4psFemale = () => {
+    return reports.filter(
+      (item) => item.gender === "Female" && item.is_4ps_benificiary === "Yes"
+    ).length;
+  };
+
+  const getTotalLSEN = () => {
+    return reports.filter((item) => item.is_special_education === "Yes").length;
+  };
+
+  const getTotalMaleLSEN = () => {
+    return reports.filter(
+      (item) => item.gender === "Male" && item.is_special_education === "Yes"
+    ).length;
+  };
+
+  const getTotalFemaleLSEN = () => {
+    return reports.filter(
+      (item) => item.gender === "Female" && item.is_special_education === "Yes"
+    ).length;
+  };
+
   const handleFilterChange = (name, value) => {
     const newValues = {
       [name]: value,
@@ -188,8 +216,28 @@ function Dashboard() {
           </Grid>
         ))}
 
-        <Grid item xs={12}>
-          <Typography>4ps Benificiary: {getTotal4ps()}</Typography>
+        <Grid item xs={12} md={4}>
+          <div className={classes.strand}>
+            <Typography>4ps Benificiary</Typography>
+
+            <div className={classes.totalInfoBox}>
+              <Typography>Male: {getTotal4psMale()}</Typography>
+              <Typography>Female: {getTotal4psFemale()}</Typography>
+              <Typography>Total: {getTotal4ps()}</Typography>
+            </div>
+          </div>
+        </Grid>
+
+        <Grid item xs={12} md={4}>
+          <div className={classes.strand}>
+            <Typography>Learners with Special Education Needs</Typography>
+
+            <div className={classes.totalInfoBox}>
+              <Typography>Male: {getTotalMaleLSEN()}</Typography>
+              <Typography>Female: {getTotalFemaleLSEN()}</Typography>
+              <Typography>Total: {getTotalLSEN()}</Typography>
+            </div>
+          </div>
         </Grid>
       </Grid>
     </div>
