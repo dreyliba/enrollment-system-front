@@ -119,11 +119,11 @@ function Report() {
     win.focus();
   };
 
-  const getStrandOptions = () => {
-    return strands.filter(
-      (strand) => strand.track_id === parseInt(filters.track_id)
-    );
-  };
+  // const getStrandOptions = () => {
+  //   return strands.filter(
+  //     (strand) => strand.track_id === parseInt(filters.track_id)
+  //   );
+  // };
 
   return (
     <Card>
@@ -168,7 +168,9 @@ function Report() {
             <SelectField
               label="Strand"
               keyValuePair="id,name"
-              options={getStrandOptions()}
+              onChange={(e) => handleChangeFilter("strand_id", e.target.value)}
+              options={strands}
+              // options={getStrandOptions()}
               // style={{ maxWidth: 200 }}
             />
           </Grid>

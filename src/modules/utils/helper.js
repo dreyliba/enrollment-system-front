@@ -13,7 +13,7 @@ export const schoolYearOptions = () => {
   const now = parseInt(moment().format("YYYY"));
 
   const years = [];
-  for (let index = now + 2; index > 2021; index--) {
+  for (let index = now + 2; index > 2016; index--) {
     years.push(`${index - 1}-${index}`);
   }
 
