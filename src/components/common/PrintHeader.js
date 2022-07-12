@@ -48,7 +48,7 @@ function PrintHeader() {
         Department of Education
       </Typography>
       <Typography className={classes.other_txt}>
-        <li>REGION VII - Eastern Visayas</li>
+        <li>REGION VIII - Eastern Visayas</li>
         <li>SCHOOLS DIVISION OF LEYTE PROVINCE</li>
         <li>HILONGOS NATIONAL VOCATIONAL SCHOOL</li>
         <li>HILONGOS, LEYTE</li>
