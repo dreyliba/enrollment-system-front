@@ -33,7 +33,7 @@ function HouseHoldCapcity() {
         </Typography>
         <Typography>
           {
-            "D1. How many of your household members (including the enrollee) are studying in School Year 2021-2022? Please specify each."
+            "D1. How many of your household members (including the enrollee) are studying in current School Year? Please specify each."
           }
         </Typography>
       </Grid>
@@ -167,7 +167,7 @@ function HouseHoldCapcity() {
       </Grid>
       <Grid item xs={12}>
         <Typography>
-          D2. Who among the the household members can provide instructional
+          D2. Who among the household members can provide instructional
           support to the child's distance learning? Choose all the applies.
         </Typography>
       </Grid>

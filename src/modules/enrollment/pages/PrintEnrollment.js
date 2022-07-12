@@ -114,7 +114,7 @@ function PrintEnrollment({ match }) {
     father: "Father's Name",
     father_contact: "Contact Info",
     father_heighest_edu_attainment: "Heighest Educational Attainment",
-    mother: "Mother's Name",
+    mother: "Mother's Maiden Name",
     mother_contact: "Contact Info",
     mother_heighest_edu_attainment: "Heighest Educational Attainment",
     guardian: "Guardian's Name",

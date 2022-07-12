@@ -21,7 +21,7 @@ export const schoolYearOptions = () => {
 };
 
 export const levelOptions = () => {
-  const level = [];
+  const level = ["ALS"];
   for (let index = 11; index <= 12; index++) {
     level.push(index);
   }
